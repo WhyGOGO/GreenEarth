@@ -1,0 +1,124 @@
+CREATE TABLE campcompany
+(
+	companyId  INT  NOT NULL,
+	name	   CHAR(12),
+	phoneNumber	VARCHAR2(20),
+	manager		CHAR(12),
+	email		VARCHAR2(30),
+);
+ALTER TABLE campcompany ADD CONSTRAINT companyId_pk PRIMARY KEY (companyId);
+
+COMMENT ON COLUMN campcompany.companyid IS '회사id';
+COMMENT ON COLUMN campcompany.name IS '회사이름';
+COMMENT ON COLUMN campcompany.phonenumber IS '회사전화번호';
+COMMENT ON COLUMN campcompany.manager IS '관리자이름';
+COMMENT ON COLUMN campcompany.email IS '관리자이메일';
+
+CREATE TABLE  supply
+(
+	supplyId INT NOT NULL
+	companyId INT NOT NULL
+);
+
+CREATE TABLE campingcar
+(
+	campingCarId 	INT 	NOT NULL,
+	supplyId 		INT 	NOT NULL,
+	companyId 	INT 	NOT NULL,
+	campingCarName   VARCHAR2(30),
+	typesCampingCars   VARCHAR2(24),
+	rentalStatus 	byte(1) 	 0 	NOT NULL,
+	numberPeopleRide  NUMBER(2)
+	rentalCost 	NUMBER
+)
+ALTER TABLE campingcar ADD CONSTRAINT campingCarId_pk PRIMARY KEY (campingCarId);
+
+CREATE TABLE camperrental
+(
+	campingCarId 	INT 	NOT NULL,
+	rentalNumber 	INT 	NOT NULL,
+	supplyId 		INT 	NOT NULL,
+	companyId 	INT 	NOT NULL,
+	carRepairNumber	INT	NOT NULL,
+)
+
+CREATE TABLE rental
+(
+	rentalNumber 	INT 	NOT NULL,
+	licenseNumber	VARCHAR2(12),
+	rentalStartDate	DATE,
+	rentalEndDate	DATE,	
+	rentalPeriod	NUMBER,
+	requestCharges	NUMBER,
+	dueDatePayment	NUMBER,
+	otherRequestDetails		VARCHAR2(100),
+	otherClaims	NUMBER,
+	rentalInformation	VARCHAR2(100),
+);
+ALTER TABLE rental ADD CONSTRAINT rentalNumber_pk PRIMARY KEY (rentalNumber);
+
+CREATE TABLE order
+(
+	orderNumber	INT 	NOT NULL,
+	customerId	VARCHAR2(30)	NOT NULL,
+	rentalNumber	INT	NOT NULL,
+);
+ALTER TABLE order ADD CONSTRAINT orderNumber_pk PRIMARY KEY (orderNumber);
+
+CREATE TABLE customer
+(
+	customerId VARCHAR2(30)	NOT NULL,
+	name	VARCHAR2(12),
+	licenseNumber	VARCHAR2(12),
+	address	VARCHAR2(60),
+	phoneNumber	VARCHAR2(20),
+	Email	VARCHAR2(30)
+);
+ALTER TABLE customer ADD CONSTRAINT customerId_pk PRIMARY KEY (customerId);
+
+CREATE TABLE usehistory
+(
+	historyNumber INT NOT NULL,
+	customerId VARCHAR2(30) NOT NULL,
+	useDate	NUMBER,
+	typesCampingCars	VARCHAR2(24),
+	numberDaysUsed	NUMBER
+);
+
+ALTER TABLE usehistory ADD CONSTRAINT historyNumber_pk PRIMARY KEY (historyNumber);
+
+CREATE TABLE requset
+(
+	requestNumber 	INT 	       NOT NULL,
+	customerId	VARCHAR2(30) NOT NULL,
+	carRepairNumber	INT	       NOT NULL
+);
+
+ALTER TABLE request ADD CONSTRAINT requestNumber_pk PRIMARY KEY (requestNumber);
+
+CREATE TABLE maintain_info
+(
+	carRepairNumber	INT	NOT NULL,
+	campingcarId	INT,
+	repairshopid	INT,
+	carRepairHistory	byte(1) 0	NOT NULL,
+	carRepairDate	DATE,
+	carRepairCost	NUMBER,
+	dueDatePayment	NUMBER,
+	otherRepairDetails	VARCHAR2(60),
+);
+
+ALTER TABLE maintain_info ADD CONSTRAINT carRepairNumber_pk PRIMARY KEY (carRepairNumber);
+
+CREATE TABLE repairshop
+(
+	repairshopId	INT	NOT NULL,
+	carRepairNumber	INT	NOT NULL,
+	repairShopName	VARCHAR2(24),
+	repairShopAddress	VARCHAR2(60),
+	repairShopCallNumber	VARCHAR2(20),
+	repairShopManager		VARCHAR2(12),
+	repairShopEmail		VARCHAR2(30)
+);
+
+ALTER TABLE repairshop ADD CONSTRAINT repairshopId_pk PRIMARY KEY (repairshopId);
