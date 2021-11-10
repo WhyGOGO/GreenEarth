@@ -7,10 +7,8 @@ import beans.*;;
 
 public class selectDB {
 
-	
-
 	// 회사 전체 정보를 조회하는 메소드
-	public ArrayList<campDataBean> selCompany(String name) throws SQLException  {
+	public ArrayList<campDataBean> selCompany(String name) throws SQLException {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -28,7 +26,7 @@ public class selectDB {
 
 		while (rs.next()) {
 			campDataBean sdb = new campDataBean();
-			sdb.setCompanyid(rs.getInt(1));
+			sdb.setCompanyId(rs.getInt(1));
 			sdb.setName(rs.getString(2));
 			sdb.setAddress(rs.getString(3));
 			sdb.setPhoneNumber(rs.getInt(4));
@@ -41,6 +39,40 @@ public class selectDB {
 
 		return list;
 	}
+
+	// 고객 정보를 전부 조회
+	public ArrayList<campDataBean> selCust() throws SQLException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		conn = DBUtil.getMySQLConnection(); // DB 연결
+
+		ArrayList<campDataBean> list = new ArrayList<campDataBean>();
+
+		String sql = "select * from customer";
+
+		pstmt = conn.prepareStatement(sql);
+		rs = pstmt.executeQuery();
+
+		while (rs.next()) {
+			campDataBean sdb = new campDataBean();
+			sdb.setCustomerId(rs.getString(1));
+			sdb.setPasswd(rs.getString(2));
+			sdb.setName(rs.getString(3));
+			sdb.setLicenseNumber(rs.getInt(4));
+			sdb.setAddress(rs.getString(5));
+			sdb.setPhoneNumber(rs.getInt(6));
+			sdb.setEmail(rs.getString(7));
+			
+			list.add(sdb);
+			
+		}
+		
+		return list;
+	}
+	
+	
 
 	// 캠핑카 전체 정보를 조회하는 메소드
 	public ArrayList<campDataBean> selCar() throws SQLException {
@@ -169,9 +201,9 @@ public class selectDB {
 
 		return list;
 	}
-	
+
 	// 캠핑카 대여정보 조회 메소드
-	
+
 	public ArrayList<campDataBean> selRentInfo() throws SQLException {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -205,10 +237,9 @@ public class selectDB {
 
 		return list;
 	}
-	
-	
+
 	// 고객에 의한 캠핑카 정비 의뢰 및 결과 정보를 조회하는 메소드
-	
+
 	public ArrayList<campDataBean> selRepairInfo() throws SQLException {
 		Connection conn = null;
 		PreparedStatement pstmt = null;

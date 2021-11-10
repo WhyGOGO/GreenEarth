@@ -14,7 +14,7 @@ public class campDataBean {
 	private String customerId;
 	private String useDate;
 	private String numberDayUsed;
-	private int companyid;
+	private int companyId;
 	private String name;
 	private String address;
 	private int phoneNumber;
@@ -42,6 +42,7 @@ public class campDataBean {
 	private String carRepairDate;
 	private int carRepairCost;
 	private String otherMaintenanceDetails;
+	private String passwd;
 	
 
 	public String getCampingCarName() {
@@ -116,11 +117,11 @@ public class campDataBean {
 	public void setNumberDayUsed(String numberDayUsed) {
 		this.numberDayUsed = numberDayUsed;
 	}
-	public int getCompanyid() {
-		return companyid;
+	public int getCompanyId() {
+		return companyId;
 	}
-	public void setCompanyid(int companyid) {
-		this.companyid = companyid;
+	public void setCompanyId(int companyId) {
+		this.companyId = companyId;
 	}
 	public String getName() {
 		return name;
@@ -284,6 +285,12 @@ public class campDataBean {
 	}
 	public void setOtherMaintenanceDetails(String otherMaintenanceDetails) {
 		this.otherMaintenanceDetails = otherMaintenanceDetails;
+	}
+	public String getPasswd() {
+		return passwd;
+	}
+	public void setPasswd(String passwd) {
+		this.passwd = passwd;
 	}
 	
 	
