@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>수리내역</title>
 <script src="https://code.jquery.com/jquery-2.2.4.min.js" ></script>
 
 <link href="my.css" rel="stylesheet" type="text/css">
@@ -22,7 +22,7 @@
   <nav id="sidebar" class="sidebar-wrapper">
     <div class="sidebar-content">
       <div class="sidebar-brand">
-        <a href="#">메뉴</a>
+        <a href="#">마이페이지</a>
         
         <div id="close-sidebar">
           <i class="fas fa-times"></i>
@@ -50,22 +50,22 @@
           <li class="header-menu">
             <span>일반</span>
           </li>
-          <li class="sidebar-dropdown">
+          <li class="sidebar-dropdown1">
             <a href="#">
               <i class="fa fa-tachometer-alt"></i>
               <span>홈으로</span>
             </a>
 
           </li>
-          <li class="sidebar-dropdown">
+          <li class="sidebar-dropdown1">
             <a href="myForm.jsp">
               <i class="fa fa-tachometer-alt"></i>
               <span>구매내역</span>
             </a>
 
           </li>
-          <li class="sidebar-dropdown">
-            <a href="">
+          <li class="sidebar-dropdown1">
+            <a href="myForm2.jsp">
               <i class="fa fa-tachometer-alt"></i>
               <span>수리내역</span>
             </a>
