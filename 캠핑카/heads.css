@@ -28,7 +28,7 @@ a /*내용의 색깔 바꾸는것 */{
 
 #navbar_logo  /*로고색깔바꾸기*/{
     color: white;
-	padding:0px 0px 15px 50px;
+	padding:26px 0px 15px 50px;
 	font-size:25px;
 	border-color:white;
 	font-weight: bold;
@@ -38,7 +38,7 @@ a /*내용의 색깔 바꾸는것 */{
 .navbar_menu ul {
     white-space: nowrap;
     display:flex;
-    padding: 10px 5px;
+    padding: 13px 5px;
 }
 .navbar_menu ul > li {
     list-style: none;
