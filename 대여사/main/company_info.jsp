@@ -45,12 +45,12 @@
 <div  id=menu_boxes; style=" position: relative; z-index: 2;">
    <nav class="navbar">
         <div id=navbar_logo>
-          <a>🛺 RCS</a>  
+          <a href="../../이용안내/main/guide.jsp" style="text-decoration: none; color:white;">🛺 RCS</a>  
        </div>
         <div class="navbar_menu">
             <ul id=menus>
                 <li>
-                    <a>이용안내</a>
+                    <a href="../../이용안내/main/guide.jsp">이용안내</a>
                     <ul>
                         <li><a href="../../이용안내/main/guide.jsp">대여하는법</a></li>
                         <li><a href="../../이용안내/main/guide2.jsp">주의사항</a></li>
@@ -64,39 +64,20 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="">캠핑카</a>
+                    <a href="../../캠핑카/Ansan.jsp">캠핑카</a>
                     <ul>
-                        <li><a href="">차량정보</a></li>
-                        <li><a href="">부가옵션</a></li>
-                        <li><a href="">차량조회</a></li>
+                        <li><a href="../../캠핑카/Ansan.jsp">차량정보</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="">정비소</a>
+                    <a href="../../정비소/main/repairShop.jsp">정비소</a>
                     <ul>
-                        <li><a href="">정비소정보</a></li>
-                        <li><a href="">정비소조회</a></li>
+                        <li><a href="../../정비소/main/repairShop.jsp">정비소정보</a></li>
                     </ul>
                 </li>
-                <li>
-                    <a href="">회사조회</a>
-                    <ul>
-                        <li><a href="">차량조회</a></li>
-                        <li><a href="">정비소조회</a></li>
-                        <li><a href="">정비이력조회</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="">고객센터</a>
-                    <ul>
-                        <li><a href="">1:1상담</a></li>
-                        <li><a href="">건의사항</a></li>
-                    </ul>
-                </li>
-                <li><a href="" style="color:#77AFC4">조회</a></li>
-                <li><a href="" style="color:#77AFC4">예약</a></li>
+                <li><a href="../../마이페이지/myForm.jsp" style="color:#77AFC4">마이페이지</a></li>
 	            <li>
-	            	<a href="../login/login.jsp" style="color:#D9EF6E;">로그인</a>
+	            	<a href="../../로그인/login.jsp" style="color:#D9EF6E;">로그아웃</a>
 	            </li>                
             </ul>
 
@@ -120,14 +101,15 @@
 <div class="app">
  <div class="header">
   <div class="menu-circle"></div>
+ 
+  
+  
   <div class="header-menu">
    <a class="menu-link is-active" href="">회사 정보</a>
   </div>
-  <div class="search-bar">
-   <input type="text" placeholder="Search">
-  </div>
-
+ 
  </div>
+ 
  <div class="wrapper">
 
   <div class="main-container">
@@ -191,6 +173,7 @@
   </div>
  </div>
  <div class="overlay-app"></div>
+</div>
 </div>
 
   

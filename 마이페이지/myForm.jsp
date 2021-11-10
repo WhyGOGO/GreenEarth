@@ -51,7 +51,7 @@
             <span>일반</span>
           </li>
           <li class="sidebar-dropdown1">
-            <a href="">
+            <a href="../이용안내/main/guide.jsp">
               <i class="fa fa-tachometer-alt"></i>
               <span>홈으로</span>
             </a>
