@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>구매내역</title>
+<title>대여회사관리</title>
 <script src="https://code.jquery.com/jquery-2.2.4.min.js" ></script>
 
 <link href="my.css" rel="stylesheet" type="text/css">
@@ -48,7 +48,7 @@
       <div class="sidebar-menu">
         <ul>
           <li class="header-menu">
-            <span>일반</span>
+            <span>관리</span>
           </li>
           <li class="sidebar-dropdown1">
             <a href="../이용안내/main/guide.jsp">
