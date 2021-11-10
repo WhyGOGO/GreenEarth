@@ -2,19 +2,21 @@ package beans_method;
 
 import java.sql.*;
 
-public class LogonDB {
+import beans.logonDataBean;
 
-	private static LogonDB instance = new LogonDB();
+public class logonDB {
 
-	public static LogonDB getInstance() {
+	private static logonDB instance = new logonDB();
+
+	public static logonDB getInstance() {
 		return instance;
 	}
 
-	private LogonDB() {
+	private logonDB() {
 	}
 	
 	//회원가입한 정보를 DB에 추가
-	public void insertMember(LogonDataBean member) throws Exception {
+	public void insertMember(logonDataBean member) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
@@ -32,9 +34,6 @@ public class LogonDB {
 		pstmt.setString(7, member.getEmail());
 
 		pstmt.executeUpdate();
-		DBUtil.close(conn);
-		DBUtil.close(pstmt);
-
 	}
 	
 	//회원탈퇴 기능
@@ -51,8 +50,6 @@ public class LogonDB {
 		
 		pstmt.executeUpdate();
 		
-		DBUtil.close(conn);
-		DBUtil.close(pstmt);
 	}
 
 	// 아이디 비밀번호 인증
@@ -81,10 +78,6 @@ public class LogonDB {
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
-		} finally {
-			DBUtil.close(conn);
-			DBUtil.close(pstmt);
-			DBUtil.close(rs);
 		}
 		return x;
 	}
@@ -110,10 +103,6 @@ public class LogonDB {
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
-		} finally {
-			DBUtil.close(conn);
-			DBUtil.close(pstmt);
-			DBUtil.close(rs);
 		}
 		return x;
 	}
