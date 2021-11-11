@@ -11,15 +11,15 @@ public class insertDB {
 		PreparedStatement pstmt = null;
 
 		conn = DBUtil.getMySQLConnection(); // DB 연결
-		String sql = "insert into campCompany(companyid, name, address, phoneNumber, manager, email) values(?,?,?,?,?,?)";
+		String sql = "insert into campCompany(compid, compname, compaddress, compcall, compmanager, compemail) values(?,?,?,?,?,?)";
 		pstmt = conn.prepareStatement(sql);
 
-		pstmt.setInt(1, member.getCompanyId());
-		pstmt.setString(2, member.getName());
-		pstmt.setString(3, member.getAddress());
-		pstmt.setInt(4, member.getPhoneNumber());
-		pstmt.setString(5, member.getManager());
-		pstmt.setString(6, member.getEmail());
+		pstmt.setInt(1, member.getCompId());
+		pstmt.setString(2, member.getCompName());
+		pstmt.setString(3, member.getCompAddress());
+		pstmt.setString(4, member.getCompCall());
+		pstmt.setString(5, member.getCompManager());
+		pstmt.setString(6, member.getCompEmail());
 
 		pstmt.executeUpdate();
 	}
@@ -30,16 +30,15 @@ public class insertDB {
 		PreparedStatement pstmt = null;
 
 		conn = DBUtil.getMySQLConnection(); // DB 연결
-		String sql = "insert into customer(customerid, passwd, name, licenseNumber, address, phoneNumber, email) values(?,?,?,?,?,?,?)";
+		String sql = "insert into customer(licenseNumber, custname, custaddress, custcall, custemail, passwd) values(?,?,?,?,?,?)";
 		pstmt = conn.prepareStatement(sql);
 
-		pstmt.setString(1, member.getCustomerId());
-		pstmt.setString(2, member.getPasswd());
-		pstmt.setString(3, member.getName());
-		pstmt.setInt(4, member.getLicenseNumber());
-		pstmt.setString(5, member.getAddress());
-		pstmt.setInt(6, member.getPhoneNumber());
-		pstmt.setString(7, member.getEmail());
+		pstmt.setString(1, member.getLicenseNumber());
+		pstmt.setString(2, member.getCustName());
+		pstmt.setString(3, member.getCustAddress());
+		pstmt.setString(4, member.getCustCall());
+		pstmt.setString(5, member.getCustEmail());
+		pstmt.setString(6, member.getPasswd());
 
 		pstmt.executeUpdate();
 	}
@@ -50,16 +49,17 @@ public class insertDB {
 		PreparedStatement pstmt = null;
 
 		conn = DBUtil.getMySQLConnection(); // DB 연결
-		String sql = "insert into campingcar(campingCarId, campingCarName, typesCampingCars, carsNumber, registrationDate, numberPeopleRide, rentalCosts, rentalStatus) values(?,?,?,?,?,?,?,0)";
+		String sql = "insert into campingcar(campCarId, compId, campCarName, campCarsType, campCarNumber, campCarDate, peopleRide, rentalCost, rentalStatus) values(?,?,?,?,?,?,?,?,0)";
 		pstmt = conn.prepareStatement(sql);
 
-		pstmt.setInt(1, member.getCampingCarId());
-		pstmt.setString(2, member.getCampingCarName());
-		pstmt.setString(3, member.getTypesCampingCars());
-		pstmt.setInt(4, member.getCarsNumber());
-		pstmt.setString(5, member.getRegistrationDate());
-		pstmt.setString(6, member.getNumberPeopleRide());
-		pstmt.setInt(7, member.getRentalCosts());
+		pstmt.setInt(1, member.getCampCarId());
+		pstmt.setInt(2, member.getCompId());
+		pstmt.setString(3, member.getCampCarName());
+		pstmt.setString(4, member.getCampCarType());
+		pstmt.setInt(5, member.getCampCarNumber());
+		pstmt.setString(6, member.getCampCarDate());
+		pstmt.setInt(7, member.getPeopleRide());
+		pstmt.setInt(8, member.getRentalCost());
 
 		pstmt.executeUpdate();
 	}
@@ -70,16 +70,15 @@ public class insertDB {
 		PreparedStatement pstmt = null;
 
 		conn = DBUtil.getMySQLConnection(); // DB 연결
-		String sql = "insert into repairshop(repairShopId, carRepairNumber, repairShopName, repairShopAddress, repairShopCallNumber, repairShopNamepersonCharge, repairShopEmail) values(?,?,?,?,?,?,?)";
+		String sql = "insert into repairshop(repairShopId, repairShopName, repairShopAddress, repairShopCall, repairManager, repairManagerEmail) values(?,?,?,?,?,?)";
 		pstmt = conn.prepareStatement(sql);
 
 		pstmt.setInt(1, member.getRepairShopId());
-		pstmt.setInt(2, member.getCarRepairNumber());
-		pstmt.setString(3, member.getRepairShopName());
-		pstmt.setString(4, member.getRepairShopAddress());
-		pstmt.setInt(5, member.getRepairShopCallNumber());
-		pstmt.setString(6, member.getRepairShopNamepersonCharge());
-		pstmt.setString(7, member.getRepairShopEmail());
+		pstmt.setString(2, member.getRepairShopName());
+		pstmt.setString(3, member.getRepairShopAddress());
+		pstmt.setString(4, member.getRepairShopCall());
+		pstmt.setString(5, member.getRepairManager());
+		pstmt.setString(6, member.getRepairManagerEmail());
 
 		pstmt.executeUpdate();
 	}
@@ -90,20 +89,20 @@ public class insertDB {
 		PreparedStatement pstmt = null;
 
 		conn = DBUtil.getMySQLConnection(); // DB 연결
-		String sql = "insert into rental(rentalNumber, rentalCampingCarId, licenseNumber, rentalStartDate, rentalEndDate, rentalPeriod, requsetCharges, dueDatePayment, otherRequestDetails, otherClaims, rentalInformation) values(?,?,?,?,?,?,?,?,?,?,?)";
+		String sql = "insert into rental(rentalNumber, CampCarId, licenseNumber, rentalStart, rentalEnd, rentalTerm, rentalCost, rentalPayDate, rentalEtcHistory, rentalEtcCost, compid) values(?,?,?,?,?,?,?,?,?,?,?)";
 		pstmt = conn.prepareStatement(sql);
 
 		pstmt.setInt(1, member.getRentalNumber());
-		pstmt.setInt(2, member.getRentalCampingCarId());
-		pstmt.setInt(3, member.getLicenseNumber());
-		pstmt.setString(4, member.getRentalStartDate());
-		pstmt.setString(5, member.getRentalEndDate());
-		pstmt.setString(6, member.getRentalPeriod());
-		pstmt.setString(7, member.getRequestCharges());
-		pstmt.setString(8, member.getDueDatePayment());
-		pstmt.setString(9, member.getOtherRequestDetails());
-		pstmt.setString(10, member.getOtherClaims());
-		pstmt.setString(11, member.getRentalInformation());
+		pstmt.setInt(2, member.getCampCarId());
+		pstmt.setString(3, member.getLicenseNumber());
+		pstmt.setString(4, member.getRentalStart());
+		pstmt.setString(5, member.getRentalEnd());
+		pstmt.setString(6, member.getRentalTerm());
+		pstmt.setInt(7, member.getRentalCost());
+		pstmt.setString(8, member.getRentalPayDate());
+		pstmt.setString(9, member.getRentalEtcHistory());
+		pstmt.setInt(10, member.getRentalEtcCost());
+		pstmt.setInt(11, member.getCompId());
 
 		pstmt.executeUpdate();
 	}
@@ -114,18 +113,18 @@ public class insertDB {
 		PreparedStatement pstmt = null;
 
 		conn = DBUtil.getMySQLConnection(); // DB 연결
-		String sql = "insert into maintain_info(carRepairNumber, campingCarId, repairShopId, licenseNumber, carRepairHistory, carRepairDate, carRepairCost, dueDatePayment, otherMaintenanceDetails) values(?,?,?,?,?,?,?,?,?)";
+		String sql = "insert into maintain_info(repairNumber, campCarId, repairShopId, licenseNumber, repairHistory, repairDate, repairCost, repairPayDate, repairEtcHistory) values(?,?,?,?,?,?,?,?,?)";
 		pstmt = conn.prepareStatement(sql);
 
-		pstmt.setInt(1, member.getCarRepairNumber());
-		pstmt.setInt(2, member.getCampingCarId());
+		pstmt.setInt(1, member.getRepairNumber());
+		pstmt.setInt(2, member.getCampCarId());
 		pstmt.setInt(3, member.getRepairShopId());
-		pstmt.setInt(4, member.getLicenseNumber());
-		pstmt.setString(5, member.getCarRepairHistory());
-		pstmt.setString(6, member.getCarRepairDate());
-		pstmt.setInt(7, member.getCarRepairCost());
-		pstmt.setString(8, member.getDueDatePayment());
-		pstmt.setString(9, member.getOtherMaintenanceDetails());
+		pstmt.setString(4, member.getLicenseNumber());
+		pstmt.setString(5, member.getRepairHistory());
+		pstmt.setString(6, member.getRepairDate());
+		pstmt.setInt(7, member.getRepairCost());
+		pstmt.setString(8, member.getRepairPayDate());
+		pstmt.setString(9, member.getRepairEtcHistory());
 
 		pstmt.executeUpdate();
 	}
