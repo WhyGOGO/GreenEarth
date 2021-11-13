@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.sql.*"%>
+<%@page import="beans_method.selectDB" %>
+<%@page import="java.util.ArrayList" %>  
+<%@page import="beans.campDataBean"%> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -99,16 +102,48 @@
       <hr>
       
 <table class="table table-success table-striped">
-    <tr>
-      <th scope="row">성명</th>
-      <td colspan="2" class="table-active">주소</td>
-      <td>전화번호</td>
-      <td>이메일정보</td>
-      <td>이용일자</td>
-      <td>이용캠핑카종류</td>
-      <td>이용일수</td>
-    </tr>
-  </tbody>  
+    <thead>
+	    <tr>
+	      <th scope="row">성명</th>
+	      <td colspan="2" class="table-active">면허증번호</td>
+	      <td>주소</td>
+	      <td>번호</td>
+	      <td>이메일</td>
+	      <td>비밀번호</td>
+	    </tr>
+	</thead>
+<%
+try{
+
+	selectDB sd = selectDB.getInstance();	
+	ArrayList<campDataBean> dtos = sd.selCust();
+	for(int i=0; i < dtos.size(); i++){
+		campDataBean dto = dtos.get(i);
+		String name = dto.getCustName();
+		String licenseNumber = dto.getLicenseNumber();
+		String CustAddress = dto.getCustAddress();
+		String CustCall = dto.getCustCall();
+		String CustEmail = dto.getCustEmail();		
+		String CustPasswd = dto.getPasswd();
+%> 		
+	 <tbody>
+      <tr>
+	      <th scope="row"><%=name%></th>
+	      <td colspan="2" class="table-active"><%=licenseNumber%></td>
+	      <td><%=CustAddress%></td>
+	      <td><%=CustCall%></td>
+	      <td><%=CustEmail%></td>
+	      <td><%=CustPasswd%></td>  
+     </tr>
+  	</tbody>    
+<%	}
+	
+}
+catch(Exception e){
+	e.printStackTrace();
+}
+%>   
+  
 </table>     
       
       </div>

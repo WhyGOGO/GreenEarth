@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.sql.*"%>
+<%@page import="beans_method.selectDB" %>
+<%@page import="java.util.ArrayList" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -99,6 +102,13 @@
       <hr>
       
 <table class="table table-success table-striped">
+    <tr>
+      <th scope="row">회사명</th>
+      <td colspan="2" class="table-active">주소</td>
+      <td>전화번호</td>
+      <td>담당자이름</td>
+      <td>담당자이메일 정보</td>
+    </tr>
     <tr>
       <th scope="row">회사명</th>
       <td colspan="2" class="table-active">주소</td>
