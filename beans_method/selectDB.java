@@ -3,10 +3,30 @@ package beans_method;
 import java.sql.*;
 import java.util.*;
 
-import beans.*;;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
+import beans.*;
 
 public class selectDB {
 
+	private selectDB() {}
+	
+    private static selectDB instance = new selectDB();
+    
+    public static selectDB getInstance() {
+        return instance;
+    }
+
+	
+	private Connection getConnection() throws Exception {
+	    Context initCtx = new InitialContext();
+	    Context envCtx = (Context) initCtx.lookup("java:comp/env");
+	    DataSource ds = (DataSource)envCtx.lookup("jdbc/myoracle");
+
+	    return ds.getConnection();
+	}
+	
 	// 회사 전체 정보를 조회하는 메소드
 	public ArrayList<campDataBean> selCompany(String name) throws SQLException {
 		Connection conn = null;
@@ -45,10 +65,11 @@ public class selectDB {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-
-		conn = DBUtil.getMySQLConnection(); // DB 연결
-
 		ArrayList<campDataBean> list = new ArrayList<campDataBean>();
+	try {	
+		conn = getConnection(); // DB 연결
+
+		
 
 		String sql = "select * from customer";
 
@@ -57,8 +78,8 @@ public class selectDB {
 
 		while (rs.next()) {
 			campDataBean sdb = new campDataBean();
-			sdb.setLicenseNumber(rs.getString(1));
-			sdb.setCustName(rs.getString(2));
+			sdb.setLicenseNumber(rs.getString(2));
+			sdb.setCustName(rs.getString(1));
 			sdb.setCustAddress(rs.getString(3));
 			sdb.setCustCall(rs.getString(4));
 			sdb.setCustEmail(rs.getString(5));
@@ -67,6 +88,18 @@ public class selectDB {
 			list.add(sdb);
 			
 		}
+	}
+		catch(Exception e) {
+				e.printStackTrace();
+			
+	}finally{
+		if (rs != null) 
+			try { rs.close(); } catch(SQLException ex) {}
+		if (pstmt != null) 
+			try { pstmt.close(); } catch(SQLException ex) {}
+		if (conn != null) 
+			try { conn.close(); } catch(SQLException ex) {}
+	}
 		
 		return list;
 	}

@@ -4,15 +4,15 @@ import java.sql.*;
 
 import beans.logonDataBean;
 
-public class logonDB {
+public class LogonDB {
 
-	private static logonDB instance = new logonDB();
+	private static LogonDB instance = new LogonDB();
 
-	public static logonDB getInstance() {
+	public static LogonDB getInstance() {
 		return instance;
 	}
 
-	private logonDB() {
+	private LogonDB() {
 	}
 	
 	//회원가입한 정보를 DB에 추가
