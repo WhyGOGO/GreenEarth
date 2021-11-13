@@ -17,64 +17,60 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 			<div class="input-form col-md-12 mx-auto"> 
 				<h4 class="mb-3">회원가입</h4> 
 			
-				<form class="validation-form" novalidate>			<!-- 정보 보내는 부분 -->
+				<form method="post" action="registerPro.jsp" class="validation-form" novalidate action>			<!-- 정보 보내는 부분 -->
 				 
 					<div class="row"> 
-						<div class="col-md-6 mb-3"> 
-							<label for="name">성</label> 
-							<input type="text" class="form-control" id="last_name" placeholder="" value="" required> 
-							<div class="invalid-feedback"> 성을 입력해주세요 </div> 
-						</div> 
 						<div class="col-md-6 mb-3"> <label for="nickname">이름</label> 
-							<input type="text" class="form-control" id="first_name" placeholder="" value="" required> 
+							<input type="text" class="form-control" name="name" placeholder="홍길동"  maxlength=10 required> 
 						<div class="invalid-feedback"> 이름을 입력해주세요. </div> 
 						</div> 
 					</div> 
 					<div class="row"> 
-						<div class="col-md-6 mb-3"> 
-							<label for="name">전화번호</label> 
-							<input type="text" class="form-control" id="number" placeholder="" value="" required> 
-							<div class="invalid-feedback"> 성을 입력해주세요 </div> 
-						</div> 
 						<div class="col-md-6 mb-3"> <label for="nickname">면허증번호</label> 
-							<input type="text" class="form-control" id="car_num" placeholder="" value="" required> 
-						<div class="invalid-feedback"> 이름을 입력해주세요. </div> 
-						</div> 
-					</div> 					
-					
-					<div class="row"> 
+							<input type="text" class="form-control" name="license" placeholder="11-111111-11"   maxlength=15 required> 
+						<div class="invalid-feedback"> 면허증번호 입력해주세요. </div> 
+						</div> 					
 						<div class="col-md-6 mb-3"> 
-							<label for="name">아이디</label> 
-							<input type="text" class="form-control" id="id" placeholder="" value="" required> 
-							<div class="invalid-feedback"> 아이디를 입력해주세요 </div> 
+							<label for="name">핸드폰번호</label> 
+							<input type="text" class="form-control" name="num" placeholder="010-0000-0000" maxlength=13 required> 
+							<div class="invalid-feedback"> 핸드폰번호를 입력해주세요. </div> 
 						</div> 
-						<div class="col-md-6 mb-3"> <label for="nickname">비밀번호</label> 
-							<input type="text" class="form-control" id="passwd" placeholder="" value="" required> 
+
+					</div> 		
+								
+					<div class="mb-3"> 
+						<label for="email">이메일</label> 
+						<input type="email" class="form-control" name="email" placeholder="Hello@Gmail.com" maxlength=254 required> 
+						<div class="invalid-feedback"> 이메일을 입력해주세요. </div> 
+					</div> 					
+					<div class="row"> 
+
+						<div class="col-md-6 mb-3"> 
+							<label for="nickname">비밀번호</label> 
+							<input type="text" class="form-control" name="passwd" placeholder="최대 10자리"  maxlength=10 required> 
 						<div class="invalid-feedback"> 비밀번호를 입력해주세요. </div> 
 						</div> 
 					</div> 					
 					
-					<div class="mb-3"> 
-						<label for="email">이메일</label> <input type="email" class="form-control" id="email" placeholder="you@example.com" required> 
-						<div class="invalid-feedback"> 이메일을 입력해주세요. </div> 
-					</div> 
+
 					<div class="mb-3"> <label for="address">주소</label> 
-						<input type="text" class="form-control" id="member_post" placeholder="우편번호 (Click me)" readonly onclick="findAddr()" required>
-						<input type="text" class="form-control" id="member_addr" placeholder="서울특별시 강남구" readonly required> 
+						<input type="text" class="form-control"  name="member_post"	id="member_post" placeholder="우편번호"  onclick="findAddr()" required>
+						<input type="text" class="form-control"  name="member_addr"	id="member_addr" placeholder="서울특별시 강남구" readonly required> 
 						<div class="invalid-feedback"> 주소를 입력해주세요. </div> 
 					</div> 
 					<div class="mb-3"> 
-						<label for="address2">상세주소<span class="text-muted">&nbsp;(필수 아님)</span></label> 
-						<input type="text" class="form-control" id="address2" placeholder="상세주소를 입력해주세요."> 
+						<label for="address2">상세주소<span class="text-muted">&nbsp;</span></label> 
+						<input type="text" class="form-control" name="address2" id="address2" placeholder="상세주소를 입력해주세요." required> 
+						<div class="invalid-feedback"> 상세주소를 입력해주세요 </div> 
 					</div> 
 
 					<hr class="mb-4"> 
 					<div class="custom-control custom-checkbox"> 
 						<input type="checkbox" class="custom-control-input" id="aggrement" required> 
-						<label class="custom-control-label" for="aggrement">개인정보 수집 및 이용에 동의합니다.</label> 
+						<label class="custom-control-label" for="aggrement">개인정보 수집 및 이용에 동의합니다.</label> 					
 					</div> 
 					<div class="mb-4"></div> 
-					<button class="btn btn-primary btn-lg btn-block" type="submit">가입 완료</button> 
+					<button class="btn btn-primary btn-lg btn-block" type="submit">가입 완료</button>				
 				</form> 
 			</div> 
 		</div> 
