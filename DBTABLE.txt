@@ -1,0 +1,3 @@
+ALTER TABLE customer modify address VARCHAR2(100);
+ALTER TABLE campcompany add spot VARCHAR2(12);
+ALTER TABLE campcompany add image VARCHAR2(30);
