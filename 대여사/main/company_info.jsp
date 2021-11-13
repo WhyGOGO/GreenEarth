@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="beans_method.selectDB" %>
+<%@page import="java.util.ArrayList" %>  
+<%@page import="beans.campDataBean"%> 
 <!doctype html>
 <html lang="en">
     <meta charset="utf-8">
@@ -123,32 +126,56 @@
      </div>
 
     </div>
+ <table class="table table-success table-striped">
 
-    <div class="content-section">
+ <%	try{
+
+	selectDB sd = selectDB.getInstance();	
+	ArrayList<campDataBean> dtos2 = sd.selCompany();
+	for(int i=0; i < dtos2.size(); i++){
+		campDataBean dto2 = dtos2.get(i);
+		String name = dto2.getCompName();
+		String address = dto2.getCompAddress();
+		String CompCall = dto2.getCompCall();
+		String CompManager = dto2.getCompManager();		
+		String CompEmail = dto2.getCompEmail();
+		String IMAGE = dto2.getIMAGE();   	
+		String spot = dto2.getSPOT();
+%>
+	 <div class="apps-card">
+     <div class="app-card"> 
+	<div class="content-section">
      <div class="content-section-title">회사 정보</div>
-     <div class="apps-card">
-      <div class="app-card">
        <span>
-        안산점
+      	<%=spot%>
        </span>
-	   <img alt="" src="../images/안산점.jpg">
+	   <img alt="" src="<%=IMAGE%>">
        <div class="app-card__subtext">      
-       주소 , 전화번호, 담당자 이름, 담당자 이메일정보  적으시오.     
+       회사이름: <%=name%><br>
+       회사주소: <%=address%><br> 
+       회사전화번호 <i class="fas fa-phone-square-alt"></i> : <%=CompCall %><br>
+       담당자이름: <%=CompManager %><br>
+       담당자이메일 <i class="far fa-envelope"></i> : <%=CompEmail %>    
        </div>
        </div>
       </div>
      </div>
-     
-
-    <div class="content-section">
+<% }
+}
+	catch(Exception e){
+		e.printStackTrace();
+}
+%>  
+</table>
+    <!--  <div class="content-section">
      <div class="apps-card">
       <div class="app-card">
        <span>
-        화성점
+         안산점
        </span>
 	   <img alt="" src="../images/화성점.jpg">
        <div class="app-card__subtext">      
-       챠량 스펙들 적으세요       
+       	차량정보를입력해주세요  
        </div>
        </div>
      </div>     
@@ -157,15 +184,15 @@
      <div class="apps-card">
       <div class="app-card">
        <span>
-        광명점
+        그냥점	
        </span>
 	   <img alt="" src="../images/광명점.jpg">
        <div class="app-card__subtext">      
-       챠량 스펙들 적으세요       
+       나도몰라요          
        </div>
        </div>
-     </div>         
-     
+     </div>     -->
+  
      
      
     </div>
@@ -175,13 +202,16 @@
  <div class="overlay-app"></div>
 </div>
 </div>
-
+  	
+	
   
 </main>
 
 
     <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
 
+
       
   </body>
+
 </html>
