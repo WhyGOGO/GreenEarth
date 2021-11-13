@@ -18,7 +18,9 @@ public class campDataBean {
 	private String compCall; //회사 전화번호
 	private String compManager; //회사 담당자
 	private String compEmail; //담당자 이메일
-	
+	private String IMAGE; //회사 이미지
+	private String SPOT; //회사 지점위치
+
 	private int repairShopId; //정비소 식별번호
 	private String repairShopName; //정비소 이름
 	private String repairShopAddress; //정비소 주소
@@ -131,6 +133,18 @@ public class campDataBean {
 	}
 	public void setCompEmail(String compEmail) {
 		this.compEmail = compEmail;
+	}
+	public String getIMAGE() {
+		return IMAGE;
+	}
+	public void setIMAGE(String IMAGE) {
+		this.IMAGE = IMAGE;
+	}
+	public String getSPOT() {
+		return SPOT;
+	}
+	public void setSPOT(String SPOT) {
+		this.SPOT = SPOT;
 	}
 	public int getRepairShopId() {
 		return repairShopId;

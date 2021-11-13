@@ -27,38 +27,52 @@ public class selectDB {
 	    return ds.getConnection();
 	}
 	
-	// 회사 전체 정보를 조회하는 메소드
-	public ArrayList<campDataBean> selCompany(String name) throws SQLException {
+	
+	//회사정보조회하는메소드
+	public ArrayList<campDataBean> selCompany() throws SQLException {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-
-		conn = DBUtil.getMySQLConnection(); // DB 연결
-
 		ArrayList<campDataBean> list = new ArrayList<campDataBean>();
+	try {
+		conn = getConnection(); // DB 연결
 
-		String sql = "select * from campCompany where name=?";
+
+		String sql = "select compname,compaddress,compcall,compmanager,compemail,IMAGE,SPOT from campcompany";
 
 		pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, name);
 
 		rs = pstmt.executeQuery();
 
 		while (rs.next()) {
 			campDataBean sdb = new campDataBean();
-			sdb.setCompId(rs.getInt(1));
-			sdb.setCompName(rs.getString(2));
-			sdb.setCompAddress(rs.getString(3));
-			sdb.setCompCall(rs.getString(4));
-			sdb.setCompManager(rs.getString(5));
-			sdb.setCompEmail(rs.getString(6));
-
+			sdb.setCompName(rs.getString(1));
+			sdb.setCompAddress(rs.getString(2));
+			sdb.setCompCall(rs.getString(3));
+			sdb.setCompManager(rs.getString(4));
+			sdb.setCompEmail(rs.getString(5));
+			sdb.setIMAGE(rs.getString(6));
+			sdb.setSPOT(rs.getString(7));
+			
 			list.add(sdb);
 
 		}
-
-		return list;
 	}
+			catch(Exception e) {
+				e.printStackTrace();
+	
+	}finally{
+		if (rs != null) 
+			try { rs.close(); } catch(SQLException ex) {}
+		if (pstmt != null) 
+			try { pstmt.close(); } catch(SQLException ex) {}
+		if (conn != null) 
+			try { conn.close(); } catch(SQLException ex) {}
+	}
+
+	return list;
+	}
+
 
 	// 고객 정보를 전부 조회
 	public ArrayList<campDataBean> selCust() throws SQLException {
