@@ -1,0 +1,15 @@
+-- 양석준 2021-11-14 
+
+
+ALTER TABLE customer modify address VARCHAR2(100);
+ALTER TABLE campcompany add spot VARCHAR2(12);
+ALTER TABLE campcompany add image VARCHAR2(30);
+
+
+
+
+
+-- 박영민 2021-11-14 12:38  | 이메일 총 254로 변경했음  https://kor.go-travels.com/71642-is-email-address-length-limited-1171110-2645721 참고
+
+
+ALTER TABLE CUSTOMER MODIFY (EMAIL VARCHAR2(254)); 
