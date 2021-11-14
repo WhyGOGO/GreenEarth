@@ -1,0 +1,868 @@
+CREATE TABLE campcompany
+(
+	compId               INT NOT NULL ,
+	compName             VARCHAR2(24) NULL ,
+	compAddress          VARCHAR2(60) NULL ,
+	compCall             VARCHAR2(13) NULL ,
+	compManager          VARCHAR2(12) NULL ,
+	compEmail            VARCHAR2(25) NULL 
+);
+
+CREATE UNIQUE INDEX XPK캠핑카대여회사 ON campcompany
+(compId   ASC);
+
+ALTER TABLE campcompany
+	ADD CONSTRAINT  XPK캠핑카대여회사 PRIMARY KEY (compId);
+
+CREATE TABLE campingcar
+(
+	campCarId            INT NOT NULL ,
+	campCarName          VARCHAR2(12) NULL ,
+	campCarType          VARCHAR2(24) NULL ,
+	campCarNumber        VARCHAR2(10) NULL ,
+	campCarDate          DATE NULL ,
+	peopleRide           NUMBER NULL ,
+	carRentalCost        NUMBER NULL ,
+	compId               INT NOT NULL ,
+	rentalStatus         VARCHAR2(2) NOT NULL 
+);
+
+CREATE UNIQUE INDEX XPK캠핑카 ON campingcar
+(campCarId   ASC,compId   ASC);
+
+ALTER TABLE campingcar
+	ADD CONSTRAINT  XPK캠핑카 PRIMARY KEY (campCarId,compId);
+
+CREATE TABLE customer
+(
+	name                 VARCHAR2(12) NULL ,
+	licenseNumber        VARCHAR2(15) NOT NULL ,
+	address              VARCHAR2(60) NULL ,
+	phoneNumber          VARCHAR2(13) NULL ,
+	Email                VARCHAR2(25) NULL ,
+	passwd               VARCHAR2(10) NULL 
+);
+
+CREATE UNIQUE INDEX XPK고객 ON customer
+(licenseNumber   ASC);
+
+ALTER TABLE customer
+	ADD CONSTRAINT  XPK고객 PRIMARY KEY (licenseNumber);
+
+CREATE TABLE rental
+(
+	rentalNumber         INT NOT NULL ,
+	licenseNumber        VARCHAR2(15) NOT NULL ,
+	rentalStart          DATE NULL ,
+	rentalEnd            DATE NULL ,
+	rentalTerm           DATE NULL ,
+	rentalCost           NUMBER NULL ,
+	rentalPayDate        DATE NULL ,
+	rentalEtcHistory     VARCHAR2(60) NULL ,
+	rentalEtcCost        NUMBER NULL ,
+	campCarId            INT NOT NULL ,
+	compId               INT NOT NULL 
+);
+
+CREATE UNIQUE INDEX XPK대여 ON rental
+(rentalNumber   ASC,campCarId   ASC,licenseNumber   ASC);
+
+ALTER TABLE rental
+	ADD CONSTRAINT  XPK대여 PRIMARY KEY (rentalNumber,campCarId,licenseNumber);
+
+CREATE TABLE repairrequest
+(
+	rentalNumber         INT NOT NULL ,
+	licenseNumber        VARCHAR2(15) NOT NULL ,
+	campCarId            INT NOT NULL 
+);
+
+CREATE UNIQUE INDEX XPK정비의뢰 ON repairrequest
+(campCarId   ASC,licenseNumber   ASC);
+
+ALTER TABLE repairrequest
+	ADD CONSTRAINT  XPK정비의뢰 PRIMARY KEY (campCarId,licenseNumber);
+
+CREATE TABLE repairshop
+(
+	repairShopId         INT NOT NULL ,
+	repairShopName       VARCHAR2(24) NULL ,
+	repairShopAddress    VARCHAR2(60) NULL ,
+	repairShopCall       VARCHAR2(13) NULL ,
+	repairManager        VARCHAR2(12) NULL ,
+	repairManagerEmail   VARCHAR2(25) NULL 
+);
+
+CREATE UNIQUE INDEX XPK정비소 ON repairshop
+(repairShopId   ASC);
+
+ALTER TABLE repairshop
+	ADD CONSTRAINT  XPK정비소 PRIMARY KEY (repairShopId);
+
+CREATE TABLE repairinfo
+(
+	repairNumber         INT NOT NULL ,
+	repairHistory        VARCHAR2(60) NULL ,
+	repairDate           DATE NULL ,
+	repairCost           NUMBER NULL ,
+	repairPayDate        DATE NULL ,
+	repairEtcHistory     VARCHAR2(60) NULL ,
+	repairShopId         INT NOT NULL ,
+	campCarId            INT NOT NULL ,
+	licenseNumber        VARCHAR2(15) NOT NULL 
+);
+
+CREATE UNIQUE INDEX XPK정비정보 ON repairinfo
+(repairNumber   ASC,licenseNumber   ASC,campCarId   ASC,repairShopId   ASC);
+
+ALTER TABLE repairinfo
+	ADD CONSTRAINT  XPK정비정보 PRIMARY KEY (repairNumber,licenseNumber,campCarId,repairShopId);
+
+ALTER TABLE campingcar
+	ADD (CONSTRAINT R_45 FOREIGN KEY (compId) REFERENCES campcompany (compId));
+
+ALTER TABLE rental
+	ADD (CONSTRAINT R_47 FOREIGN KEY (campCarId, compId) REFERENCES campingcar (campCarId, compId));
+
+ALTER TABLE rental
+	ADD (CONSTRAINT R_46 FOREIGN KEY (licenseNumber) REFERENCES customer (licenseNumber));
+
+ALTER TABLE repairrequest
+	ADD (CONSTRAINT R_54 FOREIGN KEY (rentalNumber, campCarId, licenseNumber) REFERENCES rental (rentalNumber, campCarId, licenseNumber));
+
+ALTER TABLE repairinfo
+	ADD (CONSTRAINT R_51 FOREIGN KEY (repairShopId) REFERENCES repairshop (repairShopId));
+
+ALTER TABLE repairinfo
+	ADD (CONSTRAINT R_56 FOREIGN KEY (campCarId, licenseNumber) REFERENCES repairrequest (campCarId, licenseNumber));
+
+CREATE  TRIGGER  tD_campcompany AFTER DELETE ON campcompany for each row
+-- erwin Builtin Trigger
+-- DELETE trigger on campcompany 
+DECLARE NUMROWS INTEGER;
+BEGIN
+    /* erwin Builtin Trigger */
+    /* campcompany  campingcar on parent delete restrict */
+    /* ERWIN_RELATION:CHECKSUM="0000dccd", PARENT_OWNER="", PARENT_TABLE="campcompany"
+    CHILD_OWNER="", CHILD_TABLE="campingcar"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="R_45", FK_COLUMNS="compId" */
+    SELECT count(*) INTO NUMROWS
+      FROM campingcar
+      WHERE
+        /*  %JoinFKPK(campingcar,:%Old," = "," AND") */
+        campingcar.compId = :old.compId;
+    IF (NUMROWS > 0)
+    THEN
+      raise_application_error(
+        -20001,
+        'Cannot delete campcompany because campingcar exists.'
+      );
+    END IF;
+
+
+-- erwin Builtin Trigger
+END;
+/
+
+CREATE  TRIGGER tU_campcompany AFTER UPDATE ON campcompany for each row
+-- erwin Builtin Trigger
+-- UPDATE trigger on campcompany 
+DECLARE NUMROWS INTEGER;
+BEGIN
+  /* erwin Builtin Trigger */
+  /* campcompany  campingcar on parent update restrict */
+  /* ERWIN_RELATION:CHECKSUM="00010707", PARENT_OWNER="", PARENT_TABLE="campcompany"
+    CHILD_OWNER="", CHILD_TABLE="campingcar"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="R_45", FK_COLUMNS="compId" */
+  IF
+    /* %JoinPKPK(:%Old,:%New," <> "," OR ") */
+    :old.compId <> :new.compId
+  THEN
+    SELECT count(*) INTO NUMROWS
+      FROM campingcar
+      WHERE
+        /*  %JoinFKPK(campingcar,:%Old," = "," AND") */
+        campingcar.compId = :old.compId;
+    IF (NUMROWS > 0)
+    THEN 
+      raise_application_error(
+        -20005,
+        'Cannot update campcompany because campingcar exists.'
+      );
+    END IF;
+  END IF;
+
+
+-- erwin Builtin Trigger
+END;
+/
+
+
+CREATE  TRIGGER  tD_campingcar AFTER DELETE ON campingcar for each row
+-- erwin Builtin Trigger
+-- DELETE trigger on campingcar 
+DECLARE NUMROWS INTEGER;
+BEGIN
+    /* erwin Builtin Trigger */
+    /* campingcar  rental on parent delete restrict */
+    /* ERWIN_RELATION:CHECKSUM="0000ef05", PARENT_OWNER="", PARENT_TABLE="campingcar"
+    CHILD_OWNER="", CHILD_TABLE="rental"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="R_47", FK_COLUMNS="campCarId""compId" */
+    SELECT count(*) INTO NUMROWS
+      FROM rental
+      WHERE
+        /*  %JoinFKPK(rental,:%Old," = "," AND") */
+        rental.campCarId = :old.campCarId AND
+        rental.compId = :old.compId;
+    IF (NUMROWS > 0)
+    THEN
+      raise_application_error(
+        -20001,
+        'Cannot delete campingcar because rental exists.'
+      );
+    END IF;
+
+
+-- erwin Builtin Trigger
+END;
+/
+
+CREATE  TRIGGER tI_campingcar BEFORE INSERT ON campingcar for each row
+-- erwin Builtin Trigger
+-- INSERT trigger on campingcar 
+DECLARE NUMROWS INTEGER;
+BEGIN
+    /* erwin Builtin Trigger */
+    /* campcompany  campingcar on child insert restrict */
+    /* ERWIN_RELATION:CHECKSUM="0000f499", PARENT_OWNER="", PARENT_TABLE="campcompany"
+    CHILD_OWNER="", CHILD_TABLE="campingcar"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="R_45", FK_COLUMNS="compId" */
+    SELECT count(*) INTO NUMROWS
+      FROM campcompany
+      WHERE
+        /* %JoinFKPK(:%New,campcompany," = "," AND") */
+        :new.compId = campcompany.compId;
+    IF (
+      /* %NotnullFK(:%New," IS NOT NULL AND") */
+      
+      NUMROWS = 0
+    )
+    THEN
+      raise_application_error(
+        -20002,
+        'Cannot insert campingcar because campcompany does not exist.'
+      );
+    END IF;
+
+
+-- erwin Builtin Trigger
+END;
+/
+
+CREATE  TRIGGER tU_campingcar AFTER UPDATE ON campingcar for each row
+-- erwin Builtin Trigger
+-- UPDATE trigger on campingcar 
+DECLARE NUMROWS INTEGER;
+BEGIN
+  /* erwin Builtin Trigger */
+  /* campingcar  rental on parent update restrict */
+  /* ERWIN_RELATION:CHECKSUM="000227cd", PARENT_OWNER="", PARENT_TABLE="campingcar"
+    CHILD_OWNER="", CHILD_TABLE="rental"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="R_47", FK_COLUMNS="campCarId""compId" */
+  IF
+    /* %JoinPKPK(:%Old,:%New," <> "," OR ") */
+    :old.campCarId <> :new.campCarId OR 
+    :old.compId <> :new.compId
+  THEN
+    SELECT count(*) INTO NUMROWS
+      FROM rental
+      WHERE
+        /*  %JoinFKPK(rental,:%Old," = "," AND") */
+        rental.campCarId = :old.campCarId AND
+        rental.compId = :old.compId;
+    IF (NUMROWS > 0)
+    THEN 
+      raise_application_error(
+        -20005,
+        'Cannot update campingcar because rental exists.'
+      );
+    END IF;
+  END IF;
+
+  /* erwin Builtin Trigger */
+  /* campcompany  campingcar on child update restrict */
+  /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="", PARENT_TABLE="campcompany"
+    CHILD_OWNER="", CHILD_TABLE="campingcar"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="R_45", FK_COLUMNS="compId" */
+  SELECT count(*) INTO NUMROWS
+    FROM campcompany
+    WHERE
+      /* %JoinFKPK(:%New,campcompany," = "," AND") */
+      :new.compId = campcompany.compId;
+  IF (
+    /* %NotnullFK(:%New," IS NOT NULL AND") */
+    
+    NUMROWS = 0
+  )
+  THEN
+    raise_application_error(
+      -20007,
+      'Cannot update campingcar because campcompany does not exist.'
+    );
+  END IF;
+
+
+-- erwin Builtin Trigger
+END;
+/
+
+
+CREATE  TRIGGER  tD_customer AFTER DELETE ON customer for each row
+-- erwin Builtin Trigger
+-- DELETE trigger on customer 
+DECLARE NUMROWS INTEGER;
+BEGIN
+    /* erwin Builtin Trigger */
+    /* customer  rental on parent delete restrict */
+    /* ERWIN_RELATION:CHECKSUM="0000d599", PARENT_OWNER="", PARENT_TABLE="customer"
+    CHILD_OWNER="", CHILD_TABLE="rental"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="R_46", FK_COLUMNS="licenseNumber" */
+    SELECT count(*) INTO NUMROWS
+      FROM rental
+      WHERE
+        /*  %JoinFKPK(rental,:%Old," = "," AND") */
+        rental.licenseNumber = :old.licenseNumber;
+    IF (NUMROWS > 0)
+    THEN
+      raise_application_error(
+        -20001,
+        'Cannot delete customer because rental exists.'
+      );
+    END IF;
+
+
+-- erwin Builtin Trigger
+END;
+/
+
+CREATE  TRIGGER tU_customer AFTER UPDATE ON customer for each row
+-- erwin Builtin Trigger
+-- UPDATE trigger on customer 
+DECLARE NUMROWS INTEGER;
+BEGIN
+  /* erwin Builtin Trigger */
+  /* customer  rental on parent update restrict */
+  /* ERWIN_RELATION:CHECKSUM="0000fc89", PARENT_OWNER="", PARENT_TABLE="customer"
+    CHILD_OWNER="", CHILD_TABLE="rental"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="R_46", FK_COLUMNS="licenseNumber" */
+  IF
+    /* %JoinPKPK(:%Old,:%New," <> "," OR ") */
+    :old.licenseNumber <> :new.licenseNumber
+  THEN
+    SELECT count(*) INTO NUMROWS
+      FROM rental
+      WHERE
+        /*  %JoinFKPK(rental,:%Old," = "," AND") */
+        rental.licenseNumber = :old.licenseNumber;
+    IF (NUMROWS > 0)
+    THEN 
+      raise_application_error(
+        -20005,
+        'Cannot update customer because rental exists.'
+      );
+    END IF;
+  END IF;
+
+
+-- erwin Builtin Trigger
+END;
+/
+
+
+CREATE  TRIGGER  tD_rental AFTER DELETE ON rental for each row
+-- erwin Builtin Trigger
+-- DELETE trigger on rental 
+DECLARE NUMROWS INTEGER;
+BEGIN
+    /* erwin Builtin Trigger */
+    /* rental  repairrequest on parent delete restrict */
+    /* ERWIN_RELATION:CHECKSUM="00012d92", PARENT_OWNER="", PARENT_TABLE="rental"
+    CHILD_OWNER="", CHILD_TABLE="repairrequest"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="R_54", FK_COLUMNS="rentalNumber""campCarId""licenseNumber" */
+    SELECT count(*) INTO NUMROWS
+      FROM repairrequest
+      WHERE
+        /*  %JoinFKPK(repairrequest,:%Old," = "," AND") */
+        repairrequest.rentalNumber = :old.rentalNumber AND
+        repairrequest.licenseNumber = :old.licenseNumber AND
+        repairrequest.campCarId = :old.campCarId;
+    IF (NUMROWS > 0)
+    THEN
+      raise_application_error(
+        -20001,
+        'Cannot delete rental because repairrequest exists.'
+      );
+    END IF;
+
+
+-- erwin Builtin Trigger
+END;
+/
+
+CREATE  TRIGGER tI_rental BEFORE INSERT ON rental for each row
+-- erwin Builtin Trigger
+-- INSERT trigger on rental 
+DECLARE NUMROWS INTEGER;
+BEGIN
+    /* erwin Builtin Trigger */
+    /* campingcar  rental on child insert restrict */
+    /* ERWIN_RELATION:CHECKSUM="0001fdf3", PARENT_OWNER="", PARENT_TABLE="campingcar"
+    CHILD_OWNER="", CHILD_TABLE="rental"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="R_47", FK_COLUMNS="campCarId""compId" */
+    SELECT count(*) INTO NUMROWS
+      FROM campingcar
+      WHERE
+        /* %JoinFKPK(:%New,campingcar," = "," AND") */
+        :new.campCarId = campingcar.campCarId AND
+        :new.compId = campingcar.compId;
+    IF (
+      /* %NotnullFK(:%New," IS NOT NULL AND") */
+      
+      NUMROWS = 0
+    )
+    THEN
+      raise_application_error(
+        -20002,
+        'Cannot insert rental because campingcar does not exist.'
+      );
+    END IF;
+
+    /* erwin Builtin Trigger */
+    /* customer  rental on child insert restrict */
+    /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="", PARENT_TABLE="customer"
+    CHILD_OWNER="", CHILD_TABLE="rental"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="R_46", FK_COLUMNS="licenseNumber" */
+    SELECT count(*) INTO NUMROWS
+      FROM customer
+      WHERE
+        /* %JoinFKPK(:%New,customer," = "," AND") */
+        :new.licenseNumber = customer.licenseNumber;
+    IF (
+      /* %NotnullFK(:%New," IS NOT NULL AND") */
+      
+      NUMROWS = 0
+    )
+    THEN
+      raise_application_error(
+        -20002,
+        'Cannot insert rental because customer does not exist.'
+      );
+    END IF;
+
+
+-- erwin Builtin Trigger
+END;
+/
+
+CREATE  TRIGGER tU_rental AFTER UPDATE ON rental for each row
+-- erwin Builtin Trigger
+-- UPDATE trigger on rental 
+DECLARE NUMROWS INTEGER;
+BEGIN
+  /* erwin Builtin Trigger */
+  /* rental  repairrequest on parent update restrict */
+  /* ERWIN_RELATION:CHECKSUM="000397a8", PARENT_OWNER="", PARENT_TABLE="rental"
+    CHILD_OWNER="", CHILD_TABLE="repairrequest"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="R_54", FK_COLUMNS="rentalNumber""campCarId""licenseNumber" */
+  IF
+    /* %JoinPKPK(:%Old,:%New," <> "," OR ") */
+    :old.rentalNumber <> :new.rentalNumber OR 
+    :old.licenseNumber <> :new.licenseNumber OR 
+    :old.campCarId <> :new.campCarId
+  THEN
+    SELECT count(*) INTO NUMROWS
+      FROM repairrequest
+      WHERE
+        /*  %JoinFKPK(repairrequest,:%Old," = "," AND") */
+        repairrequest.rentalNumber = :old.rentalNumber AND
+        repairrequest.licenseNumber = :old.licenseNumber AND
+        repairrequest.campCarId = :old.campCarId;
+    IF (NUMROWS > 0)
+    THEN 
+      raise_application_error(
+        -20005,
+        'Cannot update rental because repairrequest exists.'
+      );
+    END IF;
+  END IF;
+
+  /* erwin Builtin Trigger */
+  /* campingcar  rental on child update restrict */
+  /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="", PARENT_TABLE="campingcar"
+    CHILD_OWNER="", CHILD_TABLE="rental"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="R_47", FK_COLUMNS="campCarId""compId" */
+  SELECT count(*) INTO NUMROWS
+    FROM campingcar
+    WHERE
+      /* %JoinFKPK(:%New,campingcar," = "," AND") */
+      :new.campCarId = campingcar.campCarId AND
+      :new.compId = campingcar.compId;
+  IF (
+    /* %NotnullFK(:%New," IS NOT NULL AND") */
+    
+    NUMROWS = 0
+  )
+  THEN
+    raise_application_error(
+      -20007,
+      'Cannot update rental because campingcar does not exist.'
+    );
+  END IF;
+
+  /* erwin Builtin Trigger */
+  /* customer  rental on child update restrict */
+  /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="", PARENT_TABLE="customer"
+    CHILD_OWNER="", CHILD_TABLE="rental"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="R_46", FK_COLUMNS="licenseNumber" */
+  SELECT count(*) INTO NUMROWS
+    FROM customer
+    WHERE
+      /* %JoinFKPK(:%New,customer," = "," AND") */
+      :new.licenseNumber = customer.licenseNumber;
+  IF (
+    /* %NotnullFK(:%New," IS NOT NULL AND") */
+    
+    NUMROWS = 0
+  )
+  THEN
+    raise_application_error(
+      -20007,
+      'Cannot update rental because customer does not exist.'
+    );
+  END IF;
+
+
+-- erwin Builtin Trigger
+END;
+/
+
+
+CREATE  TRIGGER  tD_repairrequest AFTER DELETE ON repairrequest for each row
+-- erwin Builtin Trigger
+-- DELETE trigger on repairrequest 
+DECLARE NUMROWS INTEGER;
+BEGIN
+    /* erwin Builtin Trigger */
+    /* repairrequest  repairinfo on parent delete restrict */
+    /* ERWIN_RELATION:CHECKSUM="00010521", PARENT_OWNER="", PARENT_TABLE="repairrequest"
+    CHILD_OWNER="", CHILD_TABLE="repairinfo"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="R_56", FK_COLUMNS="campCarId""licenseNumber" */
+    SELECT count(*) INTO NUMROWS
+      FROM repairinfo
+      WHERE
+        /*  %JoinFKPK(repairinfo,:%Old," = "," AND") */
+        repairinfo.licenseNumber = :old.licenseNumber AND
+        repairinfo.campCarId = :old.campCarId;
+    IF (NUMROWS > 0)
+    THEN
+      raise_application_error(
+        -20001,
+        'Cannot delete repairrequest because repairinfo exists.'
+      );
+    END IF;
+
+
+-- erwin Builtin Trigger
+END;
+/
+
+CREATE  TRIGGER tI_repairrequest BEFORE INSERT ON repairrequest for each row
+-- erwin Builtin Trigger
+-- INSERT trigger on repairrequest 
+DECLARE NUMROWS INTEGER;
+BEGIN
+    /* erwin Builtin Trigger */
+    /* rental  repairrequest on child insert restrict */
+    /* ERWIN_RELATION:CHECKSUM="00012a5d", PARENT_OWNER="", PARENT_TABLE="rental"
+    CHILD_OWNER="", CHILD_TABLE="repairrequest"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="R_54", FK_COLUMNS="rentalNumber""campCarId""licenseNumber" */
+    SELECT count(*) INTO NUMROWS
+      FROM rental
+      WHERE
+        /* %JoinFKPK(:%New,rental," = "," AND") */
+        :new.rentalNumber = rental.rentalNumber AND
+        :new.licenseNumber = rental.licenseNumber AND
+        :new.campCarId = rental.campCarId;
+    IF (
+      /* %NotnullFK(:%New," IS NOT NULL AND") */
+      
+      NUMROWS = 0
+    )
+    THEN
+      raise_application_error(
+        -20002,
+        'Cannot insert repairrequest because rental does not exist.'
+      );
+    END IF;
+
+
+-- erwin Builtin Trigger
+END;
+/
+
+CREATE  TRIGGER tU_repairrequest AFTER UPDATE ON repairrequest for each row
+-- erwin Builtin Trigger
+-- UPDATE trigger on repairrequest 
+DECLARE NUMROWS INTEGER;
+BEGIN
+  /* erwin Builtin Trigger */
+  /* repairrequest  repairinfo on parent update restrict */
+  /* ERWIN_RELATION:CHECKSUM="00027b75", PARENT_OWNER="", PARENT_TABLE="repairrequest"
+    CHILD_OWNER="", CHILD_TABLE="repairinfo"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="R_56", FK_COLUMNS="campCarId""licenseNumber" */
+  IF
+    /* %JoinPKPK(:%Old,:%New," <> "," OR ") */
+    :old.licenseNumber <> :new.licenseNumber OR 
+    :old.campCarId <> :new.campCarId
+  THEN
+    SELECT count(*) INTO NUMROWS
+      FROM repairinfo
+      WHERE
+        /*  %JoinFKPK(repairinfo,:%Old," = "," AND") */
+        repairinfo.licenseNumber = :old.licenseNumber AND
+        repairinfo.campCarId = :old.campCarId;
+    IF (NUMROWS > 0)
+    THEN 
+      raise_application_error(
+        -20005,
+        'Cannot update repairrequest because repairinfo exists.'
+      );
+    END IF;
+  END IF;
+
+  /* erwin Builtin Trigger */
+  /* rental  repairrequest on child update restrict */
+  /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="", PARENT_TABLE="rental"
+    CHILD_OWNER="", CHILD_TABLE="repairrequest"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="R_54", FK_COLUMNS="rentalNumber""campCarId""licenseNumber" */
+  SELECT count(*) INTO NUMROWS
+    FROM rental
+    WHERE
+      /* %JoinFKPK(:%New,rental," = "," AND") */
+      :new.rentalNumber = rental.rentalNumber AND
+      :new.licenseNumber = rental.licenseNumber AND
+      :new.campCarId = rental.campCarId;
+  IF (
+    /* %NotnullFK(:%New," IS NOT NULL AND") */
+    
+    NUMROWS = 0
+  )
+  THEN
+    raise_application_error(
+      -20007,
+      'Cannot update repairrequest because rental does not exist.'
+    );
+  END IF;
+
+
+-- erwin Builtin Trigger
+END;
+/
+
+
+CREATE  TRIGGER  tD_repairshop AFTER DELETE ON repairshop for each row
+-- erwin Builtin Trigger
+-- DELETE trigger on repairshop 
+DECLARE NUMROWS INTEGER;
+BEGIN
+    /* erwin Builtin Trigger */
+    /* repairshop  repairinfo on parent delete restrict */
+    /* ERWIN_RELATION:CHECKSUM="0000df5c", PARENT_OWNER="", PARENT_TABLE="repairshop"
+    CHILD_OWNER="", CHILD_TABLE="repairinfo"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="R_51", FK_COLUMNS="repairShopId" */
+    SELECT count(*) INTO NUMROWS
+      FROM repairinfo
+      WHERE
+        /*  %JoinFKPK(repairinfo,:%Old," = "," AND") */
+        repairinfo.repairShopId = :old.repairShopId;
+    IF (NUMROWS > 0)
+    THEN
+      raise_application_error(
+        -20001,
+        'Cannot delete repairshop because repairinfo exists.'
+      );
+    END IF;
+
+
+-- erwin Builtin Trigger
+END;
+/
+
+CREATE  TRIGGER tU_repairshop AFTER UPDATE ON repairshop for each row
+-- erwin Builtin Trigger
+-- UPDATE trigger on repairshop 
+DECLARE NUMROWS INTEGER;
+BEGIN
+  /* erwin Builtin Trigger */
+  /* repairshop  repairinfo on parent update restrict */
+  /* ERWIN_RELATION:CHECKSUM="00010a19", PARENT_OWNER="", PARENT_TABLE="repairshop"
+    CHILD_OWNER="", CHILD_TABLE="repairinfo"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="R_51", FK_COLUMNS="repairShopId" */
+  IF
+    /* %JoinPKPK(:%Old,:%New," <> "," OR ") */
+    :old.repairShopId <> :new.repairShopId
+  THEN
+    SELECT count(*) INTO NUMROWS
+      FROM repairinfo
+      WHERE
+        /*  %JoinFKPK(repairinfo,:%Old," = "," AND") */
+        repairinfo.repairShopId = :old.repairShopId;
+    IF (NUMROWS > 0)
+    THEN 
+      raise_application_error(
+        -20005,
+        'Cannot update repairshop because repairinfo exists.'
+      );
+    END IF;
+  END IF;
+
+
+-- erwin Builtin Trigger
+END;
+/
+
+
+CREATE  TRIGGER tI_repairinfo BEFORE INSERT ON repairinfo for each row
+-- erwin Builtin Trigger
+-- INSERT trigger on repairinfo 
+DECLARE NUMROWS INTEGER;
+BEGIN
+    /* erwin Builtin Trigger */
+    /* repairrequest  repairinfo on child insert restrict */
+    /* ERWIN_RELATION:CHECKSUM="00023c77", PARENT_OWNER="", PARENT_TABLE="repairrequest"
+    CHILD_OWNER="", CHILD_TABLE="repairinfo"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="R_56", FK_COLUMNS="campCarId""licenseNumber" */
+    SELECT count(*) INTO NUMROWS
+      FROM repairrequest
+      WHERE
+        /* %JoinFKPK(:%New,repairrequest," = "," AND") */
+        :new.licenseNumber = repairrequest.licenseNumber AND
+        :new.campCarId = repairrequest.campCarId;
+    IF (
+      /* %NotnullFK(:%New," IS NOT NULL AND") */
+      
+      NUMROWS = 0
+    )
+    THEN
+      raise_application_error(
+        -20002,
+        'Cannot insert repairinfo because repairrequest does not exist.'
+      );
+    END IF;
+
+    /* erwin Builtin Trigger */
+    /* repairshop  repairinfo on child insert restrict */
+    /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="", PARENT_TABLE="repairshop"
+    CHILD_OWNER="", CHILD_TABLE="repairinfo"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="R_51", FK_COLUMNS="repairShopId" */
+    SELECT count(*) INTO NUMROWS
+      FROM repairshop
+      WHERE
+        /* %JoinFKPK(:%New,repairshop," = "," AND") */
+        :new.repairShopId = repairshop.repairShopId;
+    IF (
+      /* %NotnullFK(:%New," IS NOT NULL AND") */
+      
+      NUMROWS = 0
+    )
+    THEN
+      raise_application_error(
+        -20002,
+        'Cannot insert repairinfo because repairshop does not exist.'
+      );
+    END IF;
+
+
+-- erwin Builtin Trigger
+END;
+/
+
+CREATE  TRIGGER tU_repairinfo AFTER UPDATE ON repairinfo for each row
+-- erwin Builtin Trigger
+-- UPDATE trigger on repairinfo 
+DECLARE NUMROWS INTEGER;
+BEGIN
+  /* erwin Builtin Trigger */
+  /* repairrequest  repairinfo on child update restrict */
+  /* ERWIN_RELATION:CHECKSUM="00023010", PARENT_OWNER="", PARENT_TABLE="repairrequest"
+    CHILD_OWNER="", CHILD_TABLE="repairinfo"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="R_56", FK_COLUMNS="campCarId""licenseNumber" */
+  SELECT count(*) INTO NUMROWS
+    FROM repairrequest
+    WHERE
+      /* %JoinFKPK(:%New,repairrequest," = "," AND") */
+      :new.licenseNumber = repairrequest.licenseNumber AND
+      :new.campCarId = repairrequest.campCarId;
+  IF (
+    /* %NotnullFK(:%New," IS NOT NULL AND") */
+    
+    NUMROWS = 0
+  )
+  THEN
+    raise_application_error(
+      -20007,
+      'Cannot update repairinfo because repairrequest does not exist.'
+    );
+  END IF;
+
+  /* erwin Builtin Trigger */
+  /* repairshop  repairinfo on child update restrict */
+  /* ERWIN_RELATION:CHECKSUM="00000000", PARENT_OWNER="", PARENT_TABLE="repairshop"
+    CHILD_OWNER="", CHILD_TABLE="repairinfo"
+    P2C_VERB_PHRASE="", C2P_VERB_PHRASE="", 
+    FK_CONSTRAINT="R_51", FK_COLUMNS="repairShopId" */
+  SELECT count(*) INTO NUMROWS
+    FROM repairshop
+    WHERE
+      /* %JoinFKPK(:%New,repairshop," = "," AND") */
+      :new.repairShopId = repairshop.repairShopId;
+  IF (
+    /* %NotnullFK(:%New," IS NOT NULL AND") */
+    
+    NUMROWS = 0
+  )
+  THEN
+    raise_application_error(
+      -20007,
+      'Cannot update repairinfo because repairshop does not exist.'
+    );
+  END IF;
+
+
+-- erwin Builtin Trigger
+END;
+/
+
