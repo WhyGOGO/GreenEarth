@@ -50,6 +50,9 @@ public class campDataBean {
 	private String custCall; //고객 전화번호
 	private String custEmail; //고객 이메일 및 아이디
 	private String passwd; //고객 비밀번호
+	
+	
+
 	public int getCampCarId() {
 		return campCarId;
 	}
