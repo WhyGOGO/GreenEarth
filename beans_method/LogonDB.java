@@ -65,7 +65,7 @@ public class LogonDB {
 	}
 
 	// 아이디 비밀번호 인증
-	public int userCheck(String id, String passwd) throws Exception {
+	public int userCheck(String email, String passwd) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -75,8 +75,8 @@ public class LogonDB {
 		try {
 			conn = getConnection(); // DB 연결
 
-			pstmt = conn.prepareStatement("select passwd from customer where id = ?");
-			pstmt.setString(1, id);
+			pstmt = conn.prepareStatement("select passwd from customer where email = ?");
+			pstmt.setString(1, email);
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
