@@ -17,22 +17,22 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 			<div class="input-form col-md-12 mx-auto"> 
 				<h4 class="mb-3">회원가입</h4> 
 			
-				<form method="post" action="registerPro.jsp" class="validation-form" novalidate action>			<!-- 정보 보내는 부분 -->
+				<form method="post" action="registerPro.jsp" class="validation-form" novalidate >			<!-- 정보 보내는 부분 -->
 				 
 					<div class="row"> 
 						<div class="col-md-6 mb-3"> <label for="nickname">이름</label> 
-							<input type="text" class="form-control" name="name" placeholder="홍길동"  maxlength=10 required> 
+							<input type="text" class="form-control" name="custName" placeholder="홍길동"  maxlength=10 required> 
 						<div class="invalid-feedback"> 이름을 입력해주세요. </div> 
 						</div> 
 					</div> 
 					<div class="row"> 
 						<div class="col-md-6 mb-3"> <label for="nickname">면허증번호</label> 
-							<input type="text" class="form-control" name="license" placeholder="11-111111-11"   maxlength=15 required> 
+							<input type="text" class="form-control" name="licenseNumber" placeholder="11-111111-11"   maxlength=15 required> 
 						<div class="invalid-feedback"> 면허증번호 입력해주세요. </div> 
 						</div> 					
 						<div class="col-md-6 mb-3"> 
 							<label for="name">핸드폰번호</label> 
-							<input type="text" class="form-control" name="num" placeholder="010-0000-0000" maxlength=13 required> 
+							<input type="text" class="form-control" name="custCall" placeholder="010-0000-0000" maxlength=13 required> 
 							<div class="invalid-feedback"> 핸드폰번호를 입력해주세요. </div> 
 						</div> 
 
@@ -40,7 +40,7 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 								
 					<div class="mb-3"> 
 						<label for="email">이메일</label> 
-						<input type="email" class="form-control" name="email" placeholder="Hello@Gmail.com" maxlength=254 required> 
+						<input type="email" class="form-control" name="custEmail" placeholder="Hello@Gmail.com" maxlength=254 required> 
 						<div class="invalid-feedback"> 이메일을 입력해주세요. </div> 
 					</div> 					
 					<div class="row"> 
@@ -54,16 +54,21 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 					
 
 					<div class="mb-3"> <label for="address">주소</label> 
-						<input type="text" class="form-control"  name="member_post"	id="member_post" placeholder="우편번호"  onclick="findAddr()" required>
-						<input type="text" class="form-control"  name="member_addr"	id="member_addr" placeholder="서울특별시 강남구" readonly required> 
+						<input type="text" class="form-control"  name="member_post"	id="member_post" placeholder="우편번호"  onclick="findAddr()"   required>
+						<input type="text" class="form-control"  name="member_addr"	id="member_addr" placeholder="서울특별시 강남구" readonly  required> 
 						<div class="invalid-feedback"> 주소를 입력해주세요. </div> 
 					</div> 
 					<div class="mb-3"> 
 						<label for="address2">상세주소<span class="text-muted">&nbsp;</span></label> 
-						<input type="text" class="form-control" name="address2" id="address2" placeholder="상세주소를 입력해주세요." required> 
+						<input type="text" class="form-control" name="address2" id="address2" placeholder="상세주소를 입력해주세요." onkeyup='printName()' required> 
 						<div class="invalid-feedback"> 상세주소를 입력해주세요 </div> 
 					</div> 
-
+					
+					<div class="mb-3"> 
+						<input type="hidden" name="custAddress" id="custAddress" /> <!--실질적인 주소 값부분 -->
+					</div> 					
+			
+					
 					<hr class="mb-4"> 
 					<div class="custom-control custom-checkbox"> 
 						<input type="checkbox" class="custom-control-input" id="aggrement" required> 
@@ -119,5 +124,17 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
 	}
 	</script>	 
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	
+	
+	<script>
+		function printName()  {
+			  const member_post = document.getElementById('member_post').value;		//변수 선언
+			  const member_addr = document.getElementById('member_addr').value;
+			  const address2 = document.getElementById('address2').value;
+
+			  document.getElementById("custAddress").value =member_post+","+member_addr+","+address2;	//값 넣어주기
+			}
+	</script>
+	
 </body>
 </html>
