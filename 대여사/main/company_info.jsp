@@ -149,7 +149,7 @@
        <span>
       	<%=spot%>
        </span>
-	   <img alt="" src="<%=IMAGE%>">
+	   <img alt="" src="../images/<%=IMAGE%>">
        <div class="app-card__subtext">      
        회사이름: <%=name%><br>
        회사주소: <%=address%><br> 

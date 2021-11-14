@@ -787,7 +787,7 @@ body.light-mode .video-bg:before {
 .app-card {
   display: flex;
   flex-direction: column;
-  width: calc(33.3% - 20px);
+  width: calc(15% - 20px);
   font-size: 16px;
   background-color: var(--content-bg);
   border-radius: 14px;
@@ -795,6 +795,7 @@ body.light-mode .video-bg:before {
   padding: 20px;
   cursor: pointer;
   transition: 0.3s ease;
+
 }
 .app-card:hover {
   transform: scale(1.02);
@@ -805,6 +806,7 @@ body.light-mode .video-bg:before {
   border-radius: 6px;
   margin-right: 12px;
   flex-shrink: 0;
+  
 }
 .app-card + .app-card {
   margin-left: 20px;
