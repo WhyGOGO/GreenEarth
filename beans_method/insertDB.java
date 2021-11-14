@@ -1,10 +1,34 @@
 package beans_method;
 
 import java.sql.*;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
+
 import beans.*;;
 
 public class insertDB {
 
+	
+private insertDB() {}
+	
+    private static insertDB instance = new insertDB();
+    
+    public static insertDB getInstance() {
+        return instance;
+    }
+
+	
+	private Connection getConnection() throws Exception {
+	    Context initCtx = new InitialContext();
+	    Context envCtx = (Context) initCtx.lookup("java:comp/env");
+	    DataSource ds = (DataSource)envCtx.lookup("jdbc/myoracle");
+
+	    return ds.getConnection();
+	}	
+	
+	
 	// 회사정보를 등록하는 메소드
 	public void addCompany(campDataBean member) throws Exception {
 		Connection conn = null;
@@ -26,21 +50,31 @@ public class insertDB {
 
 	// 회원가입한 정보를 DB에 추가
 	public void addCust(campDataBean member) throws Exception {
+		
+		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
+		
+		
+		try {
+			conn = getConnection();	
+			
+			String sql = "insert into customer(licenseNumber, name, address, phonenumber, email, passwd) values(?,?,?,?,?,?)";
+			pstmt = conn.prepareStatement(sql);
+				
+			pstmt.setString(1, member.getLicenseNumber());
+			pstmt.setString(2, member.getCustName());
+			pstmt.setString(3, member.getCustAddress());
+			pstmt.setString(4, member.getCustCall());
+			pstmt.setString(5, member.getCustEmail());
+			pstmt.setString(6, member.getPasswd());
 
-		conn = DBUtil.getMySQLConnection(); // DB 연결
-		String sql = "insert into customer(licenseNumber, custname, custaddress, custcall, custemail, passwd) values(?,?,?,?,?,?)";
-		pstmt = conn.prepareStatement(sql);
+			pstmt.executeUpdate();
+		}
+			catch(Exception e) {
+				e.printStackTrace();
 
-		pstmt.setString(1, member.getLicenseNumber());
-		pstmt.setString(2, member.getCustName());
-		pstmt.setString(3, member.getCustAddress());
-		pstmt.setString(4, member.getCustCall());
-		pstmt.setString(5, member.getCustEmail());
-		pstmt.setString(6, member.getPasswd());
-
-		pstmt.executeUpdate();
+		}
 	}
 
 	// 캠핑카 정보를 DB에 추가
