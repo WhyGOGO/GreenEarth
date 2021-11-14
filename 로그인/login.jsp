@@ -21,12 +21,12 @@ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw
             <h4>로그인</h4>
           </div>
         </div>
-        <form class="login-form">
-          <input type="text" placeholder="계정이름"/>
-          <input type="password" placeholder="비밀번호"/>
-          <button>로그인</button>
-          <p class="message">아직 회원가입 안 하셨나요? <a href="../회원가입/register.jsp">계정을 만드세요.</a></p>
+        <form class="login-form" method="post" action="login2.jsp">
+          <input type="text" name="email" placeholder="계정이름">
+          <input type="password" name="passwd" placeholder="비밀번호">
+          <button type="submit">로그인</button>
         </form>
+         <p class="message">아직 회원가입 안 하셨나요? <a href="../회원가입/register.jsp">계정을 만드세요.</a></p>
       </div>
     </div>
 </body>
