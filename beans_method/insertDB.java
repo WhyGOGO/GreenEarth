@@ -1,6 +1,6 @@
 package beans_method;
 
-import java.sql.*;
+import java.sql.*;	
 
 import javax.naming.Context;
 import javax.naming.InitialContext;

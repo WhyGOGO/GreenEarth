@@ -2,6 +2,10 @@ package beans_method;
 
 import java.sql.*;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
+
 import beans.logonDataBean;
 
 public class LogonDB {
@@ -15,6 +19,14 @@ public class LogonDB {
 	private LogonDB() {
 	}
 	
+	private Connection getConnection() throws Exception {
+	    Context initCtx = new InitialContext();
+	    Context envCtx = (Context) initCtx.lookup("java:comp/env");
+	    DataSource ds = (DataSource)envCtx.lookup("jdbc/myoracle");
+
+	    return ds.getConnection();
+	}
+	
 	//회원가입한 정보를 DB에 추가
 	public void insertMember(logonDataBean member) throws Exception {
 		Connection conn = null;
@@ -25,7 +37,7 @@ public class LogonDB {
 		pstmt = conn.prepareStatement(sql);
 		
 		
-		pstmt.setString(1, member.getId());
+		
 		pstmt.setString(2, member.getPasswd());
 		pstmt.setString(3, member.getName());
 		pstmt.setString(4, member.getLicenseNumber());
@@ -45,7 +57,7 @@ public class LogonDB {
 		String sql = "delete from customer where id=? and passwd=?";
 		pstmt = conn.prepareStatement(sql);
 		
-		pstmt.setString(1, id);
+		
 		pstmt.setString(2, passwd);
 		
 		pstmt.executeUpdate();
@@ -61,7 +73,7 @@ public class LogonDB {
 		int x = -1;
 
 		try {
-			conn = DBUtil.getMySQLConnection(); // DB 연결
+			conn = getConnection(); // DB 연결
 
 			pstmt = conn.prepareStatement("select passwd from customer where id = ?");
 			pstmt.setString(1, id);

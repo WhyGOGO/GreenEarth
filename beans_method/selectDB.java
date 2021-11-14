@@ -38,7 +38,7 @@ public class selectDB {
 		conn = getConnection(); // DB 연결
 
 
-		String sql = "select compname,compaddress,compcall,compmanager,compemail,IMAGE,compId from campcompany";
+		String sql = "select compname,compaddress,compcall,compmanager,compemail,IMAGE,SPOT from campcompany";
 
 		pstmt = conn.prepareStatement(sql);
 
@@ -52,7 +52,7 @@ public class selectDB {
 			sdb.setCompManager(rs.getString(4));
 			sdb.setCompEmail(rs.getString(5));
 			sdb.setIMAGE(rs.getString(6));
-			sdb.setCompId(rs.getInt(7));
+			sdb.setSPOT(rs.getString(7));
 			
 			list.add(sdb);
 
