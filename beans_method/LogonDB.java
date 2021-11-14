@@ -1,49 +1,37 @@
 package beans_method;
 
 import java.sql.*;
+import beans.*;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.sql.DataSource;
 
-import beans.logonDataBean;
+public class logonDB {
 
-public class LogonDB {
+	private static logonDB instance = new logonDB();
 
-	private static LogonDB instance = new LogonDB();
-
-	public static LogonDB getInstance() {
+	public static logonDB getInstance() {
 		return instance;
 	}
 
-	private LogonDB() {
-	}
-	
-	private Connection getConnection() throws Exception {
-	    Context initCtx = new InitialContext();
-	    Context envCtx = (Context) initCtx.lookup("java:comp/env");
-	    DataSource ds = (DataSource)envCtx.lookup("jdbc/myoracle");
-
-	    return ds.getConnection();
+	private logonDB() {
 	}
 	
 	//회원가입한 정보를 DB에 추가
-	public void insertMember(logonDataBean member) throws Exception {
+	public void insertMember(campDataBean member) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
 		conn = DBUtil.getMySQLConnection(); // DB 연결
-		String sql ="insert into customer(customerid, passwd, name, licenseNumber, address, phoneNumber, email) values(?,?,?,?,?,?,?)";
+		String sql ="insert into customer(name, licenseNumber, address, phoneNumber, email, passwd) values(?,?,?,?,?,?)";
 		pstmt = conn.prepareStatement(sql);
 		
 		
 		
-		pstmt.setString(2, member.getPasswd());
-		pstmt.setString(3, member.getName());
-		pstmt.setString(4, member.getLicenseNumber());
-		pstmt.setString(5, member.getAddress());
-		pstmt.setString(6, member.getPhone());
-		pstmt.setString(7, member.getEmail());
+		pstmt.setString(1, member.getCustName());
+		pstmt.setString(2, member.getLicenseNumber());
+		pstmt.setString(3, member.getCustAddress());
+		pstmt.setString(4, member.getCustCall());
+		pstmt.setString(5, member.getCustEmail());
+		pstmt.setString(6, member.getPasswd());
 
 		pstmt.executeUpdate();
 	}
@@ -54,10 +42,10 @@ public class LogonDB {
 		PreparedStatement pstmt = null;
 		
 		conn = DBUtil.getMySQLConnection(); // DB 연결
-		String sql = "delete from customer where id=? and passwd=?";
+		String sql = "delete from customer where email=? and passwd=?";
 		pstmt = conn.prepareStatement(sql);
 		
-		
+		pstmt.setString(1, id);
 		pstmt.setString(2, passwd);
 		
 		pstmt.executeUpdate();
@@ -65,7 +53,7 @@ public class LogonDB {
 	}
 
 	// 아이디 비밀번호 인증
-	public int userCheck(String email, String passwd) throws Exception {
+	public int userCheck(String id, String passwd) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -73,10 +61,10 @@ public class LogonDB {
 		int x = -1;
 
 		try {
-			conn = getConnection(); // DB 연결
+			conn = DBUtil.getMySQLConnection(); // DB 연결
 
 			pstmt = conn.prepareStatement("select passwd from customer where email = ?");
-			pstmt.setString(1, email);
+			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
@@ -104,7 +92,7 @@ public class LogonDB {
 		try {
 			conn = DBUtil.getMySQLConnection(); // DB 연결
 
-			pstmt = conn.prepareStatement("select passwd from customer where id = ?");
+			pstmt = conn.prepareStatement("select passwd from customer where email = ?");
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
 

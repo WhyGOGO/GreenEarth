@@ -10,69 +10,74 @@ import beans.*;
 
 public class selectDB {
 
-	private selectDB() {}
-	
-    private static selectDB instance = new selectDB();
-    
-    public static selectDB getInstance() {
-        return instance;
-    }
-
-	
-	private Connection getConnection() throws Exception {
-	    Context initCtx = new InitialContext();
-	    Context envCtx = (Context) initCtx.lookup("java:comp/env");
-	    DataSource ds = (DataSource)envCtx.lookup("jdbc/myoracle");
-
-	    return ds.getConnection();
+	private selectDB() {
 	}
-	
-	
-	//회사정보조회하는메소드
+
+	private static selectDB instance = new selectDB();
+
+	public static selectDB getInstance() {
+		return instance;
+	}
+
+	private Connection getConnection() throws Exception {
+		Context initCtx = new InitialContext();
+		Context envCtx = (Context) initCtx.lookup("java:comp/env");
+		DataSource ds = (DataSource) envCtx.lookup("jdbc/myoracle");
+
+		return ds.getConnection();
+	}
+
+	// 회사정보조회하는메소드
 	public ArrayList<campDataBean> selCompany() throws SQLException {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<campDataBean> list = new ArrayList<campDataBean>();
-	try {
-		conn = getConnection(); // DB 연결
+		try {
+			conn = getConnection(); // DB 연결
 
+			String sql = "select compname,compaddress,compcall,compmanager,compemail,IMAGE,compId from campcompany";
 
-		String sql = "select compname,compaddress,compcall,compmanager,compemail,IMAGE,SPOT from campcompany";
+			pstmt = conn.prepareStatement(sql);
 
-		pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
 
-		rs = pstmt.executeQuery();
+			while (rs.next()) {
+				campDataBean sdb = new campDataBean();
+				sdb.setCompName(rs.getString(1));
+				sdb.setCompAddress(rs.getString(2));
+				sdb.setCompCall(rs.getString(3));
+				sdb.setCompManager(rs.getString(4));
+				sdb.setCompEmail(rs.getString(5));
+				sdb.setIMAGE(rs.getString(6));
+				sdb.setCompId(rs.getInt(7));
 
-		while (rs.next()) {
-			campDataBean sdb = new campDataBean();
-			sdb.setCompName(rs.getString(1));
-			sdb.setCompAddress(rs.getString(2));
-			sdb.setCompCall(rs.getString(3));
-			sdb.setCompManager(rs.getString(4));
-			sdb.setCompEmail(rs.getString(5));
-			sdb.setIMAGE(rs.getString(6));
-			sdb.setSPOT(rs.getString(7));
-			
-			list.add(sdb);
+				list.add(sdb);
 
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+				}
 		}
-	}
-			catch(Exception e) {
-				e.printStackTrace();
-	
-	}finally{
-		if (rs != null) 
-			try { rs.close(); } catch(SQLException ex) {}
-		if (pstmt != null) 
-			try { pstmt.close(); } catch(SQLException ex) {}
-		if (conn != null) 
-			try { conn.close(); } catch(SQLException ex) {}
-	}
 
-	return list;
+		return list;
 	}
-
 
 	// 고객 정보를 전부 조회
 	public ArrayList<campDataBean> selCust() throws SQLException {
@@ -80,76 +85,100 @@ public class selectDB {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<campDataBean> list = new ArrayList<campDataBean>();
-	try {	
-		conn = getConnection(); // DB 연결
+		try {
+			conn = getConnection(); // DB 연결
 
-		
+			String sql = "select * from customer";
 
-		String sql = "select * from customer";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
 
-		pstmt = conn.prepareStatement(sql);
-		rs = pstmt.executeQuery();
+			while (rs.next()) {
+				campDataBean sdb = new campDataBean();
+				sdb.setLicenseNumber(rs.getString(2));
+				sdb.setCustName(rs.getString(1));
+				sdb.setCustAddress(rs.getString(3));
+				sdb.setCustCall(rs.getString(4));
+				sdb.setCustEmail(rs.getString(5));
+				sdb.setPasswd(rs.getString(6));
 
-		while (rs.next()) {
-			campDataBean sdb = new campDataBean();
-			sdb.setLicenseNumber(rs.getString(2));
-			sdb.setCustName(rs.getString(1));
-			sdb.setCustAddress(rs.getString(3));
-			sdb.setCustCall(rs.getString(4));
-			sdb.setCustEmail(rs.getString(5));
-			sdb.setPasswd(rs.getString(6));
-			
-			list.add(sdb);
-			
+				list.add(sdb);
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+				}
 		}
-	}
-		catch(Exception e) {
-				e.printStackTrace();
-			
-	}finally{
-		if (rs != null) 
-			try { rs.close(); } catch(SQLException ex) {}
-		if (pstmt != null) 
-			try { pstmt.close(); } catch(SQLException ex) {}
-		if (conn != null) 
-			try { conn.close(); } catch(SQLException ex) {}
-	}
-		
+
 		return list;
 	}
-	
-	
 
-	// 캠핑카 전체 정보를 조회하는 메소드
-	public ArrayList<campDataBean> selCar() throws SQLException {
+	// 해당 회사 캠핑카 전체 정보를 조회하는 메소드
+	public ArrayList<campDataBean> selCar(int num) throws SQLException {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
-		conn = DBUtil.getMySQLConnection(); // DB 연결
-
 		ArrayList<campDataBean> list = new ArrayList<campDataBean>();
+		try {
+			conn = getConnection(); // DB 연결
 
-		String sql = "select a.campcarid, b.compname, a.campcarname, a.campcartype, a.campcarnumber, a.campcardate, a.peopleride, a.carrentalcost, a.rentalstatus  from campingCar a, campCompany b where a.compId=b.compId";
-		pstmt = conn.prepareStatement(sql);
+			String sql = "SELECT * FROM CAMPINGCAR WHERE compid=?";
 
-		rs = pstmt.executeQuery();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
 
-		// 수정이 필요한 메소드
-		while (rs.next()) {
-			campDataBean sdb = new campDataBean();
-			sdb.setCampCarId(rs.getInt(1));
-			sdb.setCompName(rs.getString(2));
-			sdb.setCampCarName(rs.getString(3));
-			sdb.setCampCarType(rs.getString(4));
-			sdb.setCampCarNumber(rs.getInt(5));
-			sdb.setCampCarDate(rs.getString(6));
-			sdb.setPeopleRide(rs.getInt(7));
-			sdb.setCarRentalCost(rs.getInt(8));
-			sdb.setRentalStatus(rs.getInt(9));
+			// 수정이 필요한 메소드
+			while (rs.next()) {
+				campDataBean sdb = new campDataBean();
+				sdb.setCampCarId(rs.getInt(1));
+				sdb.setCampCarName(rs.getString(2));
+				sdb.setCampCarType(rs.getString(3));
+				sdb.setCampCarNumber(rs.getInt(4));
+				sdb.setCampCarDate(rs.getString(5));
+				sdb.setPeopleRide(rs.getInt(6));
+				sdb.setCarRentalCost(rs.getInt(7));
+				sdb.setCompId(rs.getInt(8));
+				sdb.setRentalStatus(rs.getInt(9));
 
-			list.add(sdb);
+				list.add(sdb);
+			}
 
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+				}
 		}
 
 		return list;
@@ -161,29 +190,49 @@ public class selectDB {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
-		conn = DBUtil.getMySQLConnection(); // DB 연결
-
 		ArrayList<campDataBean> list = new ArrayList<campDataBean>();
 
-		String sql = "select * from rental where email=?";
-		pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, email);
+		try {
+			conn = getConnection(); // DB 연결
 
-		rs = pstmt.executeQuery();
+			String sql = "select * from rental where email=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, email);
 
-		// 수정이 필요한 메소드
-		while (rs.next()) {
-			campDataBean sdb = new campDataBean();
-			sdb.setRentalNumber(rs.getInt(1));
-			sdb.setRentalStart(rs.getString(4));
-			sdb.setRentalEnd(rs.getString(5));
-			sdb.setRentalTerm(rs.getString(6));
-			sdb.setRentalCost(rs.getInt(7));
-			sdb.setRentalPayDate(rs.getString(8));
-			sdb.setRentalEtcHistory(rs.getString(9));
-			sdb.setRentalEtcCost(rs.getInt(10));
-			list.add(sdb);
+			rs = pstmt.executeQuery();
 
+			// 수정이 필요한 메소드
+			while (rs.next()) {
+				campDataBean sdb = new campDataBean();
+				sdb.setRentalNumber(rs.getInt(1));
+				sdb.setRentalStart(rs.getString(4));
+				sdb.setRentalEnd(rs.getString(5));
+				sdb.setRentalTerm(rs.getString(6));
+				sdb.setRentalCost(rs.getInt(7));
+				sdb.setRentalPayDate(rs.getString(8));
+				sdb.setRentalEtcHistory(rs.getString(9));
+				sdb.setRentalEtcCost(rs.getInt(10));
+				list.add(sdb);
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+				}
 		}
 
 		return list;
@@ -195,25 +244,45 @@ public class selectDB {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
-		conn = DBUtil.getMySQLConnection(); // DB 연결
-
 		ArrayList<campDataBean> list = new ArrayList<campDataBean>();
 
-		String sql = "select * from repairshop";
-		pstmt = conn.prepareStatement(sql);
-		rs = pstmt.executeQuery();
+		try {
+			conn = getConnection(); // DB 연결
 
-		// 수정이 필요한 메소드
-		while (rs.next()) {
-			campDataBean sdb = new campDataBean();
-			sdb.setRepairShopId(rs.getInt(1));
-			sdb.setRepairShopName(rs.getString(3));
-			sdb.setRepairShopAddress(rs.getString(4));
-			sdb.setRepairShopCall(rs.getString(5));
-			sdb.setRepairManager(rs.getString(6));
-			sdb.setRepairManagerEmail(rs.getString(7));
-			list.add(sdb);
+			String sql = "select * from repairshop";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
 
+			// 수정이 필요한 메소드
+			while (rs.next()) {
+				campDataBean sdb = new campDataBean();
+				sdb.setRepairShopId(rs.getInt(1));
+				sdb.setRepairShopName(rs.getString(3));
+				sdb.setRepairShopAddress(rs.getString(4));
+				sdb.setRepairShopCall(rs.getString(5));
+				sdb.setRepairManager(rs.getString(6));
+				sdb.setRepairManagerEmail(rs.getString(7));
+				list.add(sdb);
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+				}
 		}
 
 		return list;
@@ -225,28 +294,48 @@ public class selectDB {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
-		conn = DBUtil.getMySQLConnection(); // DB 연결
-
 		ArrayList<campDataBean> list = new ArrayList<campDataBean>();
 
-		String sql = "select a.campcarid, b.compname, a.campcarname, a.campcartype, a.campcarnumber, a.campcardate, a.peopleride, a.carrentalcost, a.rentalstatus  from campingCar a, campCompany b where rentalStatus=0";
-		pstmt = conn.prepareStatement(sql);
-		rs = pstmt.executeQuery();
+		try {
+			conn = getConnection(); // DB 연결
 
-		// 수정이 필요한 메소드
-		while (rs.next()) {
-			campDataBean sdb = new campDataBean();
-			sdb.setCampCarId(rs.getInt(1));
-			sdb.setCompName(rs.getString(2));
-			sdb.setCampCarName(rs.getString(3));
-			sdb.setCampCarType(rs.getString(4));
-			sdb.setCampCarNumber(rs.getInt(5));
-			sdb.setCampCarDate(rs.getString(6));
-			sdb.setPeopleRide(rs.getInt(7));
-			sdb.setCarRentalCost(rs.getInt(8));
-			sdb.setRentalStatus(rs.getInt(9));
-			list.add(sdb);
+			String sql = "select a.campcarid, b.compname, a.campcarname, a.campcartype, a.campcarnumber, a.campcardate, a.peopleride, a.carrentalcost, a.rentalstatus  from campingCar a, campCompany b where rentalStatus=0";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
 
+			// 수정이 필요한 메소드
+			while (rs.next()) {
+				campDataBean sdb = new campDataBean();
+				sdb.setCampCarId(rs.getInt(1));
+				sdb.setCompName(rs.getString(2));
+				sdb.setCampCarName(rs.getString(3));
+				sdb.setCampCarType(rs.getString(4));
+				sdb.setCampCarNumber(rs.getInt(5));
+				sdb.setCampCarDate(rs.getString(6));
+				sdb.setPeopleRide(rs.getInt(7));
+				sdb.setCarRentalCost(rs.getInt(8));
+				sdb.setRentalStatus(rs.getInt(9));
+				list.add(sdb);
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+				}
 		}
 
 		return list;
@@ -259,30 +348,50 @@ public class selectDB {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
-		conn = DBUtil.getMySQLConnection(); // DB 연결
-
 		ArrayList<campDataBean> list = new ArrayList<campDataBean>();
 
-		String sql = "select * from rental";
-		pstmt = conn.prepareStatement(sql);
-		rs = pstmt.executeQuery();
+		try {
+			conn = getConnection(); // DB 연결
 
-		// 수정이 필요한 메소드
-		while (rs.next()) {
-			campDataBean sdb = new campDataBean();
-			sdb.setRentalNumber(rs.getInt(1));
-			sdb.setCampCarId(rs.getInt(2));
-			sdb.setLicenseNumber(rs.getString(3));
-			sdb.setRentalStart(rs.getString(4));
-			sdb.setRentalEnd(rs.getString(5));
-			sdb.setRentalTerm(rs.getString(6));
-			sdb.setRentalCost(rs.getInt(7));
-			sdb.setRentalPayDate(rs.getString(8));
-			sdb.setRentalEtcHistory(rs.getString(9));
-			sdb.setRentalEtcCost(rs.getInt(10));
-			sdb.setCompId(rs.getInt(11));
-			list.add(sdb);
+			String sql = "select * from rental";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
 
+			// 수정이 필요한 메소드
+			while (rs.next()) {
+				campDataBean sdb = new campDataBean();
+				sdb.setRentalNumber(rs.getInt(1));
+				sdb.setCampCarId(rs.getInt(2));
+				sdb.setLicenseNumber(rs.getString(3));
+				sdb.setRentalStart(rs.getString(4));
+				sdb.setRentalEnd(rs.getString(5));
+				sdb.setRentalTerm(rs.getString(6));
+				sdb.setRentalCost(rs.getInt(7));
+				sdb.setRentalPayDate(rs.getString(8));
+				sdb.setRentalEtcHistory(rs.getString(9));
+				sdb.setRentalEtcCost(rs.getInt(10));
+				sdb.setCompId(rs.getInt(11));
+				list.add(sdb);
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+				}
 		}
 
 		return list;
@@ -295,28 +404,48 @@ public class selectDB {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
-		conn = DBUtil.getMySQLConnection(); // DB 연결
-
 		ArrayList<campDataBean> list = new ArrayList<campDataBean>();
 
-		String sql = "select * from repairInfo";
-		pstmt = conn.prepareStatement(sql);
-		rs = pstmt.executeQuery();
+		try {
+			conn = getConnection(); // DB 연결
 
-		// 수정이 필요한 메소드
-		while (rs.next()) {
-			campDataBean sdb = new campDataBean();
-			sdb.setRepairNumber(rs.getInt(1));
-			sdb.setLicenseNumber(rs.getString(2));
-			sdb.setCampCarId(rs.getInt(3));
-			sdb.setRepairShopId(rs.getInt(4));
-			sdb.setRepairHistory(rs.getString(5));
-			sdb.setRepairDate(rs.getString(6));
-			sdb.setRepairCost(rs.getInt(7));
-			sdb.setRepairPayDate(rs.getString(8));
-			sdb.setRepairEtcHistory(rs.getString(9));
-			list.add(sdb);
+			String sql = "select * from repairInfo";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
 
+			// 수정이 필요한 메소드
+			while (rs.next()) {
+				campDataBean sdb = new campDataBean();
+				sdb.setRepairNumber(rs.getInt(1));
+				sdb.setLicenseNumber(rs.getString(2));
+				sdb.setCampCarId(rs.getInt(3));
+				sdb.setRepairShopId(rs.getInt(4));
+				sdb.setRepairHistory(rs.getString(5));
+				sdb.setRepairDate(rs.getString(6));
+				sdb.setRepairCost(rs.getInt(7));
+				sdb.setRepairPayDate(rs.getString(8));
+				sdb.setRepairEtcHistory(rs.getString(9));
+				list.add(sdb);
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+				}
 		}
 
 		return list;
