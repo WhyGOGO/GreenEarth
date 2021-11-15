@@ -1,20 +1,31 @@
 package beans_method;
 
 import java.sql.*;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
+
 import beans.*;
 
 
-public class logonDB {
+public class LogonDB {
 
-	private static logonDB instance = new logonDB();
+	private static LogonDB instance = new LogonDB();
 
-	public static logonDB getInstance() {
+	public static LogonDB getInstance() {
 		return instance;
 	}
 
-	private logonDB() {
+	private LogonDB() {
 	}
-	
+	private Connection getConnection() throws Exception {
+		Context initCtx = new InitialContext();
+		Context envCtx = (Context) initCtx.lookup("java:comp/env");
+		DataSource ds = (DataSource) envCtx.lookup("jdbc/myoracle");
+
+		return ds.getConnection();
+	}
 	//회원가입한 정보를 DB에 추가
 	public void insertMember(campDataBean member) throws Exception {
 		Connection conn = null;
@@ -61,7 +72,7 @@ public class logonDB {
 		int x = -1;
 
 		try {
-			conn = DBUtil.getMySQLConnection(); // DB 연결
+			conn = getConnection(); // DB 연결
 
 			pstmt = conn.prepareStatement("select passwd from customer where email = ?");
 			pstmt.setString(1, id);
