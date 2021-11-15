@@ -8,7 +8,6 @@ import javax.sql.DataSource;
 
 import beans.*;
 
-
 public class LogonDB {
 
 	private static LogonDB instance = new LogonDB();
@@ -19,6 +18,7 @@ public class LogonDB {
 
 	private LogonDB() {
 	}
+
 	private Connection getConnection() throws Exception {
 		Context initCtx = new InitialContext();
 		Context envCtx = (Context) initCtx.lookup("java:comp/env");
@@ -26,41 +26,50 @@ public class LogonDB {
 
 		return ds.getConnection();
 	}
-	//회원가입한 정보를 DB에 추가
+
+	// 회원가입한 정보를 DB에 추가
 	public void insertMember(campDataBean member) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
-		conn = DBUtil.getMySQLConnection(); // DB 연결
-		String sql ="insert into customer(name, licenseNumber, address, phoneNumber, email, passwd) values(?,?,?,?,?,?)";
-		pstmt = conn.prepareStatement(sql);
-		
-		
-		
-		pstmt.setString(1, member.getCustName());
-		pstmt.setString(2, member.getLicenseNumber());
-		pstmt.setString(3, member.getCustAddress());
-		pstmt.setString(4, member.getCustCall());
-		pstmt.setString(5, member.getCustEmail());
-		pstmt.setString(6, member.getPasswd());
+		try {
+			conn = getConnection(); // DB 연결
 
-		pstmt.executeUpdate();
+			String sql = "insert into customer(name, licenseNumber, address, phoneNumber, email, passwd) values(?,?,?,?,?,?)";
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, member.getCustName());
+			pstmt.setString(2, member.getLicenseNumber());
+			pstmt.setString(3, member.getCustAddress());
+			pstmt.setString(4, member.getCustCall());
+			pstmt.setString(5, member.getCustEmail());
+			pstmt.setString(6, member.getPasswd());
+
+			pstmt.executeUpdate();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
 	}
-	
-	//회원탈퇴 기능
+
+	// 회원탈퇴 기능
 	public void deleteMember(String id, String passwd) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		
-		conn = DBUtil.getMySQLConnection(); // DB 연결
-		String sql = "delete from customer where email=? and passwd=?";
-		pstmt = conn.prepareStatement(sql);
-		
-		pstmt.setString(1, id);
-		pstmt.setString(2, passwd);
-		
-		pstmt.executeUpdate();
-		
+
+		try {
+			conn = getConnection();
+
+			String sql = "delete from customer where email=? and passwd=?";
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, id);
+			pstmt.setString(2, passwd);
+
+			pstmt.executeUpdate();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
 	}
 
 	// 아이디 비밀번호 인증
@@ -101,7 +110,7 @@ public class LogonDB {
 		int x = -1;
 
 		try {
-			conn = DBUtil.getMySQLConnection(); // DB 연결
+			conn = getConnection(); // DB 연결
 
 			pstmt = conn.prepareStatement("select passwd from customer where email = ?");
 			pstmt.setString(1, id);
