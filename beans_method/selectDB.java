@@ -239,55 +239,55 @@ public class selectDB {
 	}
 
 	// 정비소 정보 전체를 조회하는 메소드
-	public ArrayList<campDataBean> selRepair() throws SQLException {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+		public ArrayList<campDataBean> selRepair() throws SQLException {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
 
-		ArrayList<campDataBean> list = new ArrayList<campDataBean>();
+			ArrayList<campDataBean> list = new ArrayList<campDataBean>();
 
-		try {
-			conn = getConnection(); // DB 연결
+			try {
+				conn = getConnection(); // DB 연결
 
-			String sql = "select * from repairshop";
-			pstmt = conn.prepareStatement(sql);
-			rs = pstmt.executeQuery();
+				String sql = "select * from repairshop";
+				pstmt = conn.prepareStatement(sql);
+				rs = pstmt.executeQuery();
 
-			// 수정이 필요한 메소드
-			while (rs.next()) {
-				campDataBean sdb = new campDataBean();
-				sdb.setRepairShopId(rs.getInt(1));
-				sdb.setRepairShopName(rs.getString(3));
-				sdb.setRepairShopAddress(rs.getString(4));
-				sdb.setRepairShopCall(rs.getString(5));
-				sdb.setRepairManager(rs.getString(6));
-				sdb.setRepairManagerEmail(rs.getString(7));
-				list.add(sdb);
+				// 수정이 필요한 메소드
+				while (rs.next()) {
+					campDataBean sdb = new campDataBean();
+					sdb.setRepairShopId(rs.getInt(1));
+					sdb.setRepairShopName(rs.getString(2));
+					sdb.setRepairShopAddress(rs.getString(3));
+					sdb.setRepairShopCall(rs.getString(4));
+					sdb.setRepairManager(rs.getString(5));
+					sdb.setRepairManagerEmail(rs.getString(6));
+					sdb.setShopImage(rs.getString(7));
+					list.add(sdb);
 
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				if (rs != null)
+					try {
+						rs.close();
+					} catch (SQLException ex) {
+					}
+				if (pstmt != null)
+					try {
+						pstmt.close();
+					} catch (SQLException ex) {
+					}
+				if (conn != null)
+					try {
+						conn.close();
+					} catch (SQLException ex) {
+					}
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if (rs != null)
-				try {
-					rs.close();
-				} catch (SQLException ex) {
-				}
-			if (pstmt != null)
-				try {
-					pstmt.close();
-				} catch (SQLException ex) {
-				}
-			if (conn != null)
-				try {
-					conn.close();
-				} catch (SQLException ex) {
-				}
+
+			return list;
 		}
-
-		return list;
-	}
-
 	// 대여가능한 캠핑카 조회 메소드
 	public ArrayList<campDataBean> selRentCar() throws SQLException {
 		Connection conn = null;
