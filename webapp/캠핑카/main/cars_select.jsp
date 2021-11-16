@@ -84,7 +84,7 @@
 			campcarid = dto2.getCampCarId();
 			String campcarname = dto2.getCampCarName();
 			String campcartype = dto2.getCampCarType();
-			int campcarnumber = dto2.getCampCarNumber();		
+			String campcarnumber = dto2.getCampCarNumber();		
 			String campcardate = dto2. getCampCarDate();
 			int peopleride = dto2.getPeopleRide();   
 			int carrentalcost = dto2.getCarRentalCost(); 

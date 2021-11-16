@@ -19,18 +19,36 @@
 		String passwd =request.getParameter("passwd");
 
 		
-		int answer=0;
+		
 		LogonDB sd = LogonDB.getInstance(); //	
 
-		answer=sd.userCheck(email,passwd);	
+		int answer=sd.userCheck(email,passwd);	
 
-	%>
-	<script>
-		if(<%=answer%>==1){location.href="../이용안내/main/guide.jsp";}
-		else if(<%=answer%>==-1){alert('아이디가 틀렸습니다.'); location.href="login.jsp";}
-		else if(<%=answer%>==0){alert('비밀번호가 틀렸습니다.'); location.href="login.jsp";}
-
-	</script>
+	
+		if(answer==1){
+			session.setAttribute("email", email);
+			%>
+			<script>
+				alert('로그인이 승인되었습니다.);
+			</script><% 
+			response.sendRedirect("../이용안내/guide.jsp");
+		}
+		else if(answer==-1){
+			%>
+			<script>
+			alert('아이디가 틀렸습니다.'); 
+			location.href="login.jsp";
+			</script><% 
+		}
+		else if(answer==0){
+			%>
+			<script>
+			alert('비밀번호가 틀렸습니다.'); 
+			location.href="login.jsp";
+			</script><% 
+		}
+%>
+	
 </body>
 </body>
 </html>

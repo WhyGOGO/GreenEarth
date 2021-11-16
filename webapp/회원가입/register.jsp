@@ -46,7 +46,7 @@
 
 						<div class="col-md-6 mb-3"> 
 							<label for="nickname">비밀번호</label> 
-							<input type="text" class="form-control" name="passwd" placeholder="최대 10자리"  maxlength=10 required> 
+							<input type="password" class="form-control" name="passwd" placeholder="최대 10자리"  maxlength=10 required> 
 						<div class="invalid-feedback"> 비밀번호를 입력해주세요. </div> 
 						</div> 
 					</div> 					

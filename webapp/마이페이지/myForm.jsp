@@ -1,11 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="beans_method.selectDB" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>구매내역</title>
+<% request.setCharacterEncoding("UTF-8");
 
+	selectDB sd = selectDB.getInstance();
+	
+%>
  <%@ include file="../마이페이지메뉴/mypageMenu.jsp" %>	<!-- 메뉴 바  -->
 
   <main class="page-content">
