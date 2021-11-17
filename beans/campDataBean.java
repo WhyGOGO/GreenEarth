@@ -27,6 +27,7 @@ public class campDataBean {
 	private String repairShopCall; //정비소 전화번호
 	private String repairManager; //정비소 담당자
 	private String repairManagerEmail; //담당자 이메일
+	private String shopImage; //정비소사진넣는곳
 	
 	private int repairNumber; //정비이력 식별번호
 	private String repairHistory; //정비내역
@@ -181,6 +182,12 @@ public class campDataBean {
 	}
 	public void setRepairManagerEmail(String repairManagerEmail) {
 		this.repairManagerEmail = repairManagerEmail;
+	}
+	public String getShopImage() {
+		return shopImage;
+	}
+	public void setShopImage(String shopImage) {
+		this.shopImage = shopImage;
 	}
 	public int getRepairNumber() {
 		return repairNumber;
