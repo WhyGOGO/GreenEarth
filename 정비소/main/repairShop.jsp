@@ -32,6 +32,7 @@
 
 <%@ include file="../../메뉴바_슬라이드/menubar.jsp" %>	<!-- 메뉴 바  -->
 
+
 <body>
 
 <main>
