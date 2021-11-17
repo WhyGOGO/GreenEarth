@@ -93,7 +93,7 @@ public class insertDB {
 			pstmt.setInt(2, member.getCompId());
 			pstmt.setString(3, member.getCampCarName());
 			pstmt.setString(4, member.getCampCarType());
-			pstmt.setInt(5, member.getCampCarNumber());
+			pstmt.setString(5, member.getCampCarNumber());
 			pstmt.setString(6, member.getCampCarDate());
 			pstmt.setInt(7, member.getPeopleRide());
 			pstmt.setInt(8, member.getRentalCost());
@@ -138,20 +138,20 @@ public class insertDB {
 		try {
 			conn = getConnection();
 
-			String sql = "insert into rental(rentalNumber, licenseNumber, rentalStart, rentalEnd, rentalTerm, rentalCost, rentalPayDate, rentalEtcHistory, rentalEtcCost, campCarId, compid) values(?,?,?,?,?,?,?,?,?,?,?)";
+			String sql = "insert into rental(rental_number.NEXTVAL, licenseNumber, rentalStart, rentalEnd, rentalTerm, rentalCost, rentalPayDate, rentalEtcHistory, rentalEtcCost, campCarId, compid) values(?,?,?,?,?,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 
-			pstmt.setInt(1, member.getRentalNumber());
-			pstmt.setString(2, member.getLicenseNumber());
-			pstmt.setString(3, member.getRentalStart());
-			pstmt.setString(4, member.getRentalEnd());
-			pstmt.setString(5, member.getRentalTerm());
-			pstmt.setInt(6, member.getRentalCost());
-			pstmt.setString(7, member.getRentalPayDate());
-			pstmt.setString(8, member.getRentalEtcHistory());
+
+			pstmt.setString(2, member.getLicenseNumber());//
+			pstmt.setString(3, member.getRentalStart());//
+			pstmt.setString(4, member.getRentalEnd());//
+			pstmt.setString(5, member.getRentalTerm());//
+			pstmt.setInt(6, member.getRentalCost());//
+			pstmt.setString(7, member.getRentalPayDate());//
+			pstmt.setString(8, member.getRentalEtcHistory());//
 			pstmt.setInt(9, member.getRentalEtcCost());
-			pstmt.setInt(10, member.getCampCarId());
-			pstmt.setInt(11, member.getCompId());
+			pstmt.setInt(10, member.getCampCarId());//
+			pstmt.setInt(11, member.getCompId());//
 
 			pstmt.executeUpdate();
 		} catch (Exception e) {
