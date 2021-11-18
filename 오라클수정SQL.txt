@@ -58,3 +58,7 @@ select * from customer;
 ALTER TABLE repairshop add shopimage VARCHAR2(30);
 
 
+-- 박영민 2021-11-19  | 타입varchar로 바꿈 대여기간
+
+
+alter table rental modify rentalterm var(3);
