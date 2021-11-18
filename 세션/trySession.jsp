@@ -8,7 +8,7 @@
     String id = "";
 
   
-    	String id = (String) session.getAttribute("email");
+    	id = (String) session.getAttribute("email");
     	if (id == null || id.equals("")) {
     		out.println("<script>alert('로그인 세션이 존재하지 않습니다.')");
     		out.println("location.href='../로그인/login.jsp'</script>");
