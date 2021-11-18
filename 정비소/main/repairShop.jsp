@@ -86,7 +86,7 @@
        </span>
        <img alt="" src="../../이미지/대여사이미지/<%=RepairShopIMAGE%>">
        <div class="app-card__subtext">      
-       정비소주소: <%=RepairShopaddress%> <br>전화번호: <%=RepairShopCall %><br> 담당자이름: <%=RepairShopManager %><br>담당자이메일: <%=RepairShopEmail%>     
+       정비소주소: <%=RepairShopaddress%> <br>전화번호:<%=RepairShopCall %><br> 담당자이름: <%=RepairShopManager %><br>담당자이메일: <%=RepairShopEmail%>     
        </div>
 	       <div class="app-card-buttons">       
 	      	<button type="button"class="content-button status-button"onClick="location.href='repairshopselect.jsp'">예약</button>

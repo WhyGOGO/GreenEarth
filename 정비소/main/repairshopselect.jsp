@@ -32,6 +32,27 @@
 
 <%@ include file="../../메뉴바_슬라이드/menubar.jsp" %>	<!-- 메뉴 바  -->
 <%@ include file="../../메뉴바_슬라이드/slide2.jsp" %>	<!-- 슬라이드바  -->
+<% 
+     //selectDB sd = selectDB.getInstance();   
+	
+	  //ArrayList<campDataBean> dtos = sd.selRepair();
+      //ArrayList<campDataBean> dtos3 = sd.selUser(email); //면허증번호 가져오기
+      //ArrayList<campDataBean> dtos2 = sd.selRentCar();
+      
+      //campDataBean li = dtos3.get(0);   // 면허증번호 가져오기
+      //String LicenseNumber = li.getLicenseNumber();
+ 
+      
+	  //campDataBean dto2 = dtos2.get(0);
+ 	  //int CampCarId = dto2.getCampCarId();
+
+	  //campDataBean dto = dtos.get(0);
+	  //int RepairShopId = dto.getRepairShopId();
+			
+		
+      
+%>
+
 
 <body>
 
@@ -73,15 +94,11 @@
 	 <div class="apps-card">
 	  <div class="app-card" style="width:28%;"> 
 		<div class="content-section" >
-	     <div class="content-section-title">정비하실부위를고르시오</div>
+	     <div class="content-section-title">정비하실내용들을적어주세오</div>
 	     
-	     <form class="repair-form"method="post" action="repairShopSelectpro.jsp" >
+	     
+	     <form class="repair-form"method="post" action="repairShopSelectpro.jsp" name ="repair">
 	     		
-	  			<select name="repairHistory" required>
-	  				<option value="">==선택==</option>
-     				<option value="외부수리">외부수리</option>
-     				<option value="내부수리">내부수리</option>
-				</select>	 
 	      </div>	      
       </div>
            </div>
@@ -90,23 +107,34 @@
      		 
      		<th style = "background-color: black; text-align: center; width:5%;">제목:</th>
      		<td>
-     			<input type="text" name ="repairHistory" placeholder="제목을입력해주세요" maxlength="20" style="width:400px; height:40px;" required> 
+     			<input type="text" name ="repairHistory" values="repairHistory" placeholder="제목을입력해주세요" maxlength="20" style="width:400px; height:40px;" required> 
      		</td>
     	</tr>
     	<tr>
     		<th style = "background-color: black; text-align: center; width:100px; height:400px;">내용:</th>
     		<td>
-    			<textarea name="repairHistory" style="width:400px; height:400px;"placeholder="수리하고 싶은 내용을 입력해 주세요."  required></textarea>
+    			<textarea name="repairHistory" values="repairEtcHistory" style="width:400px; height:400px;"placeholder="수리하고 싶은 내용을 입력해 주세요."  required></textarea>
     		</td>
     	</tr>
     </table>
-    
+
   			<div class="app-card-buttons">       
-	      		<button type="button"class="content-button status-button"onClick="location.href='repairShopSelectpro.jsp'">예약하기</button>
+	      		<button type="submit"class="content-button status-button"onClick="location.href='repairShopSelectpro.jsp'" >예약하기</button>
 	       </div>
-	</form>
+		    <input type="hidden" name="repairDate" value="2021-11-21">
+       		<input id="input_date" type="date" name="repairPayDate" value="dday">
+	       <input type="hidden" name="repairCost" value="600000"> 
+	       	<input type="hidden" name="Lincence" value= "131534636364363">
+			<input type="hidden" name="repairShopId" value= "2"  >
+       		<input type="hidden" name="CampCarId" value= "5" >
+		</form>
 </table>   
+     <script>
+   	function input(){
+   		const dday = document.querySelector("#input_date").value;
+   	}
      
+     </script>
     </div>
    </div>
   </div>
