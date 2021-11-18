@@ -5,7 +5,7 @@ public class campDataBean {
 	private int campCarId; //캠핑카 식별번호
 	private String campCarName; //캠핑카 이름
 	private String campCarType; //캠핑카 종류
-	private int campCarNumber; //차량번호
+	private String campCarNumber; //차량번호
 	private String campCarDate; //캠핑카 등록일자
 	private int peopleRide; //승차인원수
 	private int carRentalCost; //대여비용
@@ -69,10 +69,10 @@ public class campDataBean {
 	public void setCampCarType(String campCarType) {
 		this.campCarType = campCarType;
 	}
-	public int getCampCarNumber() {
+	public String getCampCarNumber() {
 		return campCarNumber;
 	}
-	public void setCampCarNumber(int campCarNumber) {
+	public void setCampCarNumber(String campCarNumber) {
 		this.campCarNumber = campCarNumber;
 	}
 	public String getCampCarDate() {
