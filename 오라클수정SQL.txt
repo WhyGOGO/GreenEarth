@@ -56,5 +56,34 @@ select * from customer;
 
 
 ALTER TABLE repairshop add shopimage VARCHAR2(30);
+==================================================================================================
+뷰 만드는 권한부여
+grant create view to c##car; 
 
+대여내역 조회
+	대여번호,대여일,반납일,대여차량(이름),대여사(이름),대여비용,기타비용을 보여주는 뷰 만들기
+create or replace view v_his
+as
+select (select email
+        from customer ct
+        where ct.licensenumber=rt.licensenumber) "이메일"
+    ,rt.rentalnumber "대여번호"
+    ,rt.rentalstart "대여일"
+    ,rt.rentalend "반납일"
+    ,(select cpr.campcarname
+    from campingcar cpr
+    where cpr.campcarid=rt.campcarid) "차량"
+    ,(select ccp.compname
+    from campcompany ccp
+    where ccp.compid=rt.compid) "대여사"
+    ,rt.rentalcost "대여비용"
+    ,rt.rentaletccost "기타청구금액"
+    
+from rental rt
+order by rt.rentalstart;
 
+대여현황 조회
+	대여번호, 대여일, 반납일, 대여사(이름), 담당자, 담당자 전화번호, 대여차량, 차량번호 보여주는 뷰 만들기
+
+수리내역 조회
+	수리번호, 수리차량번호, 차량이름 , 수리일, 수리비용, 정비소, 정비소 전화번호 보여주는 뷰 만들기
