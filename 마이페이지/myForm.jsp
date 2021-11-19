@@ -14,10 +14,13 @@
 <%@ include file="../마이페이지메뉴/mypageMenu.jsp"%>
 <!-- 메뉴 바  -->
 <%
-	ArrayList<campDataBean> dto = new ArrayList<campDataBean>();
+	request.setCharacterEncoding("UTF-8");	
+
+	ArrayList<campDataBean> dtos = new ArrayList<campDataBean>();
 	selectDB sdb = selectDB.getInstance();
 	
-	dto = sdb.selCustHis("email");
+	dtos = sdb.selCustHis(email);
+	
 %>
 <main class="page-content">
 	<div class="container">
@@ -32,14 +35,19 @@
 				<td>대여사</td>
 				<td>대여비용</td>
 			</tr>
-			<% for (int i=0; i<dto.size();i++){
-				int cost = dto.get(i).getRentalCost() + dto.get(i).getRentalEtcCost(); // 총 지불금액
+			<% for (int i=0; i<dtos.size();i++){
+				campDataBean dto = dtos.get(i);
+				int rn = dto.getRentalNumber();
+				String rd = dto.getRentalStart()+"~"+dto.getRentalEnd();
+				String cname = dto.getCampCarName();
+				String cpname = dto.getCompName();
+				int cost = dto.getRentalCost() + dto.getRentalEtcCost(); // 총 지불금액
 			%>
 			<tr>
-				<th scope="row"><%=dto.get(i).getRentalNumber()%></th>
-				<td><%=dto.get(i).getRentalStart()%>~<%=dto.get(i).getRentalEnd()%></td>
-				<td colspan="2" class="table-active"><%= dto.get(i).getCampCarName() %></td>
-				<td><%=dto.get(i).getCompName() %></td>
+				<th scope="row"><%=rn%></th>
+				<td><%=rd%></td>
+				<td colspan="2" class="table-active"><%=cname %></td>
+				<td><%=cpname%></td>
 				<td><%= cost %></td>
 			</tr>
 			<% }%>
@@ -67,6 +75,5 @@
 </div>
 <!-- page-wrapper -->
 
-<%@ include file="../세션/catchSession.jsp"%>
 </body>
 </html>

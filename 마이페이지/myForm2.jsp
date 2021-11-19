@@ -44,6 +44,5 @@
 </div>
 <!-- page-wrapper -->
 
-<%@ include file="../세션/catchSession.jsp"%>
  </body>
  </html>

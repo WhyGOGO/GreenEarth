@@ -17,7 +17,7 @@
 	ArrayList<campDataBean> dto = new ArrayList<campDataBean>();
 	selectDB sdb = selectDB.getInstance();
 	
-	dto = sdb.selCustHis("email");
+	dto = sdb.selCustHis(email);
 %>
 <main class="page-content">
 	<div class="container">
@@ -26,7 +26,7 @@
 
 		
 		<table border="1" class="type07" style="text-align:center">
-			<% if (dto.size()==0){ // 총 지불금액
+			<% if (dto.size()<1){ // 총 지불금액
 			%>
 			<tr>
 				<th style="text-align:center">대여번호</th>
@@ -83,6 +83,5 @@
 </div>
 <!-- page-wrapper -->
 
-<%@ include file="../세션/catchSession.jsp"%>
 </body>
 </html>
