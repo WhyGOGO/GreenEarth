@@ -240,58 +240,59 @@ public class selectDB {
 	}
 
 	// 고객의 이용이력 정보를 조회하는 메소드
-		public ArrayList<campDataBean> selCustHis(String email) throws SQLException {
-			Connection conn = null;
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
+	// 고객의 이용이력 정보를 조회하는 메소드
+	public ArrayList<campDataBean> selCustHis(String email) throws SQLException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 
-			ArrayList<campDataBean> list = new ArrayList<campDataBean>();
+		ArrayList<campDataBean> list = new ArrayList<campDataBean>();
 
-			try {
-				conn = getConnection(); // DB 연결
+		try {
+			conn = getConnection(); // DB 연결
 
-				String sql = "select * from v_his where email = ?;";
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, email);
+			String sql = "select * from v_his where email = ?;";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, email);
 
-				rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 
-				// 수정이 필요한 메소드
-				while (rs.next()) {
-					campDataBean sdb = new campDataBean();
-					sdb.setCustEmail(rs.getString(1));
-					sdb.setRentalNumber(rs.getInt(2));
-					sdb.setRentalStart(rs.getString(3));
-					sdb.setRentalEnd(rs.getString(4));
-					sdb.setCampCarName(rs.getString(5));
-					sdb.setCompName(rs.getString(6));
-					sdb.setRentalCost(rs.getInt(7));
-					sdb.setRentalEtcCost(rs.getInt(8));
-					list.add(sdb);
+			// 수정이 필요한 메소드
+			while (rs.next()) {
+				campDataBean sdb = new campDataBean();
+				sdb.setCustEmail(rs.getString(1));
+				sdb.setRentalNumber(rs.getInt(2));
+				sdb.setRentalStart(rs.getString(3));
+				sdb.setRentalEnd(rs.getString(4));
+				sdb.setCampCarName(rs.getString(5));
+				sdb.setCompName(rs.getString(6));
+				sdb.setRentalCost(rs.getInt(7));
+				sdb.setRentalEtcCost(rs.getInt(8));
+				list.add(sdb);
 
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				if (rs != null)
-					try {
-						rs.close();
-					} catch (SQLException ex) {
-					}
-				if (pstmt != null)
-					try {
-						pstmt.close();
-					} catch (SQLException ex) {
-					}
-				if (conn != null)
-					try {
-						conn.close();
-					} catch (SQLException ex) {
-					}
 			}
-
-			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+				}
 		}
+
+		return list;
+	}
 
 	// 정비소 정보 전체를 조회하는 메소드
 	public ArrayList<campDataBean> selRepair() throws SQLException {
