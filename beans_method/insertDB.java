@@ -2,14 +2,20 @@ package beans_method;
 
 import java.sql.*;	
 
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
+
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import beans.*;;
 
 public class insertDB {
 
+	
 	private insertDB() {
 	}
 
@@ -135,12 +141,19 @@ public class insertDB {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
+		
 		try {
 			conn = getConnection();
 
+<<<<<<< HEAD
 			String sql = "insert into rental(rentalNumber, licenseNumber, rentalStart, rentalEnd, rentalTerm, rentalCost, rentalPayDate, rentalEtcHistory, rentalEtcCost, campCarId, compid) values(?,?,?,?,?,?,?,?,?,?,?)";
+=======
+			String sql ="insert into rental(rentalnumber,licensenumber,rentalstart,RentalEnd,rentalterm,rentalCost,rentalEtcHistory,rentalEtcCost,campCarId,compid,RentalPayDate) values (rental_number.NEXTVAL,?,TO_DATE(?,'YYYY-MM-DD'),TO_DATE(?,'YYYY-MM-DD'),?,?,?,?,?,?,TO_DATE(?,'YYYY-MM-DD'))";
+>>>>>>> 2eda50c48010e2b976c235be2b0b2f46bf9d8caf
 			pstmt = conn.prepareStatement(sql);
+			
 
+<<<<<<< HEAD
 			pstmt.setInt(1, member.getRentalNumber());
 			pstmt.setString(2, member.getLicenseNumber());
 			pstmt.setString(3, member.getRentalStart());
@@ -153,12 +166,30 @@ public class insertDB {
 			pstmt.setInt(10, member.getCampCarId());
 			pstmt.setInt(11, member.getCompId());
 
+=======
+			
+			pstmt.setString(1, member.getLicenseNumber());
+			pstmt.setString(2,member.getRentalStart());
+			pstmt.setString(3, member.getRentalEnd());
+			pstmt.setString(4, member.getRentalTerm());
+			pstmt.setInt(5, member.getRentalCost());
+			
+			pstmt.setString(6, member.getRentalEtcHistory());
+			pstmt.setInt(7, member.getRentalEtcCost());
+			pstmt.setInt(8, member.getCampCarId());
+			pstmt.setInt(9, member.getCompId());
+
+			pstmt.setString(10, member.getRentalPayDate());
+			
+>>>>>>> 2eda50c48010e2b976c235be2b0b2f46bf9d8caf
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 
 		}
 	}
+
+
 
 	// 정비의뢰 및 결과 정보를 추가
 	public void addRepairInfo(campDataBean member) throws Exception {

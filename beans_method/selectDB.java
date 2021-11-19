@@ -187,6 +187,10 @@ public class selectDB {
 	}
 
 	// 고객의 이용이력 정보를 조회하는 메소드
+<<<<<<< HEAD
+=======
+	// 고객의 이용이력 정보를 조회하는 메소드
+>>>>>>> 2eda50c48010e2b976c235be2b0b2f46bf9d8caf
 	public ArrayList<campDataBean> selCustHis(String email) throws SQLException {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -197,7 +201,11 @@ public class selectDB {
 		try {
 			conn = getConnection(); // DB 연결
 
+<<<<<<< HEAD
 			String sql = "select * from rental where email=?";
+=======
+			String sql = "select * from v_his where email = ?;";
+>>>>>>> 2eda50c48010e2b976c235be2b0b2f46bf9d8caf
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, email);
 
@@ -206,6 +214,7 @@ public class selectDB {
 			// 수정이 필요한 메소드
 			while (rs.next()) {
 				campDataBean sdb = new campDataBean();
+<<<<<<< HEAD
 				sdb.setRentalNumber(rs.getInt(1));
 				sdb.setRentalStart(rs.getString(4));
 				sdb.setRentalEnd(rs.getString(5));
@@ -214,6 +223,16 @@ public class selectDB {
 				sdb.setRentalPayDate(rs.getString(8));
 				sdb.setRentalEtcHistory(rs.getString(9));
 				sdb.setRentalEtcCost(rs.getInt(10));
+=======
+				sdb.setCustEmail(rs.getString(1));
+				sdb.setRentalNumber(rs.getInt(2));
+				sdb.setRentalStart(rs.getString(3));
+				sdb.setRentalEnd(rs.getString(4));
+				sdb.setCampCarName(rs.getString(5));
+				sdb.setCompName(rs.getString(6));
+				sdb.setRentalCost(rs.getInt(7));
+				sdb.setRentalEtcCost(rs.getInt(8));
+>>>>>>> 2eda50c48010e2b976c235be2b0b2f46bf9d8caf
 				list.add(sdb);
 
 			}
@@ -240,7 +259,11 @@ public class selectDB {
 		return list;
 	}
 
+<<<<<<< HEAD
 	// 정비소 정보 전체를 조회하는 메소드  (getString 숫자 고침)
+=======
+	// 정비소 정보 전체를 조회하는 메소드
+>>>>>>> 2eda50c48010e2b976c235be2b0b2f46bf9d8caf
 	public ArrayList<campDataBean> selRepair() throws SQLException {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
