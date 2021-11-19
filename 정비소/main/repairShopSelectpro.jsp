@@ -18,7 +18,6 @@
 <jsp:setProperty name="repairinfo" property="*" />
 <%
 
-	
 %>
 
  
@@ -27,9 +26,9 @@
 try{
 
 	insertDB sd = insertDB.getInstance();	
-	sd.addRepairInfo(repairinfo);	
+	sd.addRepairRequest(repairinfo);
+	//sd.addRepairInfo(repairinfo);	
 	
-
 }
 catch(Exception e){
 	e.printStackTrace();

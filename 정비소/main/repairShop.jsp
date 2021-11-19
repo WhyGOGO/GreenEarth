@@ -64,13 +64,13 @@
     <div class="content-section">
      <div class="content-section-title">정비소 정보</div>
 
-<%	String num="";
+<%	int repairShopId=0;
 	try{
 		selectDB sd = selectDB.getInstance();
 		ArrayList<campDataBean> dtos = sd.selRepair();
 		for(int i=0; i < dtos.size(); i++){
 			campDataBean dto = dtos.get(i);
-			num = String.valueOf(dto.getRepairShopId());
+			repairShopId = dto.getRepairShopId();
 			String RepairShopname = dto.getRepairShopName();
 			String RepairShopaddress = dto.getRepairShopAddress();
 			String RepairShopCall = dto.getRepairShopCall();
@@ -88,9 +88,12 @@
        <div class="app-card__subtext">      
        정비소주소: <%=RepairShopaddress%> <br>전화번호:<%=RepairShopCall %><br> 담당자이름: <%=RepairShopManager %><br>담당자이메일: <%=RepairShopEmail%>     
        </div>
+       <form action="repairshopselect.jsp" method="post">
 	       <div class="app-card-buttons">       
-	      	<button type="button"class="content-button status-button"onClick="location.href='repairshopselect.jsp'">예약</button>
+	      		<button type="submit" class="content-button status-button"onClick="location.href='repairshopselect.jsp'">예약</button>
 	       </div>
+	       <input type="hidden" name="repairShopId" value="<%=repairShopId%>">
+	   </form>      
        </div>
       </div>
      </div>
@@ -101,25 +104,12 @@
 }
 %>  
      
-    </div>
-   </div>
-  </div>
- </div>
- <div class="overlay-app"></div>
-</div>
+	    </div>
+	   </div>
+	  </div>
+	 </div>
+	 <div class="overlay-app"></div>
 
-  
-</main>
-
-
-    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
-	<script>
-		function numberPost(){
-			location.href="repairshopselect.jsp?number=<%=num%>";
-			setTimeout('numberPost()',2000)
-		}
-		
-	</script>
-      
+	</main>
   </body>
 </html>

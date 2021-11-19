@@ -31,26 +31,37 @@
     </style>
 
 <%@ include file="../../메뉴바_슬라이드/menubar.jsp" %>	<!-- 메뉴 바  -->
-<%@ include file="../../메뉴바_슬라이드/slide2.jsp" %>	<!-- 슬라이드바  -->
-<% 
-     //selectDB sd = selectDB.getInstance();   
-	
-	  //ArrayList<campDataBean> dtos = sd.selRepair();
-      //ArrayList<campDataBean> dtos3 = sd.selUser(email); //면허증번호 가져오기
-      //ArrayList<campDataBean> dtos2 = sd.selRentCar();
-      
-      //campDataBean li = dtos3.get(0);   // 면허증번호 가져오기
-      //String LicenseNumber = li.getLicenseNumber();
- 
-      
-	  //campDataBean dto2 = dtos2.get(0);
- 	  //int CampCarId = dto2.getCampCarId();
+<%@ include file="../../메뉴바_슬라이드/slide.jsp" %>	<!-- 슬라이드바  -->
 
-	  //campDataBean dto = dtos.get(0);
-	  //int RepairShopId = dto.getRepairShopId();
-			
+	<jsp:useBean id="repairshopid" class="beans.campDataBean" scope="page"/>	
+	<jsp:setProperty name="repairshopid" property="*" />
+
+<% 
+
 		
-      
+     	selectDB sd = selectDB.getInstance();	//selectdb 연결
+     	
+     	ArrayList<campDataBean> rental_num = sd.selCustHis(email);	// 고객렌탈 고유번호
+	    ArrayList<campDataBean> lc = sd.selCusRent(email); //고객 면허증번호 가져오기   
+	
+	    
+	    campDataBean rentalnum = rental_num.get(0);
+	    campDataBean lcn = lc.get(0);
+	    
+	    int rentalnumber = rentalnum.getRentalNumber(); // 고객의 렌트 고유번호	*    
+	    String license = lcn.getLicenseNumber();// 면허증번호 *
+	 
+	    
+	    
+	    ArrayList<campDataBean> car_id = sd.selcampCar_id(license);	// 캠핑카아이디 가져오기
+	    campDataBean campcarid_ = car_id.get(0);
+	    int campcarid = campcarid_.getCampCarId(); // 고객이 빌린 캠핑카 아이디 *
+	    
+	    
+     	System.out.println("캥핑카 아이디"+campcarid);
+    	System.out.println("고객의 렌트 고유번호"+rentalnumber);
+    	System.out.println("고객의 면허증번호"+license);
+     	     
 %>
 
 
@@ -85,53 +96,47 @@
     <div class="content-wrapper-header">
      <div class="content-wrapper-context">
       <h3 class="img-content">
-      	정비내역선택 <br><br>
+      	정비 <br><br>
       </h3>
      </div>
 
     </div>
- <table class="table table-success table-striped">
-	 <div class="apps-card">
-	  <div class="app-card" style="width:28%;"> 
-		<div class="content-section" >
-	     <div class="content-section-title">정비하실내용들을적어주세오</div>
-	     
-	     
-	     <form class="repair-form"method="post" action="repairShopSelectpro.jsp" name ="repair">
-	     		
-	      </div>	      
-      </div>
-           </div>
-    	<table class = "border="1" width="100%;">
-     		<tr>
-     		 
-     		<th style = "background-color: black; text-align: center; width:5%;">제목:</th>
-     		<td>
-     			<input type="text" name ="repairHistory" values="repairHistory" placeholder="제목을입력해주세요" maxlength="20" style="width:400px; height:40px;" required> 
-     		</td>
-    	</tr>
-    	<tr>
-    		<th style = "background-color: black; text-align: center; width:100px; height:400px;">내용:</th>
-    		<td>
-    			<textarea name="repairHistory" values="repairEtcHistory" style="width:400px; height:400px;"placeholder="수리하고 싶은 내용을 입력해 주세요."  required></textarea>
-    		</td>
-    	</tr>
-    </table>
+ 	<hr>
+	<form class="repair-form"	method="get" action="repairShopSelectpro.jsp" name ="repair">
+										<!-- RepairRequest 테이블 값들 -->
+			<input type="hidden" name="rentalNumber" value= "<%=rentalnumber%>"  > 	
+			<input type="hidden" name="licenseNumber" value= "<%=license%>"  > 	
+			<input type="hidden" name="campCarId" value= "<%=campcarid%>"  > 	
+						
+											<!-- RepairInfo 테이블 값들 -->
+			<input type="hidden" name="repairShopId" value= "<%=repairshopid.getRepairShopId()%>"  >   	<!-- 정비소아이디 -->
+			원하는 정비날짜:<input type="date" id="repairDate" name="repairDate" onchange="printTerm()">			<!--정비날짜  -->
+       		납입기한 : <input type="text" id="repairPayDate" name="repairPayDate" > 해당일 영업마감 18시까지	입금바랍니다.	<!--납입기한  -->
+	        <br><br>대략적인 정비비용: <input type="text" id="repairCost" name="repairCost" placeholder="ex) 300000"> 									<!--정비비용  -->
+								     			
+        	<hr>
+		  	<table>
+		    	<tr>
+					<th style = "background-color: black; text-align: center; width:100px; height:400px;">정비내역:</th>
+		    		<td>
+	<!-- 정비내역 -->		<textarea name="repairHistory" style="width:400px; height:400px;"placeholder="정비 내용"  required></textarea>
+		    		</td>
+		    		<th style = "background-color: black; text-align: center; width:100px; height:400px;">기타정비내역:</th>
+		    		<td>
+	<!-- 기타정비내역 -->	<textarea name="repairEtcHistory"  style="width:400px; height:400px;"placeholder="기타 정비내용"  required></textarea>
+		    		</td>		    		
+		    	</tr>
+		    </table>
 
-  			<div class="app-card-buttons">       
-	      		<button type="submit"class="content-button status-button"onClick="location.href='repairShopSelectpro.jsp'" >예약하기</button>
-	       </div>
-		    <input type="hidden" name="repairDate" value="2021-11-21">
-       		<input id="input_date" type="date" name="repairPayDate" value="dday">
-	       <input type="hidden" name="repairCost" value="600000"> 
-	       	<input type="hidden" name="Lincence" value= "131534636364363">
-			<input type="hidden" name="repairShopId" value= "2"  >
-       		<input type="hidden" name="CampCarId" value= "5" >
-		</form>
-</table>   
+  		    <div class="app-card-buttons">       
+	      		<button type="submit"class="content-button status-button">예약하기</button>
+	        </div>
+	</form>	
+  
      <script>
    	function input(){
    		const dday = document.querySelector("#input_date").value;
+   		
    	}
      
      </script>
@@ -141,10 +146,26 @@
  </div>
  <div class="overlay-app"></div>
  </main>
-	<script src="../assets/dist/js/bootstrap.bundle.min.js">
-	</script>
-
-	  </body>
+   	<script>		
+			function printTerm()  {
+				var repairDate = document.getElementById('repairDate').value;
+							
+				repairDate = new Date(repairDate);
+		
+				var payday = new Date(repairDate.getTime()+60000*2000);
+				var payday1 = payday.toLocaleDateString()
+				var payday2 = payday1.replaceAll('. ','-');	
+				var payday3 = payday2.replaceAll('.','');	
+				
+				//document.getElementById('RENTALCOST').value = cost;
+				
+				
+				document.getElementById('repairPayDate').value =payday3;
+			}
+			// 여기까지 날짜 계산 자바스크립트
+					
+		</script>
+</body>
 
 </html>
   	
