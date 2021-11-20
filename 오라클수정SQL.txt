@@ -122,6 +122,12 @@ select (select email
     where cp.compid=rt.compid) 담당자번호
     ,rt.rentalcost 대여비용
     ,rt.rentaletccost 기타비용
+    ,(select case when cr.rentalstatus = 1 then '대여중'
+            when cr.rentalstatus = 0 then '대여가능'
+            else '오류' 
+            end 
+        from campingcar cr
+        where cr.campcarid=rt.campcarid) 대여가능여부
     
 from rental rt
 order by rt.rentalnumber;
