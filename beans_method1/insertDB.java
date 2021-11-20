@@ -180,18 +180,17 @@ public class insertDB {
 		try {
 			conn = getConnection();
 
-			String sql = "insert into repairinfo(repairNumber, repairHistory, repairDate, repairCost, repairPayDate, repairEtcHistory, repairShopId, campCarId, licenseNumber) values(?,?,?,?,?,?,?,?,?)";
+			String sql = "insert into repairinfo(REPAIRNUMBER,repairHistory, repairDate, repairCost, repairPayDate, repairEtcHistory, repairShopId, campCarId, licenseNumber) values(REPAIRNUMBER.NEXTVAL,?,?,?,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
-
-			pstmt.setInt(1, member.getRepairNumber());
-			pstmt.setString(2, member.getRepairHistory());
-			pstmt.setString(3, member.getRepairDate());
-			pstmt.setInt(4, member.getRepairCost());
-			pstmt.setString(5, member.getRepairPayDate());
-			pstmt.setString(6, member.getRepairEtcHistory());
-			pstmt.setInt(7, member.getRepairShopId());
-			pstmt.setInt(8, member.getCampCarId());
-			pstmt.setString(9, member.getLicenseNumber());
+			
+			pstmt.setString(1, member.getRepairHistory());
+			pstmt.setString(2, member.getRepairDate());
+			pstmt.setInt(3, member.getRepairCost());
+			pstmt.setString(4, member.getRepairPayDate());
+			pstmt.setString(5, member.getRepairEtcHistory());
+			pstmt.setInt(6, member.getRepairShopId());
+			pstmt.setInt(7, member.getCampCarId());
+			pstmt.setString(8, member.getLicenseNumber());
 
 			pstmt.executeUpdate();
 		} catch (Exception e) {
@@ -199,4 +198,27 @@ public class insertDB {
 
 		}
 	}
+	//정비의뢰 테이블값넣기
+	public void addRepairRequest(campDataBean member) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			conn = getConnection();
+
+			String sql = "insert into repairrequest(RENTALNUMBER,LICENSENUMBER,CAMPCARID) values(?,?,?)";
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setInt(1, member.getRentalNumber());
+			pstmt.setString(2, member.getLicenseNumber());
+			pstmt.setInt(3, member.getCampCarId());
+
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+	}
 }
+
