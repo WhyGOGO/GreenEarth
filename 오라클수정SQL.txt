@@ -56,13 +56,13 @@ select * from customer;
 
 
 ALTER TABLE repairshop add shopimage VARCHAR2(30);
-<<<<<<< HEAD
+
 
 
 -- 박영민 2021-11-19  | 타입varchar로 바꿈 대여기간
 
 
-alter table rental modify rentalterm var(3);
+alter table rental modify rentalterm varchar2(3);
 
 ======================================================================
 한정엽 2021-11-19 
@@ -129,3 +129,67 @@ order by rt.rentalnumber;
 
 수리내역 조회
 	수리번호, 수리차량번호, 차량이름 , 수리일, 수리비용, 정비소, 정비소 전화번호 보여주는 뷰 만들기
+
+--양석준 2021-11-20 편의성 패치 기본패치 부터 시퀀스 만들기 
+
+ALTER TABLE repairshop add shopimage VARCHAR2(30);
+ALTER TABLE CUSTOMER MODIFY (EMAIL VARCHAR2(254)); 
+ALTER TABLE customer modify address VARCHAR2(100);
+
+--이미 되어있다면 안해도됨
+
+CREATE SEQUENCE CAMPCARID
+       INCREMENT BY 1
+       START WITH 1
+       MINVALUE 1
+       MAXVALUE 9999
+       NOCYCLE
+       NOCACHE
+       NOORDER;
+CREATE SEQUENCE COMPID
+       INCREMENT BY 1
+       START WITH 1
+       MINVALUE 1
+       MAXVALUE 9999
+       NOCYCLE
+       NOCACHE
+       NOORDER;
+CREATE SEQUENCE REPAIRNUMBER
+       INCREMENT BY 1
+       START WITH 1
+       MINVALUE 1
+       MAXVALUE 9999
+       NOCYCLE
+       NOCACHE
+       NOORDER;
+CREATE SEQUENCE REPAIRSHOPID
+       INCREMENT BY 1
+       START WITH 1
+       MINVALUE 1
+       MAXVALUE 9999
+       NOCYCLE
+       NOCACHE
+       NOORDER;
+
+--값넣기 임 고객테이블은 회원가입으로 넣으세요.
+
+--대여회사 
+insert into campcompany (compid,COMPNAME,COMPADDRESS,COMPCALL,COMPMANAGER,COMPEMAIL,IMAGE) values (compid.nextval,'캠핑OP','서울특별시 양천구 목동 123-8','02-123-4567','강독대','rla123456@naver.com','광명점.jpg');
+insert into campcompany (compid,COMPNAME,COMPADDRESS,COMPCALL,COMPMANAGER,COMPEMAIL,IMAGE) values (compid.nextval,'너만의캠핑카','경기도 광명시 철산동 456-9','031-123-4567','양다기','yang12345@naver.com','안산점.jpg');
+insert into campcompany (compid,COMPNAME,COMPADDRESS,COMPCALL,COMPMANAGER,COMPEMAIL,IMAGE) values (compid.nextval,'OUR캠프','서울특별시 성북구 성북동 12-456','02-123-4568','이정똑','yi12345@naver.com','화성점.jpg');
+
+select * from campcompany; --이거 꼭 실행해서 보고 COMPID 확인후에 넣어주세요.
+
+--캠핑카(대여회사테이블 COMPID확인하고 넣으세요 그리고 회사별로 차량 정해서 잘 넣어주세요 (디폴트로 1,1,2,2,3 되어있음))
+insert into campingcar (CAMPCARID,CAMPCARNAME,CAMPCARTYPE,CAMPCARNUMBER,CAMPCARDATE,PEOPLERIDE,CARRENTALCOST,COMPID,rentalstatus) values (CAMPCARID.nextval,'super','모터카라반','123하4567','2021-11-18',5,'1000000',1,0);
+insert into campingcar (CAMPCARID,CAMPCARNAME,CAMPCARTYPE,CAMPCARNUMBER,CAMPCARDATE,PEOPLERIDE,CARRENTALCOST,COMPID,rentalstatus) values (CAMPCARID.nextval,'nomal','캠핑트레일러','194후8968','2021-11-18',4,'1000000',1,0);
+insert into campingcar (CAMPCARID,CAMPCARNAME,CAMPCARTYPE,CAMPCARNUMBER,CAMPCARDATE,PEOPLERIDE,CARRENTALCOST,COMPID,rentalstatus) values (CAMPCARID.nextval,'ultra','A클래스 캠핑카','458하8428','2021-11-18',5,'1000000',2,0);
+insert into campingcar (CAMPCARID,CAMPCARNAME,CAMPCARTYPE,CAMPCARNUMBER,CAMPCARDATE,PEOPLERIDE,CARRENTALCOST,COMPID,rentalstatus) values (CAMPCARID.nextval,'common','B클래스 캠핑카','335하9948','2021-11-18',4,'1000000',2,0);
+insert into campingcar (CAMPCARID,CAMPCARNAME,CAMPCARTYPE,CAMPCARNUMBER,CAMPCARDATE,PEOPLERIDE,CARRENTALCOST,COMPID,rentalstatus) values (CAMPCARID.nextval,'bootsy','C클래스 캠핑카','167하7628','2021-11-18',3,'1000000',3,0);
+
+--정비소
+insert into repairshop (REPAIRSHOPID,REPAIRSHOPNAME,REPAIRSHOPADDRESS,REPAIRSHOPCALL,REPAIRMANAGER,REPAIRMANAGEREMAIL,SHOPIMAGE) values(REPAIRSHOPID.nextval,'모터스','서울 강남구 역삼동','02-777-2987','박민서','min111@naver.com','광명점.jpg');
+insert into repairshop (REPAIRSHOPID,REPAIRSHOPNAME,REPAIRSHOPADDRESS,REPAIRSHOPCALL,REPAIRMANAGER,REPAIRMANAGEREMAIL,SHOPIMAGE) values(REPAIRSHOPID.nextval,'스피드','서울 관악구 봉천동','02-492-5219','이예준','yee123@daum.net','안산점.jpg');
+insert into repairshop (REPAIRSHOPID,REPAIRSHOPNAME,REPAIRSHOPADDRESS,REPAIRSHOPCALL,REPAIRMANAGER,REPAIRMANAGEREMAIL,SHOPIMAGE) values(REPAIRSHOPID.nextval,'오토큐지점','부산 동구 범일동','051-586-1149','서민준','su048@gmail.com','화성점.jpg');
+
+--나머지값들은 로그인해서 캠핑카 대여로 하시면 알아서 다 생깁니다. 지속업데이트하겠습니다.
