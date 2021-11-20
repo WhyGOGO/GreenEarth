@@ -133,6 +133,58 @@ public class selectDB {
 
 		return list;
 	}
+	
+	// 회사정보조회하는메소드
+		public ArrayList<campDataBean> selCompany(String name) throws SQLException {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			ArrayList<campDataBean> list = new ArrayList<campDataBean>();
+			try {
+				conn = getConnection(); // DB 연결
+
+				String sql = "select compname,compaddress,compcall,compmanager,compemail,IMAGE,compId from campcompany where compname=?";
+
+				pstmt = conn.prepareStatement(sql);
+
+				rs = pstmt.executeQuery();
+
+				while (rs.next()) {
+					campDataBean sdb = new campDataBean();
+					sdb.setCompName(rs.getString(1));
+					sdb.setCompAddress(rs.getString(2));
+					sdb.setCompCall(rs.getString(3));
+					sdb.setCompManager(rs.getString(4));
+					sdb.setCompEmail(rs.getString(5));
+					sdb.setIMAGE(rs.getString(6));
+					sdb.setCompId(rs.getInt(7));
+
+					list.add(sdb);
+
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+
+			} finally {
+				if (rs != null)
+					try {
+						rs.close();
+					} catch (SQLException ex) {
+					}
+				if (pstmt != null)
+					try {
+						pstmt.close();
+					} catch (SQLException ex) {
+					}
+				if (conn != null)
+					try {
+						conn.close();
+					} catch (SQLException ex) {
+					}
+			}
+
+			return list;
+		}
 
 	// 고객 정보를 전부 조회
 	public ArrayList<campDataBean> selCust() throws SQLException {
@@ -240,7 +292,6 @@ public class selectDB {
 	}
 
 	// 고객의 이용이력 정보를 조회하는 메소드
-	// 고객의 이용이력 정보를 조회하는 메소드
 	public ArrayList<campDataBean> selCustHis(String email) throws SQLException {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -265,9 +316,12 @@ public class selectDB {
 				sdb.setRentalStart(rs.getString(3));
 				sdb.setRentalEnd(rs.getString(4));
 				sdb.setCampCarName(rs.getString(5));
-				sdb.setCompName(rs.getString(6));
-				sdb.setRentalCost(rs.getInt(7));
-				sdb.setRentalEtcCost(rs.getInt(8));
+				sdb.setCampCarNumber(rs.getString(6));
+				sdb.setCompName(rs.getString(7));
+				sdb.setCompManager(rs.getString(8));
+				sdb.setCompCall(rs.getString(9));
+				sdb.setRentalCost(rs.getInt(10));
+				sdb.setRentalEtcCost(rs.getInt(11));
 				list.add(sdb);
 
 			}

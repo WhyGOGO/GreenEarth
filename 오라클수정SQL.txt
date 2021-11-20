@@ -74,25 +74,34 @@ grant create view to c##car;
 
 대여내역 조회
 	대여번호,대여일,반납일,대여차량(이름),대여사(이름),대여비용,기타비용을 보여주는 뷰 만들기
-create or replace view v_his
+ccreate or replace view v_his
 as
 select (select email
         from customer ct
-        where ct.licensenumber=rt.licensenumber) "이메일"
-    ,rt.rentalnumber "대여번호"
-    ,rt.rentalstart "대여일"
-    ,rt.rentalend "반납일"
-    ,(select cpr.campcarname
-    from campingcar cpr
-    where cpr.campcarid=rt.campcarid) "차량"
-    ,(select ccp.compname
-    from campcompany ccp
-    where ccp.compid=rt.compid) "대여사"
-    ,rt.rentalcost "대여비용"
-    ,rt.rentaletccost "기타청구금액"
+        where ct.licensenumber=rt.licensenumber) 이메일
+    ,rt.rentalnumber 대여번호
+    ,rt.rentalstart 대여일
+    ,rt.rentalend 반납일
+    ,(select cr.campcarname
+    from campingcar cr
+    where cr.campcarid=rt.campcarid) 대여차량
+    ,(select cr.campcarnumber
+    from campingcar cr
+    where cr.campcarid=rt.campcarid) 차량번호
+    ,(select cp.compname
+    from campcompany cp
+    where cp.compid=rt.compid) 대여사
+    ,(select cp.compmanager
+    from campcompany cp
+    where cp.compid=rt.compid) 담당자
+    ,(select cp.compcall
+    from campcompany cp
+    where cp.compid=rt.compid) 담당자번호
+    ,rt.rentalcost 대여비용
+    ,rt.rentaletccost 기타비용
     
 from rental rt
-order by rt.rentalstart;
+order by rt.rentalnumber;
 
 대여현황 조회
 	대여번호, 대여일, 반납일, 대여사(이름), 담당자, 담당자 전화번호, 대여차량, 차량번호 보여주는 뷰 만들기
