@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="beans_method.selectDB" %>
+<%@ page import="beans.campDataBean" %>
+<%@ page import="java.util.*" %>
 
 
 
@@ -19,6 +22,16 @@
  
  <body>
  <%@ include file="../세션/trySession.jsp"%>
+ <%
+ request.setCharacterEncoding("UTF-8");	
+
+	selectDB sd = selectDB.getInstance();
+	ArrayList<campDataBean> dtos = sd.selUser(email);
+	
+	if (dtos.size()!=0){
+		campDataBean dto = dtos.get(0);
+		String name = dto.getCustName();
+ %>
 <div class="page-wrapper chiller-theme toggled">
   <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
     <i class="fas fa-bars"></i>
@@ -38,8 +51,8 @@
           <img class="img-responsive img-rounded" src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg" alt="User picture">         
         </div>
         <div class="user-info">
-          <span class="user-name">Jhon
-            <strong>Smith</strong>
+          <span class="user-name">
+          	<strong><%=name %></strong> 님
           </span>
           <span class="user-status">
             <i class="fa fa-circle"></i>
@@ -87,5 +100,8 @@
     </div>
   </nav>
   <!-- sidebar-wrapper  -->
-  <%}%>
+  <%}
+  }
+  
+  %>
   
