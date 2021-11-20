@@ -15,6 +15,8 @@
 	request.setCharacterEncoding("UTF-8");
 %>
 <jsp:useBean id="repairinfo" class="beans.campDataBean" scope="page"/>
+<jsp:useBean id="repairrequest" class="beans.campDataBean" scope="page"/>
+<jsp:setProperty name ="repairrequest" property="*"/>
 <jsp:setProperty name="repairinfo" property="*" />
 <%
 
@@ -26,8 +28,8 @@
 try{
 
 	insertDB sd = insertDB.getInstance();	
-	sd.addRepairRequest(repairinfo);
-	//sd.addRepairInfo(repairinfo);	
+	sd.addRepairRequest(repairrequest);
+	sd.addRepairInfo(repairinfo);	
 	
 }
 catch(Exception e){

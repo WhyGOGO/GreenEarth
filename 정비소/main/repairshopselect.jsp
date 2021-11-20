@@ -31,7 +31,7 @@
     </style>
 
 <%@ include file="../../메뉴바_슬라이드/menubar.jsp" %>	<!-- 메뉴 바  -->
-<%@ include file="../../메뉴바_슬라이드/slide.jsp" %>	<!-- 슬라이드바  -->
+<%@ include file="../../메뉴바_슬라이드/slide2.jsp" %>	<!-- 슬라이드바  -->
 
 	<jsp:useBean id="repairshopid" class="beans.campDataBean" scope="page"/>	
 	<jsp:setProperty name="repairshopid" property="*" />
@@ -59,7 +59,7 @@
 	    
 	    
      	System.out.println("캥핑카 아이디"+campcarid);
-    	System.out.println("고객의 렌트 고유번호"+rentalnumber);
+    	System.out.println("고객의 rentalnumber"+rentalnumber);
     	System.out.println("고객의 면허증번호"+license);
      	     
 %>
@@ -110,11 +110,11 @@
 						
 											<!-- RepairInfo 테이블 값들 -->
 			<input type="hidden" name="repairShopId" value= "<%=repairshopid.getRepairShopId()%>"  >   	<!-- 정비소아이디 -->
-			원하는 정비날짜:<input type="date" id="repairDate" name="repairDate" onchange="printTerm()">			<!--정비날짜  -->
-       		납입기한 : <input type="text" id="repairPayDate" name="repairPayDate" > 해당일 영업마감 18시까지	입금바랍니다.	<!--납입기한  -->
-	        <br><br>대략적인 정비비용: <input type="text" id="repairCost" name="repairCost" placeholder="ex) 300000"> 									<!--정비비용  -->
+			원하는 정비날짜:<input type="date" id="repairDate" name="repairDate" onchange="printTerm()" required>			<!--정비날짜  -->
+       		납입기한 : <input type="text" id="repairPayDate" name="repairPayDate" required> 해당일 영업마감 18시까지	입금바랍니다.	<!--납입기한  -->
+	        <br><br>대략적인 정비비용: <input type="text" id="repairCost" name="repairCost" placeholder="ex) 300000" required> 									<!--정비비용  -->
 								     			
-        	<hr>
+        	<hr> 
 		  	<table>
 		    	<tr>
 					<th style = "background-color: black; text-align: center; width:100px; height:400px;">정비내역:</th>
