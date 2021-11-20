@@ -22,8 +22,6 @@
 <%
 	try{
 	
-		System.out.println(rentalCar.getRentalPayDate());
-
 		insertDB sd = insertDB.getInstance();	
 		sd.addRentInfo(rentalCar);
 	}

@@ -117,8 +117,8 @@
 		  </script><br><hr>
 		  <form action="carsPro.jsp" method="get">
 			<div>
-				  	📆대여일 &nbsp;&nbsp;&nbsp;<input type="date" name="rentalStart" id="RENTALSTART"  onchange="printTerm()" required="required">
-				<br>📆대여 종료<input type="date" name="rentalEnd" id="RENTALEND" onchange="printTerm()" required="required"><br><br><hr>
+				  	📆대여일 &nbsp;&nbsp;&nbsp;<input type="date" class="Date_" name="rentalStart" id="RENTALSTART"  min="0" max="" onchange="printTerm()" required="required">
+				<br>📆대여 종료<input type="date" name="rentalEnd" class="Date_" id="RENTALEND" onchange="printTerm()" min="0" max="" required="required"><br><br><hr>
 				<br>⌚대여기간 &nbsp;<input type="text" name="rentalTerm" id="RENTALTERM" readonly >						
 				<br>💰청구금액 &nbsp;<input type="text" name="rentalCost" id="RENTALCOST"  readonly>				
 			  	<br>납입기한&nbsp; &nbsp; &nbsp;<input type="text" name="rentalPayDate" id="RentalPayDate"  readonly>
@@ -180,44 +180,10 @@
 </main>
 
 
-  	<script>
-  		function btn_alert(clicked_id){
-  			if (clicked_id==1)
-  				alert("죄송합니다 고객님! 이 차량은 현재 예약 불가입니다.");
 
-  		}
-  		
-		function printTerm()  {
-			var RENTALSTART = document.getElementById('RENTALSTART').value;
-			var RENTALEND = document.getElementById('RENTALEND').value;
-			RENTALSTART = RENTALSTART.replaceAll("-","/");
-			RENTALEND = RENTALEND.replaceAll("-","/");				// 날짜를 Date() 메소드에 맞게 형변환
+<%@ include file="../../CSS_JS/카렌탈/car_select.jsp" %>
+		
 
-			
-			RENTALSTART = new Date(RENTALSTART);
-			RENTALEND = new Date(RENTALEND);
-	
-			var differ = document.getElementById('RENTALTERM').value = (RENTALEND.getTime()-RENTALSTART.getTime())/ 1000 / 60 / 60 / 24 +1;
-			var cost = <%=carrentalcost%> * differ;	
-			var payday = new Date(RENTALSTART.getTime()-60000*2000);
-			var payday1 = payday.toLocaleDateString()
-			var payday2 = payday1.replaceAll('. ','/');	
-			var payday3 = payday2.replaceAll('.','');	
-			
-			document.getElementById('RENTALCOST').value = cost;
-			
-			
-			document.getElementById('RentalPayDate').value =payday3;
-		}
-		// 여기까지 날짜 계산 자바스크립트
-		
-		function printETCcost(){
-			
-			document.getElementById('RentalEtcCost').value = 30000;
-		}
-		
-		
-	</script>
 
   </body>
 
