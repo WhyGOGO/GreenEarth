@@ -199,3 +199,4 @@ insert into repairshop (REPAIRSHOPID,REPAIRSHOPNAME,REPAIRSHOPADDRESS,REPAIRSHOP
 insert into repairshop (REPAIRSHOPID,REPAIRSHOPNAME,REPAIRSHOPADDRESS,REPAIRSHOPCALL,REPAIRMANAGER,REPAIRMANAGEREMAIL,SHOPIMAGE) values(REPAIRSHOPID.nextval,'오토큐지점','부산 동구 범일동','051-586-1149','서민준','su048@gmail.com','화성점.jpg');
 
 --나머지값들은 로그인해서 캠핑카 대여로 하시면 알아서 다 생깁니다. 지속업데이트하겠습니다.
+                                                               ㄴㅡㅡㅡㅡ 대...대박
