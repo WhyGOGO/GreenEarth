@@ -65,8 +65,9 @@
     </div>
  <table class="table table-success table-striped">
 	 <div class="apps-card">
+	 
+
  <%	    	
- 	String num="";
  
  	try{
 		selectDB sd = selectDB.getInstance();
@@ -74,7 +75,7 @@
 		ArrayList<campDataBean> dtos2 = sd.selCompany();
 		for(int i=0; i < dtos2.size(); i++){
 			campDataBean dto2 = dtos2.get(i);
-		    num = String.valueOf(dto2.getCompId());
+		    int compId = dto2.getCompId();
 			String name = dto2.getCompName();
 			String address = dto2.getCompAddress();
 			String CompCall = dto2.getCompCall();
@@ -82,7 +83,7 @@
 			String CompEmail = dto2.getCompEmail();
 			String IMAGE = dto2.getIMAGE();   	
 %>
-		     <div class="app-card" onclick="numberPost()"> 
+		     <div class="app-card" > 
 				<div class="content-section">
 			     <div class="content-section-title"></div>	
 				   <img alt="" src="../../이미지/대여사이미지/<%=IMAGE%>">
@@ -92,6 +93,11 @@
 				       회사주소 : <%=address%><br> 	
 			       </div>
 			      </div>
+			      
+				<form method="get" action="cars_select.jsp">
+			      	<input type="hidden" name="compId" value="<%=compId%>">			    
+			      	<button type="submit" >선택</button>
+	    		</form> 
 		      </div>
 
 <% }
@@ -100,6 +106,7 @@
 		e.printStackTrace();
 }
 %>  
+		
      </div>
 </table>   
      
@@ -117,13 +124,7 @@
 
 
     <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
-	<script>
-		function numberPost(){
-			location.href="cars_select.jsp?number=<%=num%>";
-			setTimeout('numberPost()',2000)
-		}
-		
-	</script>
+
 
       
   </body>

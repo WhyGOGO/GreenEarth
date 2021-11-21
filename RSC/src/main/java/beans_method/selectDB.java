@@ -291,6 +291,60 @@ public class selectDB {
 		return list;
 	}
 	
+	public ArrayList<campDataBean> selCar() throws SQLException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		ArrayList<campDataBean> list = new ArrayList<campDataBean>();
+		try {
+			conn = getConnection(); // DB 연결
+
+			String sql = "SELECT * FROM CAMPINGCAR";
+
+			pstmt = conn.prepareStatement(sql);
+	
+			rs = pstmt.executeQuery();
+
+			// 수정이 필요한 메소드
+			while (rs.next()) {
+				campDataBean sdb = new campDataBean();
+				sdb.setCampCarId(rs.getInt(1));
+				sdb.setCampCarName(rs.getString(2));
+				sdb.setCampCarType(rs.getString(3));
+				sdb.setCampCarNumber(rs.getString(4));
+				sdb.setCampCarDate(rs.getString(5));
+				sdb.setPeopleRide(rs.getInt(6));
+				sdb.setCarRentalCost(rs.getInt(7));
+				sdb.setCompId(rs.getInt(8));
+				sdb.setRentalStatus(rs.getInt(9));
+
+				list.add(sdb);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+				}
+		}
+
+		return list;
+	}
+	
 	// 고객의 이용이력 정보를 조회하는 메소드
 		public ArrayList<campDataBean> selCustHis(String email) throws SQLException {
 			Connection conn = null;
@@ -345,7 +399,7 @@ public class selectDB {
 			return list;
 		}
 
-	// 고객의 이용이력 정보를 조회하는 메소드
+	// 대여여부 관계없이 고객의 이용이력 정보를 조회하는 메소드
 	public ArrayList<campDataBean> selCustHis2(String email) throws SQLException {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -376,6 +430,125 @@ public class selectDB {
 				sdb.setCompCall(rs.getString(9));
 				sdb.setRentalCost(rs.getInt(10));
 				sdb.setRentalEtcCost(rs.getInt(11));
+				sdb.setRentalState(rs.getString(12));
+				list.add(sdb);
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+				}
+		}
+
+		return list;
+	}
+	
+	// 대여중인 대여 정보를 조회하는 메소드
+	public ArrayList<campDataBean> selRentNow(String email) throws SQLException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		ArrayList<campDataBean> list = new ArrayList<campDataBean>();
+
+		try {
+			conn = getConnection(); // DB 연결
+
+			String sql = "select * from v_his3 where 예약상태 = '대여' and 이메일 = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,email);
+
+			rs = pstmt.executeQuery();
+
+			// 수정이 필요한 메소드
+			while (rs.next()) {
+				campDataBean sdb = new campDataBean();
+				sdb.setCustEmail(rs.getString(1));
+				sdb.setCustName(rs.getString(2));
+				sdb.setRentalNumber(rs.getInt(3));
+				sdb.setRentalStart(rs.getString(4));
+				sdb.setRentalEnd(rs.getString(5));
+				sdb.setCampCarName(rs.getString(6));
+				sdb.setCampCarNumber(rs.getString(7));
+				sdb.setCompName(rs.getString(8));
+				sdb.setCompManager(rs.getString(9));
+				sdb.setCompCall(rs.getString(10));
+				sdb.setRentalCost(rs.getInt(11));
+				sdb.setRentalEtcCost(rs.getInt(12));
+				sdb.setRentalPayDate(rs.getString(13));
+				sdb.setRentalState(rs.getString(14));
+				list.add(sdb);
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+				}
+		}
+
+		return list;
+	}
+	// 대여중인 대여 정보를 조회하는 메소드
+	public ArrayList<campDataBean> selRentNow() throws SQLException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		ArrayList<campDataBean> list = new ArrayList<campDataBean>();
+
+		try {
+			conn = getConnection(); // DB 연결
+
+			String sql = "select * from v_his3 where 예약상태 = '대여'";
+			pstmt = conn.prepareStatement(sql);
+
+			rs = pstmt.executeQuery();
+
+			// 수정이 필요한 메소드
+			while (rs.next()) {
+				campDataBean sdb = new campDataBean();
+				sdb.setCustEmail(rs.getString(1));
+				sdb.setCustName(rs.getString(2));
+				sdb.setRentalNumber(rs.getInt(3));
+				sdb.setRentalStart(rs.getString(4));
+				sdb.setRentalEnd(rs.getString(5));
+				sdb.setCampCarName(rs.getString(6));
+				sdb.setCampCarNumber(rs.getString(7));
+				sdb.setCompName(rs.getString(8));
+				sdb.setCompManager(rs.getString(9));
+				sdb.setCompCall(rs.getString(10));
+				sdb.setRentalCost(rs.getInt(11));
+				sdb.setRentalEtcCost(rs.getInt(12));
+				sdb.setRentalPayDate(rs.getString(13));
+				sdb.setRentalState(rs.getString(14));
 				list.add(sdb);
 
 			}
@@ -402,6 +575,126 @@ public class selectDB {
 		return list;
 	}
 
+	// 대여 내역을 조회하는 메소드
+	public ArrayList<campDataBean> selRentBD(String email) throws SQLException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		ArrayList<campDataBean> list = new ArrayList<campDataBean>();
+
+		try {
+			conn = getConnection(); // DB 연결
+
+			String sql = "select * from v_his3 where 이메일 = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,email);
+
+			rs = pstmt.executeQuery();
+
+			// 수정이 필요한 메소드
+			while (rs.next()) {
+				campDataBean sdb = new campDataBean();
+				sdb.setCustEmail(rs.getString(1));
+				sdb.setCustName(rs.getString(2));
+				sdb.setRentalNumber(rs.getInt(3));
+				sdb.setRentalStart(rs.getString(4));
+				sdb.setRentalEnd(rs.getString(5));
+				sdb.setCampCarName(rs.getString(6));
+				sdb.setCampCarNumber(rs.getString(7));
+				sdb.setCompName(rs.getString(8));
+				sdb.setCompManager(rs.getString(9));
+				sdb.setCompCall(rs.getString(10));
+				sdb.setRentalCost(rs.getInt(11));
+				sdb.setRentalEtcCost(rs.getInt(12));
+				sdb.setRentalPayDate(rs.getString(13));
+				sdb.setRentalState(rs.getString(14));
+				list.add(sdb);
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+				}
+		}
+
+		return list;
+	}
+
+	// 대여 내역을 조회하는 메소드
+	public ArrayList<campDataBean> selRentBD() throws SQLException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		ArrayList<campDataBean> list = new ArrayList<campDataBean>();
+
+		try {
+			conn = getConnection(); // DB 연결
+
+			String sql = "select * from v_his3";
+			pstmt = conn.prepareStatement(sql);
+
+			rs = pstmt.executeQuery();
+
+			// 수정이 필요한 메소드
+			while (rs.next()) {
+				campDataBean sdb = new campDataBean();
+				sdb.setCustEmail(rs.getString(1));
+				sdb.setCustName(rs.getString(2));
+				sdb.setRentalNumber(rs.getInt(3));
+				sdb.setRentalStart(rs.getString(4));
+				sdb.setRentalEnd(rs.getString(5));
+				sdb.setCampCarName(rs.getString(6));
+				sdb.setCampCarNumber(rs.getString(7));
+				sdb.setCompName(rs.getString(8));
+				sdb.setCompManager(rs.getString(9));
+				sdb.setCompCall(rs.getString(10));
+				sdb.setRentalCost(rs.getInt(11));
+				sdb.setRentalEtcCost(rs.getInt(12));
+				sdb.setRentalPayDate(rs.getString(13));
+				sdb.setRentalState(rs.getString(14));
+				list.add(sdb);
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+				}
+		}
+
+		return list;
+	}	
+	
+	
 	// 정비소 정보 전체를 조회하는 메소드
 	public ArrayList<campDataBean> selRepair() throws SQLException {
 		Connection conn = null;
@@ -414,7 +707,9 @@ public class selectDB {
 			conn = getConnection(); // DB 연결
 
 			String sql = "select * from repairshop";
+			
 			pstmt = conn.prepareStatement(sql);
+			
 			rs = pstmt.executeQuery();
 
 			// 수정이 필요한 메소드
@@ -427,6 +722,179 @@ public class selectDB {
 				sdb.setRepairManager(rs.getString(5));
 				sdb.setRepairManagerEmail(rs.getString(6));
 				sdb.setShopImage(rs.getString(7));
+				list.add(sdb);
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+				}
+		}
+
+		return list;
+	}
+	
+	// 정비내역 조회하는 메소드
+	public ArrayList<campDataBean> selVRepair(String email) throws SQLException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		ArrayList<campDataBean> list = new ArrayList<campDataBean>();
+
+		try {
+			conn = getConnection(); // DB 연결
+
+			String sql = "select * from v_repair where 이메일 = ?";
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,email);
+			
+			
+			rs = pstmt.executeQuery();
+			
+			// 수정이 필요한 메소드
+			while (rs.next()) {
+				campDataBean sdb = new campDataBean();
+				sdb.setRepairNumber(rs.getInt(1));
+				sdb.setRepairDate(rs.getString(2));
+				sdb.setCampCarNumber(rs.getString(3));
+				sdb.setCampCarName(rs.getString(4));
+				sdb.setCustName(rs.getString(5));
+				sdb.setRepairShopName(rs.getString(6));
+				sdb.setRepairHistory(rs.getString(7));
+				sdb.setRepairShopCall(rs.getString(8));
+				sdb.setRepairCost(rs.getInt(9));
+				sdb.setRepairPayDate(rs.getString(10));
+				sdb.setCustEmail(rs.getString(11));
+				list.add(sdb);
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+				}
+		}
+
+		return list;
+	}
+	
+	// 예약상태인 정비내역 조회하는 메소드
+	public ArrayList<campDataBean> selVRepair() throws SQLException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		ArrayList<campDataBean> list = new ArrayList<campDataBean>();
+
+		try {
+			conn = getConnection(); // DB 연결
+
+			String sql = "select * from v_repair where 상태 != '승인'";
+
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			// 수정이 필요한 메소드
+			while (rs.next()) {
+				campDataBean sdb = new campDataBean();
+				sdb.setRepairNumber(rs.getInt(1));
+				sdb.setRepairDate(rs.getString(2));
+				sdb.setCampCarNumber(rs.getString(3));
+				sdb.setCampCarName(rs.getString(4));
+				sdb.setCustName(rs.getString(5));
+				sdb.setRepairShopName(rs.getString(6));
+				sdb.setRepairHistory(rs.getString(7));
+				sdb.setRepairShopCall(rs.getString(8));
+				sdb.setRepairCost(rs.getInt(9));
+				sdb.setRepairPayDate(rs.getString(10));
+				sdb.setCustEmail(rs.getString(11));
+				sdb.setRentalState(rs.getString(12));
+				list.add(sdb);
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+				}
+		}
+
+		return list;
+	}
+	
+	// 예약상태인 정비내역 조회하는 메소드
+	public ArrayList<campDataBean> selVRepairCheck() throws SQLException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		ArrayList<campDataBean> list = new ArrayList<campDataBean>();
+
+		try {
+			conn = getConnection(); // DB 연결
+
+			String sql = "select * from v_repair where 상태 = '승인'";
+
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			// 수정이 필요한 메소드
+			while (rs.next()) {
+				campDataBean sdb = new campDataBean();
+				sdb.setRepairNumber(rs.getInt(1));
+				sdb.setRepairDate(rs.getString(2));
+				sdb.setCampCarNumber(rs.getString(3));
+				sdb.setCampCarName(rs.getString(4));
+				sdb.setCustName(rs.getString(5));
+				sdb.setRepairShopName(rs.getString(6));
+				sdb.setRepairHistory(rs.getString(7));
+				sdb.setRepairShopCall(rs.getString(8));
+				sdb.setRepairCost(rs.getInt(9));
+				sdb.setRepairPayDate(rs.getString(10));
+				sdb.setCustEmail(rs.getString(11));
+				sdb.setRentalState(rs.getString(12));
 				list.add(sdb);
 
 			}

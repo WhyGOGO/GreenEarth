@@ -801,6 +801,10 @@ body.light-mode .video-bg:before {
   transition: 0.3s ease;
 
 }
+/*.Selected_app-card{
+	pointer-events: none;
+    opacity: 0.4;
+}*/
 .app-card:hover {
   transform: scale(1.02);
   background-color: var(--theme-bg-color);

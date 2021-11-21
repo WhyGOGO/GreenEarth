@@ -71,7 +71,7 @@
 	 <div class="apps-card">
  <%	 
 	request.setCharacterEncoding("UTF-8");
-	int num = Integer.parseInt(request.getParameter("number"));
+	int compId = Integer.parseInt(request.getParameter("compId"));
 	int campcarid=0;
 	int rentalstatus=0;
 	int carrentalcost=0;
@@ -79,7 +79,7 @@
  
 		selectDB sd = selectDB.getInstance();	
 	
-		ArrayList<campDataBean> dtos2 = sd.selCar(num);
+		ArrayList<campDataBean> dtos2 = sd.selCar(compId);
 		ArrayList<campDataBean> dtos3 = sd.selUser(email); //면허증번호 가져오기
 		
 		campDataBean li = dtos3.get(0);	// 면허증번호 가져오기
@@ -101,63 +101,55 @@
 	
 %>
 
-
-     <div class="app-card" style="width:30%;"> 
+	
+     <div class="app-card" style="width:30%;" id="forSelectBox">
+  
+	   <div class="Selected_app-card" >
 		<div class="content-section">
-	     <div class="content-section-title">이름 : <%=campcarname%></div>				 
-		       캠핑카종류 :	<%=campcartype%><br> 
-		       차량번호 : <%=campcarnumber%><br>
-		       캠핑카 등록일자 : <%=campcardate%><br>		      
-		       승차인원수 : <%=peopleride%><br>
-		       대여비용 : <%=carrentalcost%><br>
-		  	   대여가능 여부 : 
-		  <script>
-		  		if (<%=rentalstatus%>==1) {document.write("🔴");}
-		  		if (<%=rentalstatus%>==0) {document.write("🟢");}
-		  </script><br><hr>
-		  <form action="carsPro.jsp" method="get">
-			<div>
-				  	📆대여일 &nbsp;&nbsp;&nbsp;<input type="date" class="Date_" name="rentalStart" id="RENTALSTART"  min="0" max="" onchange="printTerm()" required="required">
-				<br>📆대여 종료<input type="date" name="rentalEnd" class="Date_" id="RENTALEND" onchange="printTerm()" min="0" max="" required="required"><br><br><hr>
-				<br>⌚대여기간 &nbsp;<input type="text" name="rentalTerm" id="RENTALTERM" readonly >						
-				<br>💰청구금액 &nbsp;<input type="text" name="rentalCost" id="RENTALCOST"  readonly>				
-			  	<br>납입기한&nbsp; &nbsp; &nbsp;<input type="text" name="rentalPayDate" id="RentalPayDate"  readonly>
-			  	<br> 해당일 영업마감 18시까지 결제
-			  	<hr>기타청구내역 	
-						  	
-				<div class="form-check">
-				 <br><input class="form-check-input" type="radio" value="이벤트옵션상품" name="rentalEtcHistory" id="flexRadioDefault1" onclick="printETCcost()">
-				  <label class="form-check-label" for="flexRadioDefault1">
-				  	<p style="color:pink">#이벤트 유상옵션!</p>(우드롤테이블, 캠핑의자4개, 우드셀프선반, 캠핑렌턴2개, 화롯대, 토치, 집게, 냄비2ae, 전골팬, 등 각종도구) 
-				  	<br>정가 70,000 -> 30,000
-				  </label>
-				</div>
-				<br>
-				<div class="form-check">
-				  <input class="form-check-input" type="radio" name="rentalEtcHistory" id="flexRadioDefault2" value="없음" checked>
-				  <label class="form-check-label" for="flexRadioDefault2">
-				    이벤트 옵션 없음
-				  </label>
-				</div>
-				<br> 기타청구요금: &nbsp;<input type="text" name="rentalEtcCost" id="RentalEtcCost"  readonly>			 
-				
+			<form  action="cars_select2.jsp"  name=frmSubmit method="post" onsubmit="go(<%=rentalstatus%>);">
+			     <div class="content-section-title">이름 : <%=campcarname%></div>			<input type="hidden" name="campCarName" value="<%=campcarname%>">	 
+				       캠핑카종류 :	<%=campcartype%><br> 		 							<input type="hidden" name="campCarType" value="<%=campcartype%>">
+				       차량번호 : <%=campcarnumber%><br>									<input type="hidden" name="campCarNumber" value=" <%=campcarnumber%>">
+				       캠핑카 등록일자 : <%=campcardate%><br>		       					<input type="hidden" name="campCarDate" value=" <%=campcardate%>">
+				       승차인원수 : <%=peopleride%><br> 									<input type="hidden" name="peopleRide" value="<%=peopleride%>">
+				       대여비용 : <%=carrentalcost%><br> 									<input type="hidden" name="carRentalCost" value="<%=carrentalcost%>">
+ 					   대여가능 여부 : 														<input type="hidden" name="rentalStatus" value="<%=rentalstatus%>">
+ 					    <script>
+				   
+					  		if (<%=rentalstatus%>==1) {
+					  			document.write("🔴");
 		
-			</div>
+					  		}
+					  		if (<%=rentalstatus%>==0) {document.write("🟢");			
+					  		}			 		  		
+				  		</script><br><hr>					 
+
 					  
-		       <div class="app-card-buttons">       
-		      	<button class="content-button" id="<%=rentalstatus%>" onclick="btn_alert(this.id)" >예약</button>
-		       </div>
+			       <div class="app-card-buttons">       
+			      	<button class="content-button" id="test"  >예약</button>			 
+			       </div>
+		       
 			       <input type="hidden" name="campCarId" value="<%=campcarid%>">
 			       <input type="hidden" name="custEmail" value="<%=email%>">	
 			       <input type="hidden" name="compId" value="<%=compid%>">
-			       <input type="hidden" name="licenseNumber" value="<%=LicenseNumber%>">
-			       	       	       			  
+			       <input type="hidden" name="licenseNumber" value="<%=LicenseNumber%>"> 	       	       			  
 	       </form>
+	      </div>
 	      </div>	      
-
-	      
       </div>
+<script>
 
+
+		function go(d){		
+			var theForm = document.frmSubmit;			
+			var veBtnRmv = document.getElementById("test");
+			
+			if (d==1){
+				alert("재고가 없습니다, 다른 캠핑카를 빌려주세요!");
+				document.location.href="cars_select.jsp";
+			}
+		}
+</script>
 <% }
 }
 	catch(Exception e){
@@ -172,16 +164,14 @@
   </div>
  </div>
  <div class="overlay-app"></div>
-</div>
-</div>
-  	
+
 	
   
 </main>
 
 
 
-<%@ include file="../../CSS_JS/카렌탈/car_select.jsp" %>
+
 		
 
 

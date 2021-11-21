@@ -61,9 +61,8 @@
 
     </div>
 
-    <div class="content-section">
-     <div class="content-section-title">정비소 정보</div>
 
+		<div class="apps-card">
 <%	int repairShopId=0;
 	try{
 		selectDB sd = selectDB.getInstance();
@@ -78,9 +77,10 @@
 			String RepairShopEmail = dto.getRepairManagerEmail();
 			String RepairShopIMAGE = dto.getShopImage();
  	
-%>
-     <div class="apps-card">
-      <div class="app-card">
+%>	<div class="app-card">
+
+    <div class="content-section">
+     <div class="content-section-title">정비소 정보</div>
        <span>
         정비소이름: <%=RepairShopname%>
        </span>
@@ -96,14 +96,14 @@
 	   </form>      
        </div>
       </div>
-     </div>
+     
 <% }
 }
 	catch(Exception e){
 		e.printStackTrace();
 }
 %>  
-     
+     	 </div>
 	    </div>
 	   </div>
 	  </div>
