@@ -211,3 +211,40 @@ insert into repairshop (REPAIRSHOPID,REPAIRSHOPNAME,REPAIRSHOPADDRESS,REPAIRSHOP
 
 
 alter table rental add RENTAL_STATE number(1) DEFAULT 0 NOT NULL;
+
+한정엽 | 기존 v_his2의 대여여부 속성을 빼고 예약상태 속성을 넣음 | 2021/11/21 2:10
+create or replace view v_his3
+as
+select (select email
+        from customer ct
+        where ct.licensenumber=rt.licensenumber) 이메일
+    ,rt.rentalnumber 대여번호
+    ,rt.rentalstart 대여일
+    ,rt.rentalend 반납일
+    ,(select cr.campcarname
+    from campingcar cr
+    where cr.campcarid=rt.campcarid) 대여차량
+    ,(select cr.campcarnumber
+    from campingcar cr
+    where cr.campcarid=rt.campcarid) 차량번호
+    ,(select cp.compname
+    from campcompany cp
+    where cp.compid=rt.compid) 대여사
+    ,(select cp.compmanager
+    from campcompany cp
+    where cp.compid=rt.compid) 담당자
+    ,(select cp.compcall
+    from campcompany cp
+    where cp.compid=rt.compid) 담당자번호
+    ,rt.rentalcost 대여비용
+    ,rt.rentaletccost 기타비용
+    ,case when rt.rental_state = 0 then '예약'
+            when rt.rental_state = 1 then '대여'
+            when rt.rental_state = -1 then '반납'
+            else '오류' 
+            end 예약상태
+    
+from rental rt
+order by rt.rentalnumber;
+
+select * from v_his3;
