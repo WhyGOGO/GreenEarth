@@ -1,6 +1,6 @@
 package beans_method;
 
-import java.sql.*;	
+import java.sql.*;
 
 
 import javax.naming.Context;
@@ -145,28 +145,10 @@ public class insertDB {
 		try {
 			conn = getConnection();
 
-<<<<<<< HEAD
-			String sql = "insert into rental(rentalNumber, licenseNumber, rentalStart, rentalEnd, rentalTerm, rentalCost, rentalPayDate, rentalEtcHistory, rentalEtcCost, campCarId, compid) values(?,?,?,?,?,?,?,?,?,?,?)";
-=======
 			String sql ="insert into rental(rentalnumber,licensenumber,rentalstart,RentalEnd,rentalterm,rentalCost,rentalEtcHistory,rentalEtcCost,campCarId,compid,RentalPayDate) values (rental_number.NEXTVAL,?,TO_DATE(?,'YYYY-MM-DD'),TO_DATE(?,'YYYY-MM-DD'),?,?,?,?,?,?,TO_DATE(?,'YYYY-MM-DD'))";
->>>>>>> 2eda50c48010e2b976c235be2b0b2f46bf9d8caf
 			pstmt = conn.prepareStatement(sql);
 			
 
-<<<<<<< HEAD
-			pstmt.setInt(1, member.getRentalNumber());
-			pstmt.setString(2, member.getLicenseNumber());
-			pstmt.setString(3, member.getRentalStart());
-			pstmt.setString(4, member.getRentalEnd());
-			pstmt.setString(5, member.getRentalTerm());
-			pstmt.setInt(6, member.getRentalCost());
-			pstmt.setString(7, member.getRentalPayDate());
-			pstmt.setString(8, member.getRentalEtcHistory());
-			pstmt.setInt(9, member.getRentalEtcCost());
-			pstmt.setInt(10, member.getCampCarId());
-			pstmt.setInt(11, member.getCompId());
-
-=======
 			
 			pstmt.setString(1, member.getLicenseNumber());
 			pstmt.setString(2,member.getRentalStart());
@@ -181,8 +163,17 @@ public class insertDB {
 
 			pstmt.setString(10, member.getRentalPayDate());
 			
->>>>>>> 2eda50c48010e2b976c235be2b0b2f46bf9d8caf
-			pstmt.executeUpdate();
+			//여기까지 insert문
+			
+			String sql2 ="update campingcar set rentalstatus=? where campcarid=?";
+			
+			pstmt = conn.prepareStatement(sql2);
+			pstmt.setInt(1,1);
+			pstmt.setInt(2, member.getCampCarId());
+			// 여기까지 upadte 문
+			pstmt.executeUpdate(); 
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -199,18 +190,17 @@ public class insertDB {
 		try {
 			conn = getConnection();
 
-			String sql = "insert into repairinfo(repairNumber, repairHistory, repairDate, repairCost, repairPayDate, repairEtcHistory, repairShopId, campCarId, licenseNumber) values(?,?,?,?,?,?,?,?,?)";
+			String sql = "insert into repairinfo(REPAIRNUMBER,repairHistory, repairDate, repairCost, repairPayDate, repairEtcHistory, repairShopId, campCarId, licenseNumber) values(REPAIRNUMBER.NEXTVAL,?,?,?,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
-
-			pstmt.setInt(1, member.getRepairNumber());
-			pstmt.setString(2, member.getRepairHistory());
-			pstmt.setString(3, member.getRepairDate());
-			pstmt.setInt(4, member.getRepairCost());
-			pstmt.setString(5, member.getRepairPayDate());
-			pstmt.setString(6, member.getRepairEtcHistory());
-			pstmt.setInt(7, member.getRepairShopId());
-			pstmt.setInt(8, member.getCampCarId());
-			pstmt.setString(9, member.getLicenseNumber());
+			
+			pstmt.setString(1, member.getRepairHistory());
+			pstmt.setString(2, member.getRepairDate());
+			pstmt.setInt(3, member.getRepairCost());
+			pstmt.setString(4, member.getRepairPayDate());
+			pstmt.setString(5, member.getRepairEtcHistory());
+			pstmt.setInt(6, member.getRepairShopId());
+			pstmt.setInt(7, member.getCampCarId());
+			pstmt.setString(8, member.getLicenseNumber());
 
 			pstmt.executeUpdate();
 		} catch (Exception e) {
@@ -218,4 +208,27 @@ public class insertDB {
 
 		}
 	}
+	//정비의뢰 테이블값넣기
+	public void addRepairRequest(campDataBean member) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			conn = getConnection();
+
+			String sql = "insert into repairrequest(RENTALNUMBER,LICENSENUMBER,CAMPCARID) values(?,?,?)";
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setInt(1, member.getRentalNumber());
+			pstmt.setString(2, member.getLicenseNumber());
+			pstmt.setInt(3, member.getCampCarId());
+
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+	}
 }
+
