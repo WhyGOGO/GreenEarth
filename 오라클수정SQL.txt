@@ -260,3 +260,30 @@ from rental rt
 order by rt.rentalnumber;
 
 select * from v_his3;
+
+
+
+한정엽 | 정비내역을 간략하게 볼 수 있는 뷰  | 2021/11/21 4:50
+
+create or replace view v_repair
+as
+select r_if.repairnumber 정비번호
+    ,(select cp.campcarnumber
+    from campingcar cp
+    where cp.campcarid=r_if.campcarid) 차량번호
+    ,(select cp.campcarname
+    from campingcar cp
+    where cp.campcarid = r_if.campcarid) 정비차량
+    ,(select rs.repairshopname
+    from repairshop rs
+    where rs.repairshopid=r_if.repairshopid) 정비소
+    ,concat(concat(r_if.repairhistory,'|'),r_if.repairetchistory) 정비내용
+    ,(select rs.repairshopcall
+    from repairshop rs
+    where rs.repairshopid=r_if.repairshopid) 전화번호
+    , r_if.repaircost 정비비용
+    ,(select email
+    from customer ct
+    where ct.licensenumber = r_if.licensenumber)이메일
+
+from repairinfo r_if;
