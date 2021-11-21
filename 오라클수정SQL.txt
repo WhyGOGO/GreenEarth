@@ -144,7 +144,6 @@ ALTER TABLE repairshop add shopimage VARCHAR2(30);
 ALTER TABLE CUSTOMER MODIFY (EMAIL VARCHAR2(254)); 
 ALTER TABLE customer modify address VARCHAR2(100);
 alter table rental modify rentalterm varchar2(3);
-alter table rental add RENTAL_STATE number(1) DEFAULT 0 NOT NULL;
 
 --이미 되어있다면 안해도됨
 
@@ -264,7 +263,7 @@ select * from v_his3;
 
 
 
-한정엽 | 정비내역을 간략하게 볼 수 있는 뷰  | 2021/11/21 4:10
+한정엽 | 정비내역을 간략하게 볼 수 있는 뷰  | 2021/11/21 4:50
 
 create or replace view v_repair
 as
@@ -278,6 +277,7 @@ select r_if.repairnumber 정비번호
     ,(select rs.repairshopname
     from repairshop rs
     where rs.repairshopid=r_if.repairshopid) 정비소
+    ,concat(concat(r_if.repairhistory,'|'),r_if.repairetchistory) 정비내용
     ,(select rs.repairshopcall
     from repairshop rs
     where rs.repairshopid=r_if.repairshopid) 전화번호
