@@ -19,7 +19,7 @@
 	ArrayList<campDataBean> dtos2 = new ArrayList<campDataBean>();//캠핑카정보
 	selectDB sdb = selectDB.getInstance();
 	
-	dtos = sdb.selCustHis2(email);
+	dtos = sdb.selRentNow(email);
 	
 	if (dtos.size()!=0){ // 총 지불금액
 		

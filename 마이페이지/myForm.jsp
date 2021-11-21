@@ -17,9 +17,10 @@
 	request.setCharacterEncoding("UTF-8");	
 
 	selectDB sd = selectDB.getInstance();
-	ArrayList<campDataBean> dtos = sd.selCustHis2(email); 
+	ArrayList<campDataBean> dtos = sd.selRentBD(email); 
 	
-	if (dtos.size()!=0){
+	
+	if (dtos.size()!=0){	
 		
 %>
 <main class="page-content">
@@ -34,6 +35,9 @@
 				<td colspan="2" class="table-active">대여차량</td>
 				<td>대여사</td>
 				<td>대여비용</td>
+				<td>납입기한</td>
+				<td>대여상태</td>
+				<td></td>
 			</tr>
 			<%for (int i=0; i<dtos.size();i++){
 		
@@ -46,6 +50,8 @@
 			    String RentalEnd = dto.getRentalEnd(); //렌트끝나는날짜 *
 			    int RentalCost = dto.getRentalCost(); //렌트비용 *
 			    int RentalEtcCost = dto.getRentalEtcCost(); //렌트기타비용 *
+			    String rt_paydate = dto.getRentalPayDate();
+			    String state = dto.getRentalState();
 			    
 			    int cost = (RentalCost + RentalEtcCost); //렌트비용 + 렌트기타비용 합치기
 			
@@ -56,6 +62,17 @@
 				<td colspan="2" class="table-active"><%=CampCarN %></td>
 				<td><%=CompNAME%></td>
 				<td><%= cost %></td>
+				<td><%= rt_paydate %></td>
+				<%if (state.equals("예약")){ %>
+				<td><%=state %></td>
+				<td><a href="setRequest.jsp?rental_num=<%=rentalnumber%>&state=<%=state %>" class="btn btn-danger btn-sm">예약취소</a></td>
+				<%}else if(state.equals("취소요청")){ %>
+				<td><%=state %></td>
+				<td><a href="setRequest.jsp?rental_num=<%=rentalnumber%>&state=<%=state %>" class="btn btn-warning btn-sm">요청취소</a></td>
+				<%} else {%>
+				<td><%=state %></td>
+				<td></td>
+				<%} %>
 			</tr>
 			<%} %>
 
@@ -88,6 +105,9 @@
 				<td colspan="2" class="table-active">대여차량</td>
 				<td>대여사</td>
 				<td>대여비용</td>
+				<td>납입기한</td>
+				<td>대여상태</td>
+				<td></td>
 			</tr>
 			<tr>
 				<th scope="row"></th>
