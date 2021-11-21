@@ -200,3 +200,14 @@ insert into repairshop (REPAIRSHOPID,REPAIRSHOPNAME,REPAIRSHOPADDRESS,REPAIRSHOP
 
 --나머지값들은 로그인해서 캠핑카 대여로 하시면 알아서 다 생깁니다. 지속업데이트하겠습니다.
                                                                ㄴㅡㅡㅡㅡ 대...대박
+
+
+
+
+
+==============================================================================================================================
+
+박영민 | rental 테이블에 rental_state 추가 | 2021/11/21 1:55
+
+
+alter table rental add RENTAL_STATE number(1) DEFAULT 1 NOT NULL;
