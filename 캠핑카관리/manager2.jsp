@@ -18,19 +18,21 @@
       <h2>캠핑카</h2>
       <hr>
 <a href="manager2_insert.jsp" class="btn btn-primary btn-sm">캠핑카 추가</a>
-<table class="table table-success table-striped">
-   <thead>
-    <tr>
-      <th scope="row">캠핑카이름</th>
-      <td colspan="2" class="table-active">캠핑카종류</td>
+<table class="table table-dark table-stripeds">
+	
+    <tr style="text-align: center;">
+      <td>캠핑카이름</td>
+      <td>캠핑카종류</td>
       <td>차량번호</td>
       <td>등록일자</td>
       <td>승차인원수</td>
       <td>상세정보</td> 
       <td>대여비용</td>     
-      <td>회사ID</td>      
+      <td>회사ID</td>
+      <td>편집</td>
+      <td>    </td>      
     </tr>
-   </thead>
+
     <%
 	try{
 
@@ -48,10 +50,10 @@
 		int CompID = dto.getCompId();
 		int CampCarId = dto.getCampCarId();
 	%>	
-  <tbody>
-  	<tr>
-  	  <th scope="row"><%=campcarname%></th>
-      <td colspan="2" class="table-active"><%=cartype%></td>
+
+  	<tr style="text-align: center;">
+  	  <th><%=campcarname%></th>
+      <td><%=cartype%></td>
       <td><%=CampCarNumber%></td>
       <td><%=CampCarDate%></td>
       <td><%=PeopleRide%></td>
@@ -60,10 +62,10 @@
       <td><%=CompID%></td>
       <td><button type="button" class="btn btn-outline-warning" onClick="location.href='manager2_update.jsp?campCarName=<%=campcarname%>&campCarType=<%=cartype%>&campCarNumber=<%=CampCarNumber%>&campCarDate=<%=CampCarDate%>&peopleRide=<%=PeopleRide%>&rentalStatus=<%=RentalStatus%>&carRentalCost=<%=CarRentalCost%>&campCarId=<%=CampCarId%>'">수정</button></td>
 
-      <td><button type="button" class="btn btn-outline-danger" onClick="location.href='manager2_delete.jsp?campCarId=<%=CampCarId%>'">삭제</button></td>
+      <td><button type="button" class="btn btn-outline-danger" onClick="location.href='manager2_delete.jsp?CampCarId=<%=CampCarId%>'">삭제</button></td>
   	</tr>
   	
-  </tbody>  
+
    <%	}
 	
 }

@@ -9,11 +9,14 @@
 <title>대여회사 삭제</title>
 
 <%@ include file="../../관리자페이지메뉴/managerMenu.jsp" %>	<!-- 메뉴 바  -->
+
 <% 
 	request.setCharacterEncoding("UTF-8");
 	int campcarid = Integer.parseInt(request.getParameter("CampCarId"));
 %>
-
+<jsp:useBean id="manager2" class="beans.campDataBean" scope="page"/>
+<jsp:setProperty name="manager2" property="*" />
+	
 
 <main class="page-content">
     <div class="container">

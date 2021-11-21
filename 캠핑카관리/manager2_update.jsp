@@ -39,7 +39,7 @@ request.setCharacterEncoding("UTF-8");
 					</div> 
 					<div class="row"> 
 						<div class="mb-3"> <label for="nickname">캠핑카등록날짜</label> 
-							<input type="text" class="for_disable" name="campCarDate" value="<%=manager2.getCampCarDate()%>" required>
+							<input type="date" class="for_disable" name="campCarDate" value="<%=manager2.getCampCarDate()%>" required>
 						</div>
 					</div>
 					<div class="row"> 
