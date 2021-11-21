@@ -1,35 +1,22 @@
 package beans_method;
 
-
-import java.sql.*	;
-
+import java.sql.*;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
-
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
 import beans.*;
 
-
-import java.util.*;
-
-
-
 public class updateDB {
-
-	private updateDB() {
-	}
-
+	
+	private updateDB() {}
+	
 	private static updateDB instance = new updateDB();
-
+	
 	public static updateDB getInstance() {
 		return instance;
 	}
-
+	
 	private Connection getConnection() throws Exception {
 		Context initCtx = new InitialContext();
 		Context envCtx = (Context) initCtx.lookup("java:comp/env");
@@ -37,6 +24,46 @@ public class updateDB {
 
 		return ds.getConnection();
 	}
+	
+	
+	//예약상태인 대여정보를 취소요청하는 메소드
+	public void requestCancel(int num) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = getConnection();
+			
+			String sql = "update rental set rental_state=2 where rental_state=0 and rentalnumber=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//취소상태인 요청정보를 다시금 취소요청하는 메소드
+	public void requestCancel2(int num) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = getConnection();
+			
+			String sql = "update rental set rental_state=0 where rental_state=2 and rentalnumber=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	public void updateCampcar(campDataBean member) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -55,8 +82,8 @@ public class updateDB {
 			pstmt.setInt(8,member.getCampCarId());
 			pstmt.executeUpdate();
 		
-	} catch (Exception e) {
-		e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 
 		}
 
@@ -79,13 +106,10 @@ public class updateDB {
 			pstmt.setInt(8,member.getCompId());
 			pstmt.executeUpdate();
 		
-	} catch (Exception e) {
-		e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 
 		}
 
 	}
-
-
-
 }
