@@ -61,7 +61,7 @@
 
           </li>
           <li class="sidebar-dropdown1">
-            <a href="../관리자페이지/캠핑카관리/manager2.jsp">
+            <a href="../../관리자페이지/캠핑카관리/manager2.jsp">
               <i class="fa fa-tachometer-alt"></i>
               <span>캠핑카 관리</span>
             </a>
@@ -73,7 +73,7 @@
             </a>
           </li>
           <li class="sidebar-dropdown1">
-            <a href="../관리자페이지/manager4.jsp">
+            <a href="../../관리자페이지/정비소관리/manager4.jsp">
               <i class="fa fa-tachometer-alt"></i>
               <span>정비소 관리</span>
             </a>
