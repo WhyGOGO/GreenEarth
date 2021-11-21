@@ -25,7 +25,7 @@ com.oreilly.servlet.multipart.DefaultFileRenamePolicy" %>
 multipartRequest.getFilesystemName("photo");
 		%>
 		폼에서 전송된 원래 파일명 :
-<%=multipartRequest.getOriginalFileName("photo") %> <br />
+<%=multipartRequest.getOriginalFileName("photo") %> <br/>
 		파일명 : <%=filename %> <br />
 		
 <script>

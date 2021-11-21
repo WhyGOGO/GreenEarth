@@ -66,7 +66,7 @@
             </a>
           </li>
           <li class="sidebar-dropdown1">
-            <a href="../관리자페이지/manager3.jsp">
+            <a href="../../관리자페이지/고객관리/고객관리.jsp">
               <i class="fa fa-tachometer-alt"></i>
               <span>고객정보 관리</span>
             </a>
