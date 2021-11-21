@@ -56,7 +56,7 @@
                 </li>
                 <% 
                 	if(email.equals("root@root")){%>
-                	<li><a href="../../관리자페이지/manager.jsp" style="color:#77AFC4">관리자페이지</a></li>
+                	<li><a href="../../관리자페이지/대여회사/대여회사.jsp" style="color:#77AFC4">관리자페이지</a></li>
                 <%}else{%>
                	<li><a href="../../마이페이지/myForm.jsp" style="color:#77AFC4">마이페이지</a></li>
 				<%}%>
