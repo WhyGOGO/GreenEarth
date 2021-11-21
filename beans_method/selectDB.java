@@ -414,7 +414,7 @@ public class selectDB {
 		try {
 			conn = getConnection(); // DB 연결
 
-			String sql = "select * from v_his2 where 대여가능여부 = '대여중' and 이메일 = ?";
+			String sql = "select * from v_his3 where 예약상태 = '대여' and 이메일 = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1,email);
 
@@ -461,7 +461,7 @@ public class selectDB {
 		return list;
 	}
 
-	// 반납 이후 과거의 대여 정보를 조회하는 메소드
+	// 대여 내역을 조회하는 메소드
 	public ArrayList<campDataBean> selRentBD(String email) throws SQLException {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -472,7 +472,7 @@ public class selectDB {
 		try {
 			conn = getConnection(); // DB 연결
 
-			String sql = "select * from v_his3 where 예약상태 = '반납' and 이메일 = ?";
+			String sql = "select * from v_his3 where 이메일 = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1,email);
 
@@ -532,7 +532,9 @@ public class selectDB {
 			conn = getConnection(); // DB 연결
 
 			String sql = "select * from repairshop";
+			
 			pstmt = conn.prepareStatement(sql);
+			
 			rs = pstmt.executeQuery();
 
 			// 수정이 필요한 메소드
@@ -545,6 +547,62 @@ public class selectDB {
 				sdb.setRepairManager(rs.getString(5));
 				sdb.setRepairManagerEmail(rs.getString(6));
 				sdb.setShopImage(rs.getString(7));
+				list.add(sdb);
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+				}
+		}
+
+		return list;
+	}
+	
+	// 정비내역 조회하는 메소드
+	public ArrayList<campDataBean> selVRepair(String email) throws SQLException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		ArrayList<campDataBean> list = new ArrayList<campDataBean>();
+
+		try {
+			conn = getConnection(); // DB 연결
+
+			String sql = "select * from v_repair where 이메일 = ?";
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,email);
+			
+			
+			rs = pstmt.executeQuery();
+			
+			// 수정이 필요한 메소드
+			while (rs.next()) {
+				campDataBean sdb = new campDataBean();
+				sdb.setRepairNumber(rs.getInt(1));
+				sdb.setCampCarNumber(rs.getString(2));
+				sdb.setCampCarName(rs.getString(3));
+				sdb.setRepairShopName(rs.getString(4));
+				sdb.setRepairHistory(rs.getString(5));
+				sdb.setRepairShopCall(rs.getString(6));
+				sdb.setRepairCost(rs.getInt(7));
+				sdb.setCustEmail(rs.getString(8));
 				list.add(sdb);
 
 			}
