@@ -228,5 +228,30 @@ public class insertDB {
 
 		}
 	}
+
+		// 회사정보를 등록하는 메소드
+		public void addCompany(campDataBean member) throws Exception {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+	
+			try {
+				conn = getConnection();
+	
+				String sql = "insert into campCompany(compid, compname, compaddress, compcall, compmanager, compemail,image) values(COMPID.NEXTVAL,?,?,?,?,?,?)";
+				pstmt = conn.prepareStatement(sql);
+	
+	
+				pstmt.setString(1, member.getCompName());
+				pstmt.setString(2, member.getCompAddress());
+				pstmt.setString(3, member.getCompCall());
+				pstmt.setString(4, member.getCompManager());
+				pstmt.setString(5, member.getCompEmail());
+				pstmt.setString(6, member.getIMAGE());
+				pstmt.executeUpdate();
+			} catch (Exception e) {
+				e.printStackTrace();
+	
+			}
+		}
 }
 
