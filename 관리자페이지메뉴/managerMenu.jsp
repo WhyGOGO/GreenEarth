@@ -11,6 +11,7 @@
 																<!-- 관리자 페이지 메뉴 입니다. -->
 
  <body>
+ <%@ include file="../세션/trySession2.jsp"%>
 <div class="page-wrapper chiller-theme toggled">
   <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
     <i class="fas fa-bars"></i>
@@ -60,7 +61,7 @@
 
           </li>
           <li class="sidebar-dropdown1">
-            <a href="../../관리자페이지/캠핑카관리/manager2.jsp">
+            <a href="../관리자페이지/캠핑카관리/manager2.jsp">
               <i class="fa fa-tachometer-alt"></i>
               <span>캠핑카 관리</span>
             </a>
@@ -78,14 +79,33 @@
             </a>
           </li>
           <li class="sidebar-dropdown1">
-            <a href="../관리자페이지/manager5.jsp">
+            <a href="../../관리자페이지/의뢰/정비의뢰.jsp">
               <i class="fa fa-tachometer-alt"></i>
-              <span>캠핑카 정비 의뢰 및 결과 정보</span>
+              <span>정비 의뢰 관리</span>
             </a>
-          </li>                    
+          </li>
+          <li class="sidebar-dropdown1">
+            <a href="../../관리자페이지/의뢰/정비결과.jsp">
+              <i class="fa fa-tachometer-alt"></i>
+              <span>정비 결과 관리</span>
+            </a>
+          </li>
+          <li class="sidebar-dropdown1">
+            <a href="../../관리자페이지/의뢰/예약관리.jsp">
+              <i class="fa fa-tachometer-alt"></i>
+              <span>예약요청 관리</span>
+            </a>
+          </li>         
+          <li class="sidebar-dropdown1">
+            <a href="../../관리자페이지/의뢰/대여차량관리.jsp">
+              <i class="fa fa-tachometer-alt"></i>
+              <span>대여차량 관리</span>
+            </a>
+          </li>                                           
         </ul>
       </div>
       <!-- sidebar-menu  -->
     </div>
   </nav>
   <!-- sidebar-wrapper  -->
+  <%}%>
