@@ -281,5 +281,8 @@ select r_if.repairnumber 정비번호
     from repairshop rs
     where rs.repairshopid=r_if.repairshopid) 전화번호
     , r_if.repaircost 정비비용
-    
+    ,(select email
+    from customer ct
+    where ct.licensenumber = r_if.licensenumber)이메일
+
 from repairinfo r_if;
