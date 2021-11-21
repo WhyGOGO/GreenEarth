@@ -253,7 +253,7 @@ select (select email
     ,case when rt.rental_state = 0 then '예약'
             when rt.rental_state = 1 then '대여'
             when rt.rental_state = -1 then '반납'
-            else '오류' 
+            else '요청대기' 
             end 예약상태
     
 from rental rt
