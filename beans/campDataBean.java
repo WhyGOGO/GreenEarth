@@ -51,6 +51,10 @@ public class campDataBean {
 	private String custCall; //고객 전화번호
 	private String custEmail; //고객 이메일 및 아이디
 	private String passwd; //고객 비밀번호
+	
+	private String rentalState; //뷰로 받은 대여가능 여부 및 예약상태를 저장
+	
+	
 	public int getCampCarId() {
 		return campCarId;
 	}
@@ -308,6 +312,12 @@ public class campDataBean {
 	}
 	public void setPasswd(String passwd) {
 		this.passwd = passwd;
+	}
+	public String getRentalState() {
+		return rentalState;
+	}
+	public void setRentalState(String rentalstate) {
+		this.rentalState = rentalstate;
 	}
 	
 
