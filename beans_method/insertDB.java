@@ -118,16 +118,16 @@ public class insertDB {
 		try {
 			conn = getConnection();
 
-			String sql = "insert into repairshop(repairShopId, repairShopName, repairShopAddress, repairShopCall, repairManager, repairManagerEmail) values(?,?,?,?,?,?)";
+			String sql = "insert into repairshop(repairShopId, repairShopName, repairShopAddress, repairShopCall, repairManager, repairManagerEmail,SHOPIMAGE) values(REPAIRSHOPID.nextval,?,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 
-			pstmt.setInt(1, member.getRepairShopId());
-			pstmt.setString(2, member.getRepairShopName());
-			pstmt.setString(3, member.getRepairShopAddress());
-			pstmt.setString(4, member.getRepairShopCall());
-			pstmt.setString(5, member.getRepairManager());
-			pstmt.setString(6, member.getRepairManagerEmail());
-
+			pstmt.setString(1, member.getRepairShopName());
+			pstmt.setString(2, member.getRepairShopAddress());
+			pstmt.setString(3, member.getRepairShopCall());
+			pstmt.setString(4, member.getRepairManager());
+			pstmt.setString(5, member.getRepairManagerEmail());
+			pstmt.setString(6, member.getShopImage());
+			
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -125,4 +125,43 @@ public class deleteDB {
 		ex.printStackTrace();
 		}
 	}
+	
+	public void delete_customer(String custEmail) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+	try {
+		conn = getConnection(); //DB연결
+		
+		String sql = "delete from customer where email=? ";
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, custEmail);
+		
+		
+		pstmt.executeUpdate();
+		
+		}
+	
+	catch (Exception ex) {
+		ex.printStackTrace();
+		}
+	}
+	public void delete_repairshop(int repairShopId) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+	try {
+		conn = getConnection(); //DB연결
+		
+		String sql = "delete from repairshop where REPAIRSHOPID=? ";
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, repairShopId);
+		
+		
+		pstmt.executeUpdate();
+		
+		}
+	
+	catch (Exception ex) {
+		ex.printStackTrace();
+		}
+	}
 }
