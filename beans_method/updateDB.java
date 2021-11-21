@@ -112,4 +112,28 @@ public class updateDB {
 		}
 
 	}
+	
+	public void update_customer(campDataBean member) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = getConnection(); //DB연결
+			
+			String sql = "update customer set name=?,LICENSENUMBER=?,ADDRESS=?,PHONENUMBER=?,EMAIL=?,PASSWD=? where EMAIL=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,member.getCustName());
+			pstmt.setString(2,member.getLicenseNumber());
+			pstmt.setString(3,member.getCustAddress());
+			pstmt.setString(4,member.getCustCall());
+			pstmt.setString(5,member.getCustEmail());
+			pstmt.setString(6,member.getPasswd());
+			pstmt.setString(7,member.getCustEmail());
+			pstmt.executeUpdate();
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+
+	}
 }
