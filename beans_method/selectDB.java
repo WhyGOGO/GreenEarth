@@ -291,6 +291,60 @@ public class selectDB {
 		return list;
 	}
 	
+	public ArrayList<campDataBean> selCar() throws SQLException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		ArrayList<campDataBean> list = new ArrayList<campDataBean>();
+		try {
+			conn = getConnection(); // DB 연결
+
+			String sql = "SELECT * FROM CAMPINGCAR";
+
+			pstmt = conn.prepareStatement(sql);
+	
+			rs = pstmt.executeQuery();
+
+			// 수정이 필요한 메소드
+			while (rs.next()) {
+				campDataBean sdb = new campDataBean();
+				sdb.setCampCarId(rs.getInt(1));
+				sdb.setCampCarName(rs.getString(2));
+				sdb.setCampCarType(rs.getString(3));
+				sdb.setCampCarNumber(rs.getString(4));
+				sdb.setCampCarDate(rs.getString(5));
+				sdb.setPeopleRide(rs.getInt(6));
+				sdb.setCarRentalCost(rs.getInt(7));
+				sdb.setCompId(rs.getInt(8));
+				sdb.setRentalStatus(rs.getInt(9));
+
+				list.add(sdb);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+				}
+		}
+
+		return list;
+	}
+	
 	// 고객의 이용이력 정보를 조회하는 메소드
 		public ArrayList<campDataBean> selCustHis(String email) throws SQLException {
 			Connection conn = null;

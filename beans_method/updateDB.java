@@ -70,7 +70,7 @@ public class updateDB {
 		try {
 			conn = getConnection(); //DB연결
 			
-			String sql = "update campingcar set CAMPCARNAME=?,CAMPCARTYPE=?,CAMPCARNUMBER=?,CAMPCARDATE=?,PEOPLERIDE=?,CARRENTALCOST=?,RENTALSTATUS=? where CampCarId=? ";
+			String sql = "update campingcar set CAMPCARNAME=?,CAMPCARTYPE=?,CAMPCARNUMBER=?,CAMPCARDATE=TO_DATE(?,'YYYY-MM-DD'),PEOPLERIDE=?,CARRENTALCOST=?,RENTALSTATUS=? where CAMPCARID=? ";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1,member.getCampCarName());
 			pstmt.setString(2,member.getCampCarType());
@@ -82,8 +82,8 @@ public class updateDB {
 			pstmt.setInt(8,member.getCampCarId());
 			pstmt.executeUpdate();
 		
-		} catch (Exception e) {
-			e.printStackTrace();
+	} catch (Exception e) {
+		e.printStackTrace();
 
 		}
 
