@@ -3,6 +3,7 @@ package beans_method;
 import java.sql.*;
 
 
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
@@ -92,25 +93,23 @@ public class insertDB {
 		try {
 			conn = getConnection();
 
-			String sql = "insert into campingcar(campCarId, compId, campCarName, campCarsType, campCarNumber, campCarDate, peopleRide, carRentalCost, rentalStatus) values(?,?,?,?,?,?,?,?,0)";
+			String sql = "insert into campingcar (CAMPCARID,CAMPCARNAME,CAMPCARTYPE,CAMPCARNUMBER,CAMPCARDATE,PEOPLERIDE,CARRENTALCOST,COMPID,rentalstatus) values(CAMPCARID.NEXTVAL,?,?,?,?,?,?,?,0)";
 			pstmt = conn.prepareStatement(sql);
-
-			pstmt.setInt(1, member.getCampCarId());
-			pstmt.setInt(2, member.getCompId());
-			pstmt.setString(3, member.getCampCarName());
-			pstmt.setString(4, member.getCampCarType());
-			pstmt.setString(5, member.getCampCarNumber());
-			pstmt.setString(6, member.getCampCarDate());
-			pstmt.setInt(7, member.getPeopleRide());
-			pstmt.setInt(8, member.getRentalCost());
-
+			
+			pstmt.setString(1, member.getCampCarName());
+			pstmt.setInt(7, member.getCompId());
+			pstmt.setString(2, member.getCampCarType());
+			pstmt.setString(3, member.getCampCarNumber());
+			pstmt.setString(4, member.getCampCarDate());
+			pstmt.setInt(6, member.getCarRentalCost());
+			pstmt.setInt(5, member.getPeopleRide());
+			
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 
 		}
 	}
-
 	// 정비소 정보를 DB에 추가
 	public void addRepair(campDataBean member) throws Exception {
 		Connection conn = null;
@@ -230,9 +229,5 @@ public class insertDB {
 
 		}
 	}
-	
-	
-
-	
 }
 
