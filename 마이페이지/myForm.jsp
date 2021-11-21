@@ -17,7 +17,7 @@
 	request.setCharacterEncoding("UTF-8");	
 
 	selectDB sd = selectDB.getInstance();
-	ArrayList<campDataBean> dtos = sd.selCustHis(email); 
+	ArrayList<campDataBean> dtos = sd.selCustHis2(email); 
 	
 	if (dtos.size()!=0){
 		
@@ -48,13 +48,7 @@
 			    int RentalEtcCost = dto.getRentalEtcCost(); //렌트기타비용 *
 			    
 			    int cost = (RentalCost + RentalEtcCost); //렌트비용 + 렌트기타비용 합치기
-			    
-			    System.out.println("캥핑카 이름"+CampCarN);
-				System.out.println("고객의 렌트 고유번호"+rentalnumber);
-				System.out.println("회사이름"+CompNAME);
-				System.out.println("렌트시작날짜"+RentalStart);
-				System.out.println("렌트끝나는날짜"+RentalEnd);
-				System.out.println("렌트비용"+cost);
+			
 		 %>
 			<tr>
 				<th scope="row"><%=rentalnumber%></th>
