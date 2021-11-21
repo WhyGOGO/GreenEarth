@@ -2,22 +2,11 @@ package beans_method;
 
 
 import java.sql.*	;
-
-
+import java.util.*;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
-
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
 import beans.*;
-
-
-import java.util.*;
-
-
 
 public class deleteDB {
 
@@ -44,25 +33,20 @@ public class deleteDB {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
-		ArrayList<campDataBean> list = new ArrayList<campDataBean>();
-		
 		try {
-			conn = getConnection(); //DB연결
+			conn = getConnection();
 
 			String sql = "delete from campcompany where CompName=? ";
 			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.executeUpdate();
-			
-			while(rs.next()) {
-			pstmt.setInt(1,member.getCompId());
+
+			pstmt.setInt(1, member.getCompId());
 			pstmt.setString(2, member.getCompName());
 			pstmt.setString(3, member.getCompAddress());
 			pstmt.setString(4, member.getCompCall());
 			pstmt.setString(5, member.getCompManager());
 			pstmt.setString(6, member.getCompEmail());
 			pstmt.setString(7, member.getIMAGE());
-			}
+
 			pstmt.executeUpdate();
 			
 			/*rs = pstmt.executeQuery();
@@ -83,46 +67,14 @@ public class deleteDB {
 			ex.printStackTrace();
 		}
 
+			
+			}
+		
+	}
 
 
-	}
-	//캠핑카 삭제 메소드
-	public void deleteCampcar(int CampCarId) throws Exception {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-	try {
-		conn = getConnection(); //DB연결
-		
-		String sql = "delete from campingcar where CampCarId=? ";
-		pstmt = conn.prepareStatement(sql);
-		pstmt.setInt(1, CampCarId);
-		
-		
-		pstmt.executeUpdate();
-		
-		}
-	
-	catch (Exception ex) {
-		ex.printStackTrace();
-		}
-	}	
-	public void deleteCompany(int compId) throws Exception {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-	try {
-		conn = getConnection(); //DB연결
-		
-		String sql = "delete from CAMPCOMPANY where CompId=? ";
-		pstmt = conn.prepareStatement(sql);
-		pstmt.setInt(1, compId);
-		
-		
-		pstmt.executeUpdate();
-		
-		}
-	
-	catch (Exception ex) {
-		ex.printStackTrace();
-		}
-	}
-}
+
+
+
+
+
