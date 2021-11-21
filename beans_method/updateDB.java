@@ -136,4 +136,27 @@ public class updateDB {
 		}
 
 	}
+	public void update_repairshop(campDataBean member) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = getConnection(); //DB연결
+			
+			String sql = "update repairshop set REPAIRSHOPNAME=?,REPAIRSHOPADDRESS=?,REPAIRSHOPCALL=?,REPAIRMANAGER=?,REPAIRMANAGEREMAIL=?,SHOPIMAGE=? where REPAIRSHOPID=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,member.getRepairShopName());
+			pstmt.setString(2,member.getRepairShopAddress());
+			pstmt.setString(3,member.getRepairShopCall());
+			pstmt.setString(4,member.getRepairManager());
+			pstmt.setString(5,member.getRepairManagerEmail());
+			pstmt.setString(6,member.getShopImage());
+			pstmt.setInt(7,member.getRepairShopId());
+			pstmt.executeUpdate();
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+
+	}
 }
