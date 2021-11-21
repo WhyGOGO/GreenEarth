@@ -41,16 +41,16 @@ public class insertDB {
 		try {
 			conn = getConnection();
 
-			String sql = "insert into campCompany(compid, compname, compaddress, compcall, compmanager, compemail) values(?,?,?,?,?,?)";
+			String sql = "insert into campCompany(compid, compname, compaddress, compcall, compmanager, compemail,image) values(COMPID.NEXTVAL,?,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 
-			pstmt.setInt(1, member.getCompId());
-			pstmt.setString(2, member.getCompName());
-			pstmt.setString(3, member.getCompAddress());
-			pstmt.setString(4, member.getCompCall());
-			pstmt.setString(5, member.getCompManager());
-			pstmt.setString(6, member.getCompEmail());
 
+			pstmt.setString(1, member.getCompName());
+			pstmt.setString(2, member.getCompAddress());
+			pstmt.setString(3, member.getCompCall());
+			pstmt.setString(4, member.getCompManager());
+			pstmt.setString(5, member.getCompEmail());
+			pstmt.setString(6, member.getIMAGE());
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -109,7 +109,6 @@ public class insertDB {
 
 		}
 	}
-
 	// 정비소 정보를 DB에 추가
 	public void addRepair(campDataBean member) throws Exception {
 		Connection conn = null;
@@ -162,7 +161,17 @@ public class insertDB {
 
 			pstmt.setString(10, member.getRentalPayDate());
 			
-			pstmt.executeUpdate();
+			//여기까지 insert문
+			
+			String sql2 ="update campingcar set rentalstatus=? where campcarid=?";
+			
+			pstmt = conn.prepareStatement(sql2);
+			pstmt.setInt(1,1);
+			pstmt.setInt(2, member.getCampCarId());
+			// 여기까지 upadte 문
+			pstmt.executeUpdate(); 
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 
