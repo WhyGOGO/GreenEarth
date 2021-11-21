@@ -71,7 +71,7 @@
 	 <div class="apps-card">
  <%	 
 	request.setCharacterEncoding("UTF-8");
-	int num = Integer.parseInt(request.getParameter("number"));
+	int compId = Integer.parseInt(request.getParameter("compId"));
 	int campcarid=0;
 	int rentalstatus=0;
 	int carrentalcost=0;
@@ -79,7 +79,7 @@
  
 		selectDB sd = selectDB.getInstance();	
 	
-		ArrayList<campDataBean> dtos2 = sd.selCar(num);
+		ArrayList<campDataBean> dtos2 = sd.selCar(compId);
 		ArrayList<campDataBean> dtos3 = sd.selUser(email); //면허증번호 가져오기
 		
 		campDataBean li = dtos3.get(0);	// 면허증번호 가져오기
