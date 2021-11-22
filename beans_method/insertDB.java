@@ -190,7 +190,7 @@ public class insertDB {
 		try {
 			conn = getConnection();
 
-			String sql = "insert into repairinfo(REPAIRNUMBER,repairHistory, repairDate, repairCost, repairPayDate, repairEtcHistory, repairShopId, campCarId, licenseNumber) values(REPAIRNUMBER.NEXTVAL,?,?,?,?,?,?,?,?)";
+			String sql = "insert into repairinfo(REPAIRNUMBER,repairHistory, repairDate, repairCost, repairPayDate, repairEtcHistory, repairShopId, campCarId, licenseNumber) values(REPAIRNUMBER.NEXTVAL,?,?,?,to_date(?,'yy-mm-dd'),?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, member.getRepairHistory());
