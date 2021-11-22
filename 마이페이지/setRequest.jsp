@@ -19,7 +19,7 @@
 		alert = '취소요청이 정상적으로 실행되었습니다.'
 		location.href="myForm.jsp"
 	</script>
-<% } else if (state.equals("요청대기")){
+<% } else if (state.equals("취소요청")){
 
 	up.requestCancel2(rent_num);
 }%>
