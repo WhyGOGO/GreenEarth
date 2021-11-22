@@ -162,6 +162,7 @@ public class insertDB {
 
 			pstmt.setString(10, member.getRentalPayDate());
 			
+			pstmt.executeUpdate();
 			//여기까지 insert문
 			
 			String sql2 ="update campingcar set rentalstatus=? where campcarid=?";
