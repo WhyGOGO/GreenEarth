@@ -8,20 +8,20 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>대여차량관리</title>
+<title>대여정보관리</title>
 
   <%@ include file="../../관리자페이지메뉴/managerMenu.jsp" %>	<!-- 메뉴 바  -->
   <%	
 	request.setCharacterEncoding("UTF-8");		
   
 	selectDB sd = selectDB.getInstance();
-	ArrayList<campDataBean> dtos = sd.selRentNow();
+	ArrayList<campDataBean> dtos = sd.selRentBD();
 	
 	if(dtos.size()!=0){
   %>
   <main class="page-content">
     <div class="container">
-      <h2>대여차량관리</h2>
+      <h2>대여정보관리</h2>
       <hr>
       
 <table class="table table-success table-striped">
@@ -64,8 +64,23 @@
       <td><%= ct_name %></td>
       <td><%= CompNAME %></td>
       <td><%= cost %></td>
+      <%if(state.equals("대여")){ %>
       <td><%= state %></td>
+      <td>
+      	<a href="예약처리.jsp?rental_num=<%=rentalnumber%>&state=<%=state %>&Cp_num=<%=Cp_num %>" class="btn btn-warning btn-sm">반납</a>
+      </td>
+      <%} else if(state.equals("반납")){ %>
+      <td><%= state %></td>
+      <td>
+      	<a href="예약삭제.jsp?rental_num=<%=rentalnumber%>&state=<%=state %>" class="btn btn-danger btn-sm">삭제</a>
+      </td>
+      <%} else if(state.equals("예약")){%>
+      <td><font color="blue"><%= state %></font></td>
       <td></td>
+      <%} else{%>
+      <td><font color="red"><%= state %></font></td>
+      <td></td>
+      <%} %>
     </tr>
   </tbody> 
   <%	 

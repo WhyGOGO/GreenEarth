@@ -66,11 +66,23 @@
       <td><%= CompNAME %></td>
       <td><%= cost %></td>
       <td><%= rt_paydate %></td>
+      <%if (state.equals("예약")){ %>
       <td><%= state %></td>
-      <td></td>
+      <td>
+      	<a href="예약처리.jsp?rental_num=<%=rentalnumber%>&state=<%=state %>" class="btn btn-primary btn-sm">승인</a>
+      	<a href="예약삭제.jsp?rental_num=<%=rentalnumber%>&state=<%=state %>" class="btn btn-danger btn-sm">거절</a>
+      </td>
+      <%} else if(state.equals("취소요청")) {%>
+      <td><%= state %></td>
+      <td>
+      	<a href="예약삭제.jsp?rental_num=<%=rentalnumber%>&state=<%=state %>" class="btn btn-primary btn-sm">승인</a>
+      	<a href="예약처리.jsp?rental_num=<%=rentalnumber%>&state=<%=state %>" class="btn btn-danger btn-sm">거절</a>
+      </td>
+      <% } %>
     </tr>
   </tbody> 
-  <%	 }
+  <% 
+		}
 	}
 } else {%>
 <main class="page-content">
@@ -92,7 +104,8 @@
       <td></td>
     </tr>
   </tbody> 
-<% 	
+<%	
+
 }
 %>   
 </table>     
