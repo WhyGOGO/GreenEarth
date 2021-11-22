@@ -45,7 +45,7 @@ public class updateDB {
 		}
 	}
 	
-	//취소상태인 요청정보를 다시금 취소요청하는 메소드
+	//취소상태인 요청정보를 다시금 취소요청하는 메소드, 취소요청-2 -> 예약0
 	public void requestCancel2(int num) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -56,6 +56,63 @@ public class updateDB {
 			String sql = "update rental set rental_state=0 where rental_state=2 and rentalnumber=?";
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
+			
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//예약0 -> 대여 1
+	public void requestPro0(int num) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = getConnection();
+			
+			String sql = "update rental set rental_state=1 where rental_state=0 and rentalnumber=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//대여 1 -> 반납 -1
+	public void requestPro1(int num) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = getConnection();
+			
+			String sql = "update rental set rental_state=-1 where rental_state=1 and rentalnumber=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//대여 -> 대여가능
+	public void requestPro2(String car) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = getConnection();
+			
+			String sql = "update campingcar set rentalstatus=0 where campcarnumber=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, car);
 			
 			pstmt.executeUpdate();
 			
