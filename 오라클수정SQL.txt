@@ -293,7 +293,11 @@ select r_if.repairnumber 정비번호
     ,(select email
     from customer ct
     where ct.licensenumber = r_if.licensenumber)이메일
-
+    ,case when r_if.repair_state = 0 then '예약'
+        when r_if.repair_state = 1 then '승인'
+        else '요청대기'
+    end 상태
+    
 from repairinfo r_if;
 ===========================================================
 create or replace view v_his3
