@@ -37,18 +37,17 @@
 	<jsp:setProperty name="repairshopid" property="*" />
 
 <% 
-
+		
+		
 		
      	selectDB sd = selectDB.getInstance();	//selectdb 연결
      	
-     	ArrayList<campDataBean> rental_num = sd.selRentalgive(rentalnumber);	// 고객렌탈 고유번호
 	    ArrayList<campDataBean> lc = sd.selCusRent(email); //고객 면허증번호 가져오기   
 	
 	    
 	    campDataBean rentalnum = rental_num.get(0);
 	    campDataBean lcn = lc.get(0);
 	    
-	    int rentalnumber = rentalnum.getRentalNumber(); // 고객의 렌트 고유번호	*    
 	    String license = lcn.getLicenseNumber();// 면허증번호 *
 	 
 	    
@@ -102,7 +101,7 @@
  	<hr>
 	<form class="repair-form"	method="get" action="repairShopSelectpro.jsp" name ="repair">
 										<!-- RepairRequest 테이블 값들 -->
-			<input type="hidden" name="rentalNumber" value= "<%=rentalnumber%>"  > 	
+			<input type="text" name="rentalNumber"  placeholder="대여번호를입력해주세요." maxlength="3"> 	
 			<input type="hidden" name="licenseNumber" value= "<%=license%>"  > 	
 			<input type="hidden" name="campCarId" value= "<%=campcarid%>"  > 	
 						
