@@ -781,6 +781,7 @@ public class selectDB {
 				sdb.setRepairCost(rs.getInt(9));
 				sdb.setRepairPayDate(rs.getString(10));
 				sdb.setCustEmail(rs.getString(11));
+				sdb.setRentalState(rs.getString(12));
 				list.add(sdb);
 
 			}
@@ -1162,49 +1163,6 @@ public class selectDB {
 		} catch (Exception e) {
 			e.printStackTrace();
 
-		} finally {
-			if (rs != null)
-				try {
-					rs.close();
-				} catch (SQLException ex) {
-				}
-			if (pstmt != null)
-				try {
-					pstmt.close();
-				} catch (SQLException ex) {
-				}
-			if (conn != null)
-				try {
-					conn.close();
-				} catch (SQLException ex) {
-				}
-		}
-
-		return list;
-	}
-	// 렌탈넘버가져올려고 ㅎㅎ 
-
-	public ArrayList<campDataBean> selRentalgive(int rentalnumber , String email) throws SQLException {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		ArrayList<campDataBean> list = new ArrayList<campDataBean>();
-
-		try {
-			conn = getConnection(); // DB 연결
-
-			String sql = "select * from rental where RENTALNUMER = ? and email = ?" ;
-			pstmt = conn.prepareStatement(sql);
-			pstmt = setInt(1, rentalnumber);
-			pstmt = setString(2,email);
-			rs = pstmt.executeQuery();
-
-			
-
-			
-		} catch (Exception e) {
-			e.printStackTrace();
 		} finally {
 			if (rs != null)
 				try {
