@@ -61,8 +61,8 @@
 
     </div>
 
-
-		<div class="apps-card">
+    
+      <div class="apps-card">
 <%	int repairShopId=0;
 	try{
 		selectDB sd = selectDB.getInstance();
@@ -77,8 +77,10 @@
 			String RepairShopEmail = dto.getRepairManagerEmail();
 			String RepairShopIMAGE = dto.getShopImage();
  	
-%>	<div class="app-card">
+%>
 
+      <div class="app-card">
+      
     <div class="content-section">
      <div class="content-section-title">정비소 정보</div>
        <span>
@@ -96,14 +98,15 @@
 	   </form>      
        </div>
       </div>
-     
+ 
+
 <% }
 }
 	catch(Exception e){
 		e.printStackTrace();
 }
 %>  
-     	 </div>
+          </div>
 	    </div>
 	   </div>
 	  </div>

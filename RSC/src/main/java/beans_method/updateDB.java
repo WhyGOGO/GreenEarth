@@ -45,7 +45,7 @@ public class updateDB {
 		}
 	}
 	
-	//취소상태인 요청정보를 다시금 취소요청하는 메소드
+	//취소상태인 요청정보를 다시금 취소요청하는 메소드, 취소요청-2 -> 예약0
 	public void requestCancel2(int num) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -54,6 +54,119 @@ public class updateDB {
 			conn = getConnection();
 			
 			String sql = "update rental set rental_state=0 where rental_state=2 and rentalnumber=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//취소요청-2 -> 취소-2
+	public void requestCancel3(int num) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = getConnection();
+			
+			String sql = "update rental set rental_state=-2 where rental_state=2 and rentalnumber=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//예약0 -> 대여 1
+	public void requestPro0(int num) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = getConnection();
+			
+			String sql = "update rental set rental_state=1 where rental_state=0 and rentalnumber=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//대여 1 -> 반납 -1
+	public void requestPro1(int num) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = getConnection();
+			
+			String sql = "update rental set rental_state=-1 where rental_state=1 and rentalnumber=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//대여 -> 대여가능
+	public void requestPro2(String car) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = getConnection();
+			
+			String sql = "update campingcar set rentalstatus=0 where campcarnumber=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, car);
+			
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//요청대기1 -> 예약0
+	public void repairCancel2(int num) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = getConnection();
+			
+			String sql = "update repairinfo set repair_state=0 where repair_state=1 and repairnumber=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void repairCancel(int num) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = getConnection();
+			
+			String sql = "update repairinfo set repair_state=1 where repair_state=0 and repairnumber=?";
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			
@@ -159,4 +272,60 @@ public class updateDB {
 		}
 
 	}
+	//정비의뢰 정비가격변경 누르는 쪽
+	public void update_repairpayupdate(campDataBean member) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = getConnection(); //DB연결
+			
+			String sql = "update repairinfo set REPAIR_STATE=1,REPAIRCOST=? where REPAIR_STATE=0 and repairnumber=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, member.getRepairCost());
+			pstmt.setInt(2,member.getRepairNumber());
+			pstmt.executeUpdate();
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+
+	}
+	//정비의뢰 승낙버튼 누르는 쪽
+	public void update_repairupdate(campDataBean member) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = getConnection(); //DB연결
+			
+			String sql = "update repairinfo set REPAIR_STATE=2 where REPAIR_STATE=1 and repairnumber=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,member.getRepairNumber());
+			pstmt.executeUpdate();
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+
+	}
+	//정비의뢰 취소버튼 누르는 쪽
+		public void update_repairupcancle(campDataBean member) throws Exception {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			try {
+				conn = getConnection(); //DB연결
+				
+				String sql = "update repairinfo set REPAIR_STATE=-1 where REPAIR_STATE=1 and repairnumber=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1,member.getRepairNumber());
+				pstmt.executeUpdate();
+			
+			} catch (Exception e) {
+				e.printStackTrace();
+
+			}
+
+		}
+	
 }

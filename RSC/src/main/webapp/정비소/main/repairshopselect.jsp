@@ -31,24 +31,22 @@
     </style>
 
 <%@ include file="../../메뉴바_슬라이드/menubar.jsp" %>	<!-- 메뉴 바  -->
-<%@ include file="../../메뉴바_슬라이드/slide2.jsp" %>	<!-- 슬라이드바  -->
+<%@ include file="../../메뉴바_슬라이드/slide.jsp" %>	<!-- 슬라이드바  -->
 
 	<jsp:useBean id="repairshopid" class="beans.campDataBean" scope="page"/>	
 	<jsp:setProperty name="repairshopid" property="*" />
 
 <% 
-
+		
+		
 		
      	selectDB sd = selectDB.getInstance();	//selectdb 연결
      	
-     	ArrayList<campDataBean> rental_num = sd.selCustHis(email);	// 고객렌탈 고유번호
 	    ArrayList<campDataBean> lc = sd.selCusRent(email); //고객 면허증번호 가져오기   
 	
 	    
-	    campDataBean rentalnum = rental_num.get(0);
 	    campDataBean lcn = lc.get(0);
 	    
-	    int rentalnumber = rentalnum.getRentalNumber(); // 고객의 렌트 고유번호	*    
 	    String license = lcn.getLicenseNumber();// 면허증번호 *
 	 
 	    
@@ -58,9 +56,7 @@
 	    int campcarid = campcarid_.getCampCarId(); // 고객이 빌린 캠핑카 아이디 *
 	    
 	    
-     	System.out.println("캥핑카 아이디"+campcarid);
-    	System.out.println("고객의 rentalnumber"+rentalnumber);
-    	System.out.println("고객의 면허증번호"+license);
+
      	     
 %>
 
@@ -104,15 +100,15 @@
  	<hr>
 	<form class="repair-form"	method="get" action="repairShopSelectpro.jsp" name ="repair">
 										<!-- RepairRequest 테이블 값들 -->
-			<input type="hidden" name="rentalNumber" value= "<%=rentalnumber%>"  > 	
+			대여번호를입력하세요:<input type="text" name="rentalNumber"  placeholder="마이페이지에서확인가능" maxlength="3"> 	
 			<input type="hidden" name="licenseNumber" value= "<%=license%>"  > 	
 			<input type="hidden" name="campCarId" value= "<%=campcarid%>"  > 	
 						
 											<!-- RepairInfo 테이블 값들 -->
 			<input type="hidden" name="repairShopId" value= "<%=repairshopid.getRepairShopId()%>"  >   	<!-- 정비소아이디 -->
 			원하는 정비날짜:<input type="date" id="repairDate" name="repairDate" onchange="printTerm()" required>			<!--정비날짜  -->
-       		납입기한 : <input type="text" id="repairPayDate" name="repairPayDate" required> 해당일 영업마감 18시까지	입금바랍니다.	<!--납입기한  -->
-	        <br><br>대략적인 정비비용: <input type="text" id="repairCost" name="repairCost" placeholder="ex) 300000" required> 									<!--정비비용  -->
+       		납입기한 : <input type="date" id="repairPayDate" name="repairPayDate" required readonly> 해당일 영업마감 18시까지	입금바랍니다.	<!--납입기한  -->
+	        <br><br>최소 정비비용: <input type="text" id="repairCost" name="repairCost" value="150000" required readonly> 최종 정비비용은 추후 마이페이지에 표시됩니다.	<!--정비비용  -->
 								     			
         	<hr> 
 		  	<table>
@@ -152,7 +148,7 @@
 							
 				repairDate = new Date(repairDate);
 		
-				var payday = new Date(repairDate.getTime()+60000*2000);
+				var payday = new Date(repairDate.getTime()+240000*2000);
 				var payday1 = payday.toLocaleDateString()
 				var payday2 = payday1.replaceAll('. ','-');	
 				var payday3 = payday2.replaceAll('.','');	

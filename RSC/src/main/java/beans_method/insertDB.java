@@ -162,6 +162,7 @@ public class insertDB {
 
 			pstmt.setString(10, member.getRentalPayDate());
 			
+			pstmt.executeUpdate();
 			//여기까지 insert문
 			
 			String sql2 ="update campingcar set rentalstatus=? where campcarid=?";
@@ -189,7 +190,7 @@ public class insertDB {
 		try {
 			conn = getConnection();
 
-			String sql = "insert into repairinfo(REPAIRNUMBER,repairHistory, repairDate, repairCost, repairPayDate, repairEtcHistory, repairShopId, campCarId, licenseNumber) values(REPAIRNUMBER.NEXTVAL,?,?,?,?,?,?,?,?)";
+			String sql = "insert into repairinfo(REPAIRNUMBER,repairHistory, repairDate, repairCost, repairPayDate, repairEtcHistory, repairShopId, campCarId, licenseNumber) values(REPAIRNUMBER.NEXTVAL,?,?,?,to_date(?,'yy-mm-dd'),?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, member.getRepairHistory());

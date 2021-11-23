@@ -31,8 +31,8 @@
           <img class="img-responsive img-rounded" src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg" alt="User picture">         
         </div>
         <div class="user-info">
-          <span class="user-name">이름
-            <strong>성</strong>
+          <span class="user-name">
+            <strong>관리자</strong>
           </span>
           <span class="user-status">
             <i class="fa fa-circle"></i>
@@ -99,7 +99,7 @@
           <li class="sidebar-dropdown1">
             <a href="../../관리자페이지/의뢰/대여차량관리.jsp">
               <i class="fa fa-tachometer-alt"></i>
-              <span>대여차량 관리</span>
+              <span>대여정보 관리</span>
             </a>
           </li>                                           
         </ul>

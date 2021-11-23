@@ -16,16 +16,20 @@
   
 	selectDB sd = selectDB.getInstance();
 	ArrayList<campDataBean> dtos = sd.selVRepairCheck();
+	ArrayList<campDataBean> rennum = sd.selrepairrequest();
 	
-	if(dtos.size()!=0){
+	 campDataBean ren_num = rennum.get(0);
+	 int rentalNumber = ren_num.getRentalNumber();
+	
+
   %>
   <main class="page-content">
     <div class="container">
       <h2>정비 결과</h2>
       <hr>
       
-<table class="table table-success table-striped">
-    <tr>
+<table class="table table-dark table-stripeds">
+    <tr style="text-align: center;">
       <th>정비번호</th>
       <td>차량번호</td>
       <td>정비차량</td>
@@ -33,7 +37,7 @@
       <td>정비소</td>
       <td>정비내역|기타</td>
       <td>정비비용</td>
-      <td></td>
+      <td>편집</td>
     </tr>
 <%
 		for(int i=0; i < dtos.size(); i++){
@@ -49,7 +53,7 @@
 			String rp_paydate = dto.getRepairPayDate();
 			
 %>  
-	<tr>
+	<tr style="text-align: center;">
       <th><%= rp_num %></th>
       <td><%= cp_num %></td>
       <td><%= cp_name %></td>
@@ -57,38 +61,12 @@
       <td><%= rs_name %></td>
       <td><%= rp_his %></td>
       <td><%= cost %></td>
-      <td></td>
+      <td><button type="button" class="btn btn-outline-danger" onClick="location.href='정비결과삭제.jsp?repairNumber=<%=rp_num%>&rentalNumber=<%=rentalNumber%>'" >삭제</button></td>
     </tr>
   </tbody> 
-  <% }
-} else {%>
-<main class="page-content">
-    <div class="container">
-      <h2>정비 의뢰</h2>
-      <hr>
+  <% } %>
       
-<table class="table table-success table-striped">
-    <tr>
-      <th>정비번호</th>
-      <td>차량번호</td>
-      <td>정비차량</td>
-      <td>고객이름</td>
-      <td>정비소</td>
-      <td>정비내역|기타</td>
-      <td>정비비용</td>
-      <td></td>
-    </tr>
-  </tbody> 
-<% 	
-}
-%>   
-</table>     
-      
-      </div>
-      
-      
-      <hr>
-
+	</table>
       <footer class="text-center">
         <div class="mb-2">
           <small>
