@@ -216,4 +216,60 @@ public class updateDB {
 		}
 
 	}
+	//정비의뢰 정비가격변경 누르는 쪽
+	public void update_repairpayupdate(campDataBean member) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = getConnection(); //DB연결
+			
+			String sql = "update repairinfo set REPAIR_STATE=1,REPAIRCOST=? where REPAIR_STATE=0 and repairnumber=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, member.getRepairCost());
+			pstmt.setInt(2,member.getRepairNumber());
+			pstmt.executeUpdate();
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+
+	}
+	//정비의뢰 승낙버튼 누르는 쪽
+	public void update_repairupdate(campDataBean member) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = getConnection(); //DB연결
+			
+			String sql = "update repairinfo set REPAIR_STATE=2 where REPAIR_STATE=1 and repairnumber=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,member.getRepairNumber());
+			pstmt.executeUpdate();
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+
+	}
+	//정비의뢰 취소버튼 누르는 쪽
+		public void update_repairupcancle(campDataBean member) throws Exception {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			try {
+				conn = getConnection(); //DB연결
+				
+				String sql = "update repairinfo set REPAIR_STATE=-1 where REPAIR_STATE=1 and repairnumber=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1,member.getRepairNumber());
+				pstmt.executeUpdate();
+			
+			} catch (Exception e) {
+				e.printStackTrace();
+
+			}
+
+		}
+	
 }
