@@ -1182,6 +1182,48 @@ public class selectDB {
 
 		return list;
 	}
+	// 렌탈넘버가져올려고 ㅎㅎ 
+
+	public ArrayList<campDataBean> selRentalgive(int rentalnumber) throws SQLException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		ArrayList<campDataBean> list = new ArrayList<campDataBean>();
+
+		try {
+			conn = getConnection(); // DB 연결
+
+			String sql = "select * from rental where RENTALNUMER = ?" ;
+			pstmt = conn.prepareStatement(sql);
+			pstmt = setInt(1, rentalnumber);
+			rs = pstmt.executeQuery();
+
+			
+
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+				}
+		}
+
+		return list;
+	}
 	
 	
 }
