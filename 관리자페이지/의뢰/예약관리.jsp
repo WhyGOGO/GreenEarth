@@ -75,7 +75,7 @@
       <%} else if(state.equals("취소요청")) {%>
       <td><%= state %></td>
       <td>
-      	<a href="예약취소.jsp?rental_num=<%=rentalnumber%>&state=<%=state %>" class="btn btn-primary btn-sm">승인</a>
+      	<a href="예약삭제.jsp?rental_num=<%=rentalnumber%>&state=<%=state %>" class="btn btn-primary btn-sm">승인</a>
       	<a href="예약처리.jsp?rental_num=<%=rentalnumber%>&state=<%=state %>" class="btn btn-danger btn-sm">거절</a>
       </td>
       <% } %>

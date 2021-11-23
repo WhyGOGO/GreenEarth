@@ -14,7 +14,7 @@
 		del.delete_repairinfo(rent_num);
 		del.delete_request(rent_num);
 		del.delete_rental(rent_num);
-%>
+%> 
 	<script>
 		location.href="대여차량관리.jsp"
 	</script>
