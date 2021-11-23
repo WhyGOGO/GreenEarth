@@ -31,8 +31,8 @@
           <img class="img-responsive img-rounded" src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg" alt="User picture">         
         </div>
         <div class="user-info">
-          <span class="user-name">이름
-            <strong>성</strong>
+          <span class="user-name">
+            <strong>관리자</strong>
           </span>
           <span class="user-status">
             <i class="fa fa-circle"></i>

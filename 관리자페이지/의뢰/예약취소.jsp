@@ -7,21 +7,15 @@
 	
 	int rent_num = Integer.parseInt(request.getParameter("rental_num"));
 	String state = request.getParameter("state");
+	String cp_num =request.getParameter("Cp_num");
 	
 	updateDB up = updateDB.getInstance();
+	//예약0 -> 대여 1
 	
-	if (state.equals("예약")){
 	
-	up.requestCancel(rent_num);
+	up.requestCancel3(rent_num);
 
 %>
-	<script>
-		location.href="myForm.jsp"
-	</script>
-<% } else if (state.equals("취소요청")){
-
-	up.requestCancel2(rent_num);
-}%>
-	<script>
-		location.href="myForm.jsp"
+<script>
+		location.href="예약관리.jsp"
 	</script>

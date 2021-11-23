@@ -37,6 +37,8 @@
 					<td>정비내용</td>
 					<td>전화번호</td>
 					<td>정비비용</td>
+					<td>상태</td>
+					<td></td>
 			    </tr>
 			    <% for (int i=0; i<dtos.size(); i++){ 
 			    	
@@ -49,6 +51,7 @@
 			    	String r_his = dto.getRepairHistory();
 			    	String r_call = dto.getRepairShopCall();
 			    	int r_cost = dto.getRepairCost();
+			    	String state = dto.getRentalState();
 			    	
 			    
 			    %>
@@ -60,6 +63,16 @@
 					<td><%= r_his%></td>
 					<td><%= r_call%></td>
 					<td><%= r_cost%></td>
+					<%if (state.equals("예약")){ %>
+					<td><%=state %></td>
+					<td><a href="setRequest2.jsp?r_num=<%=r_num%>&state=<%=state %>" class="btn btn-danger btn-sm">예약취소</a></td>
+					<%}else if(state.equals("요청대기")){ %>
+					<td><%=state %></td>
+					<td><a href="setRequest2.jsp?r_num=<%=r_num%>&state=<%=state %>" class="btn btn-warning btn-sm">요청취소</a></td>
+					<%} else {%>
+					<td><%=state %></td>
+					<td></td>
+					<%} %>
 			    </tr>
 			    <%} %>
 			  </tbody>  
@@ -101,6 +114,8 @@
 					<td>정비내용</td>
 					<td>전화번호</td>
 					<td>정비비용</td>
+					<td>상태</td>
+					<td></td>
 			    </tr>
 			    
 			  </tbody>  

@@ -5,23 +5,23 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 	
-	int rent_num = Integer.parseInt(request.getParameter("rental_num"));
+	int r_num = Integer.parseInt(request.getParameter("r_num"));
 	String state = request.getParameter("state");
 	
 	updateDB up = updateDB.getInstance();
 	
 	if (state.equals("예약")){
 	
-	up.requestCancel(rent_num);
+	up.repairCancel(r_num);//0 -> 1
 
 %>
 	<script>
-		location.href="myForm.jsp"
+		location.href="myForm2.jsp"
 	</script>
-<% } else if (state.equals("취소요청")){
+<% } else if (state.equals("요청대기")){ //1 -> 0
 
-	up.requestCancel2(rent_num);
+	up.repairCancel2(r_num);
 }%>
 	<script>
-		location.href="myForm.jsp"
+		location.href="myForm2.jsp"
 	</script>
