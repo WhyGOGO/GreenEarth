@@ -865,6 +865,51 @@ public class selectDB {
 		return list;
 	}
 	
+	
+	// 예약상태인 정비내역 null인지 확인하는 메소드
+		public Boolean selVRepairCheck_null() throws SQLException {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			Boolean think = false;
+
+			try {
+				conn = getConnection(); // DB 연결
+
+				String sql = "select * from v_repair where 상태 = '승인'";
+
+				pstmt = conn.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				
+				 think = rs.next();
+		
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				if (rs != null)
+					try {
+						rs.close();
+					} catch (SQLException ex) {
+					}
+				if (pstmt != null)
+					try {
+						pstmt.close();
+					} catch (SQLException ex) {
+					}
+				if (conn != null)
+					try {
+						conn.close();
+					} catch (SQLException ex) {
+					}
+			}
+
+			return think;
+		}
+
+	
+	
+	
+	
 	// 예약상태인 정비내역 조회하는 메소드
 	public ArrayList<campDataBean> selVRepairCheck() throws SQLException {
 		Connection conn = null;
