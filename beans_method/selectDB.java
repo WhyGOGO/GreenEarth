@@ -1088,7 +1088,7 @@ public class selectDB {
 		try {
 			conn = getConnection(); // DB 연결
 
-			String sql = "select * from rental where licensenumber = ?";
+			String sql = "select r.campcarid,r.rentalnumber,c.campcarname from rental r,campingcar c where c.campcarid = r.campcarid and licensenumber = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1,licensenumber);
 			rs = pstmt.executeQuery();
@@ -1096,7 +1096,10 @@ public class selectDB {
 			// 수정이 필요한 메소드
 			while (rs.next()) {
 				campDataBean sdb = new campDataBean();
-				sdb.setCampCarId((rs.getInt(10))); ;
+				
+				sdb.setCampCarId((rs.getInt(1))); // 대여번호
+				sdb.setRentalNumber((rs.getInt(2)));  // 렌탈넘버
+				sdb.setCampCarName((rs.getString(3)));  // 캠핑카이름
 				list.add(sdb);
 
 			}
