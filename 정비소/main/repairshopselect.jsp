@@ -41,7 +41,7 @@
 		
      	selectDB sd = selectDB.getInstance();	//selectdb 연결
      	
-     	ArrayList<campDataBean> rental_num = sd.selCustHis(email);	// 고객렌탈 고유번호
+     	ArrayList<campDataBean> rental_num = sd.selRentalgive(rentalnumber);	// 고객렌탈 고유번호
 	    ArrayList<campDataBean> lc = sd.selCusRent(email); //고객 면허증번호 가져오기   
 	
 	    
