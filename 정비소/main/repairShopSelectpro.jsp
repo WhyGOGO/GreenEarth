@@ -13,7 +13,6 @@
 <body>
 <% 
 	request.setCharacterEncoding("UTF-8");
-	int r_num=Integer.parseInt(request.getParameter("rentalnumber"));
 %>
 <jsp:useBean id="repairinfo" class="beans.campDataBean" scope="page"/>
 <jsp:useBean id="repairrequest" class="beans.campDataBean" scope="page"/>

@@ -45,7 +45,6 @@
 	    ArrayList<campDataBean> lc = sd.selCusRent(email); //고객 면허증번호 가져오기   
 	
 	    
-	    campDataBean rentalnum = rental_num.get(0);
 	    campDataBean lcn = lc.get(0);
 	    
 	    String license = lcn.getLicenseNumber();// 면허증번호 *
@@ -101,7 +100,7 @@
  	<hr>
 	<form class="repair-form"	method="get" action="repairShopSelectpro.jsp" name ="repair">
 										<!-- RepairRequest 테이블 값들 -->
-			<input type="text" name="rentalNumber"  placeholder="대여번호를입력해주세요." maxlength="3"> 	
+			대여번호를입력하세요:<input type="text" name="rentalNumber"  placeholder="마이페이지에서확인가능" maxlength="3"> 	
 			<input type="hidden" name="licenseNumber" value= "<%=license%>"  > 	
 			<input type="hidden" name="campCarId" value= "<%=campcarid%>"  > 	
 						
