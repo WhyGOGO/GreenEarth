@@ -1184,7 +1184,7 @@ public class selectDB {
 	}
 	// 렌탈넘버가져올려고 ㅎㅎ 
 
-	public ArrayList<campDataBean> selRentalgive(int rentalnumber) throws SQLException {
+	public ArrayList<campDataBean> selRentalgive(int rentalnumber , String email) throws SQLException {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -1194,9 +1194,10 @@ public class selectDB {
 		try {
 			conn = getConnection(); // DB 연결
 
-			String sql = "select * from rental where RENTALNUMER = ?" ;
+			String sql = "select * from rental where RENTALNUMER = ? and email = ?" ;
 			pstmt = conn.prepareStatement(sql);
 			pstmt = setInt(1, rentalnumber);
+			pstmt = setString(2,email);
 			rs = pstmt.executeQuery();
 
 			
