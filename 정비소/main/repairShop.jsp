@@ -92,7 +92,7 @@
        </div>
        <form action="repairshopselect.jsp" method="post">
 	       <div class="app-card-buttons">       
-	      		<button type="submit" class="content-button status-button"onClick="location.href='repairshopselect.jsp'">예약</button>
+	      		<button type="submit" class="content-button status-button" onClick="location.href='repairshopselect.jsp'">예약</button>
 	       </div>
 	       <input type="hidden" name="repairShopId" value="<%=repairShopId%>">
 	   </form>      

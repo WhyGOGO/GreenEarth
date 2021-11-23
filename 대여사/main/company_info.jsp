@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.88.1">
-    <title>회사선택</title>
+    <title>대여사</title>
 
     <style>
 
@@ -29,7 +29,12 @@
       }
     </style>
 
+    
+    <!-- Custom styles for this template -->
+    <link href="carousel.css" rel="stylesheet">
+
 <%@ include file="../../메뉴바_슬라이드/menubar.jsp" %>	<!-- 메뉴 바  -->
+
 <body>
 
 
@@ -45,7 +50,7 @@
   
   
   <div class="header-menu">
-   <a class="menu-link is-active" href="">차량예약</a>
+   <a class="menu-link is-active" href="">대여사</a>
   </div>
  
  </div>
@@ -58,49 +63,45 @@
     <div class="content-wrapper-header">
      <div class="content-wrapper-context">
       <h3 class="img-content">
-      	대여회사 선택 <br><br>
+      회사정보
       </h3>
      </div>
 
     </div>
- <table class="table table-success table-striped">
-	 <div class="apps-card">
-	 
+    
 
- <%	    	
  
- 	try{
-		selectDB sd = selectDB.getInstance();
-		
-		ArrayList<campDataBean> dtos2 = sd.selCompany();
-		for(int i=0; i < dtos2.size(); i++){
-			campDataBean dto2 = dtos2.get(i);
-		    int compId = dto2.getCompId();
-			String name = dto2.getCompName();
-			String address = dto2.getCompAddress();
-			String CompCall = dto2.getCompCall();
-			String CompManager = dto2.getCompManager();		
-			String CompEmail = dto2.getCompEmail();
-			String IMAGE = dto2.getIMAGE();   	
+	 <div class="apps-card">
+ <%	try{
+
+	selectDB sd = selectDB.getInstance();	
+	ArrayList<campDataBean> dtos2 = sd.selCompany();
+	for(int i=0; i < dtos2.size(); i++){
+		campDataBean dto2 = dtos2.get(i);
+		String name = dto2.getCompName();
+		String address = dto2.getCompAddress();
+		String CompCall = dto2.getCompCall();
+		String CompManager = dto2.getCompManager();		
+		String CompEmail = dto2.getCompEmail();
+		String IMAGE = dto2.getIMAGE();   	
+		String spot = dto2.getSPOT();
 %>
-		     <div class="app-card" > 
-				<div class="content-section">
-			     <div class="content-section-title"></div>	
-				   <img alt="" src="../../이미지/대여사이미지/<%=IMAGE%>">
-			       <div class="app-card__subtext">      
-				       <br>
-				       회사이름 :	<%=name%><br> 
-				       회사주소 : <%=address%><br> 	
-			       </div>
-			      </div>
-			      
-				<form method="get" action="cars_select.jsp">
-			      	<input type="hidden" name="compId" value="<%=compId%>">			    
-			      	<div class="app-card-buttons">
-			      		<button class="content-button status-button" type="submit" >선택</button>
-			      	</div>
-	    		</form> 
-		      </div>
+
+
+	     <div class="app-card">
+	      	<div class="content-section">
+     		<div class="content-section-title"><%=name%></div>
+	   		<img alt="" src="../../이미지/대여사이미지/<%=IMAGE%>">
+	        <div class="app-card__subtext">      
+		        회사이름: <%=name%><br>
+		        회사주소: <%=address%><br> 
+		        회사전화번호 <i class="fas fa-phone-square-alt"></i> : <%=CompCall %><br>
+		        담당자이름: <%=CompManager %><br>
+		        담당자이메일 <i class="far fa-envelope"></i> : <%=CompEmail %>    
+	        </div>
+       		</div>
+		</div>
+
 
 <% }
 }
@@ -108,18 +109,12 @@
 		e.printStackTrace();
 }
 %>  
-		
-     </div>
-</table>   
-     
+	 </div>
     </div>
    </div>
   </div>
  </div>
- <div class="overlay-app"></div>
-</div>
-</div>
-  	
+
 	
   
 </main>

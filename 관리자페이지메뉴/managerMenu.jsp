@@ -44,62 +44,68 @@
 
       <div class="sidebar-menu">
         <ul>
-          <li class="header-menu">
-            <span>관리</span>
-          </li>
           <li class="sidebar-dropdown1">
             <a href="../../이용안내/main/guide.jsp">
               <i class="fa fa-tachometer-alt"></i>
               <span>홈으로</span>
             </a>
+          </li>       
+          <li class="header-menu">
+            <span>관리</span>
           </li>
           <li class="sidebar-dropdown1">
             <a href="../../관리자페이지/대여회사/대여회사.jsp">
               <i class="fa fa-tachometer-alt"></i>
-              <span>대여회사 관리</span>
+              <span>대여회사</span>
             </a>
 
           </li>
           <li class="sidebar-dropdown1">
             <a href="../../관리자페이지/캠핑카관리/manager2.jsp">
               <i class="fa fa-tachometer-alt"></i>
-              <span>캠핑카 관리</span>
+              <span>캠핑카</span>
             </a>
           </li>
           <li class="sidebar-dropdown1">
             <a href="../../관리자페이지/고객관리/고객관리.jsp">
               <i class="fa fa-tachometer-alt"></i>
-              <span>고객정보 관리</span>
+              <span>고객정보</span>
             </a>
           </li>
           <li class="sidebar-dropdown1">
             <a href="../../관리자페이지/정비소관리/manager4.jsp">
               <i class="fa fa-tachometer-alt"></i>
-              <span>정비소 관리</span>
+              <span>정비소</span>
             </a>
           </li>
+          <li class="header-menu">
+            <span>정비</span>
+          </li>          
           <li class="sidebar-dropdown1">
             <a href="../../관리자페이지/의뢰/정비의뢰.jsp">
               <i class="fa fa-tachometer-alt"></i>
-              <span>정비 의뢰 관리</span>
+              <span>의뢰</span>
             </a>
           </li>
           <li class="sidebar-dropdown1">
             <a href="../../관리자페이지/의뢰/정비결과.jsp">
               <i class="fa fa-tachometer-alt"></i>
-              <span>정비 결과 관리</span>
+              <span>결과</span>
             </a>
           </li>
+          <li class="header-menu">
+            <span>대여</span>
+          </li>           
           <li class="sidebar-dropdown1">
             <a href="../../관리자페이지/의뢰/예약관리.jsp">
               <i class="fa fa-tachometer-alt"></i>
-              <span>예약요청 관리</span>
+              <span>예약</span>
             </a>
           </li>         
           <li class="sidebar-dropdown1">
             <a href="../../관리자페이지/의뢰/대여차량관리.jsp">
               <i class="fa fa-tachometer-alt"></i>
-              <span>대여정보 관리</span>
+              <span>정보</span>
             </a>
           </li>                                           
         </ul>
