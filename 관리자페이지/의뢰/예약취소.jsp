@@ -10,13 +10,21 @@
 	String cp_num =request.getParameter("Cp_num");
 	
 	updateDB up = updateDB.getInstance();
-	//예약0 -> 대여 1
 	
-	
-	up.requestCancel3(rent_num);
-	up.requestPro2(cp_num);
+	//0->-2
+	if (state.equals("예약")){
+		up.requestCancel4(rent_num);
+		up.requestPro2(cp_num);
 
 %>
 <script>
 		location.href="예약관리.jsp"
+</script>
+<%}else {
+	up.requestCancel3(rent_num);
+	up.requestPro2(cp_num);
+%>
+	<script>
+			location.href="예약관리.jsp"
 	</script>
+<%}%>
