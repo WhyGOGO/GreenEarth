@@ -181,7 +181,7 @@ public class deleteDB {
 		try {
 			conn = getConnection(); // DB연결
 
-			String sql = "delete from repairrepuest where rentalnumber=? ";
+			String sql = "delete from repairrequest where rentalnumber=? ";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, rentalnumber);
 
@@ -193,15 +193,15 @@ public class deleteDB {
 			ex.printStackTrace();
 		}
 		
-	}public void delete_repairinfo(int rentalnumber) throws Exception {
+	}public void delete_repairinfo(int repairnumber) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try {
 			conn = getConnection(); // DB연결
 
-			String sql = "delete from repairinfo where rentalnumber=? ";
+			String sql = "delete from repairinfo where repairnumber=? ";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, rentalnumber);
+			pstmt.setInt(1, repairnumber);
 
 			pstmt.executeUpdate();
 
