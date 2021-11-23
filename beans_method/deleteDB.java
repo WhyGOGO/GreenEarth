@@ -186,7 +186,7 @@ public class deleteDB {
 			pstmt.setInt(1, rentalnumber);
 
 			pstmt.executeUpdate();
-
+ 
 		}
 
 		catch (Exception ex) {
@@ -209,6 +209,44 @@ public class deleteDB {
 
 		catch (Exception ex) {
 			ex.printStackTrace();
+		}
+	}
+	public void delete_repairinfo2(int repairNumber) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+	try {
+		conn = getConnection(); //DB연결
+		
+		String sql = "delete from repairinfo where REPAIRNUMBER=? ";
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, repairNumber);
+		
+		
+		pstmt.executeUpdate();
+		
+		}
+	
+	catch (Exception ex) {
+		ex.printStackTrace();
+		}
+	}
+	public void delete_repairrequest2(int repairNumber) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+	try {
+		conn = getConnection(); //DB연결
+		
+		String sql = "delete from repairrequest where rentalNumber=? ";
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, repairNumber);
+		
+		
+		pstmt.executeUpdate();
+		
+		}
+	
+	catch (Exception ex) {
+		ex.printStackTrace();
 		}
 	}
 	

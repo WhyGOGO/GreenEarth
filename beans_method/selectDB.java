@@ -819,7 +819,7 @@ public class selectDB {
 		try {
 			conn = getConnection(); // DB 연결
 
-			String sql = "select * from v_repair where 상태 != '승인'";
+			String sql = "select * from v_repair";
 
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -838,7 +838,7 @@ public class selectDB {
 				sdb.setRepairCost(rs.getInt(9));
 				sdb.setRepairPayDate(rs.getString(10));
 				sdb.setCustEmail(rs.getString(11));
-				sdb.setRentalState(rs.getString(12));
+				sdb.setRepairState(rs.getString(12));
 				list.add(sdb);
 
 			}
@@ -1184,5 +1184,51 @@ public class selectDB {
 		return list;
 	}
 	
-	
+	public ArrayList<campDataBean> selrepairrequest() throws SQLException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<campDataBean> list = new ArrayList<campDataBean>();
+		try {
+			conn = getConnection(); // DB 연결
+
+			String sql = "select * from repairrequest";
+			pstmt = conn.prepareStatement(sql);
+
+			
+			
+			rs = pstmt.executeQuery();
+
+			
+			while (rs.next()) {				
+				campDataBean sdb = new campDataBean();
+				sdb.setRentalNumber(rs.getInt(1));
+				sdb.setLicenseNumber(rs.getString(2));
+				sdb.setCampCarId(rs.getInt(3));				
+				list.add(sdb);
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException ex) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException ex) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException ex) {
+				}
+		}
+
+		return list;
+	}
 }
