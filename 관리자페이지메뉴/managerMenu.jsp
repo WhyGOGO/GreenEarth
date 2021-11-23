@@ -99,7 +99,7 @@
           <li class="sidebar-dropdown1">
             <a href="../../관리자페이지/의뢰/대여차량관리.jsp">
               <i class="fa fa-tachometer-alt"></i>
-              <span>대여차량 관리</span>
+              <span>대여정보 관리</span>
             </a>
           </li>                                           
         </ul>
