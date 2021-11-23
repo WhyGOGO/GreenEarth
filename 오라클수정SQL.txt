@@ -268,6 +268,9 @@ select * from v_his3;
 alter table REPAIRINFO add REPAIR_STATE number(1) DEFAULT 0 NOT NULL;
 
 =======================================================
+
+한정엽 | 뷰 식별자 약 수정 | 2021/11/23 PM 6:46
+
 create or replace view v_repair
 as
 select r_if.repairnumber 정비번호
@@ -294,8 +297,9 @@ select r_if.repairnumber 정비번호
     from customer ct
     where ct.licensenumber = r_if.licensenumber)이메일
     ,case when r_if.repair_state = 0 then '예약'
-        when r_if.repair_state = 1 then '승인'
-        else '요청대기'
+        when r_if.repair_state = 1 then '요청대기'
+        when r_if.repair_state = 2 then '승인'
+        when r_if.repair_state = -1 then '취소'
     end 상태
     
 from repairinfo r_if;
@@ -332,7 +336,8 @@ select (select ct.email
     ,case when rt.rental_state = 0 then '예약'
             when rt.rental_state = 1 then '대여'
             when rt.rental_state = -1 then '반납'
-            else '취소요청' 
+             when rt.rental_state = 2 then '취소요청'
+              when rt.rental_state = -2 then '취소'
             end 예약상태
     
 from rental rt
