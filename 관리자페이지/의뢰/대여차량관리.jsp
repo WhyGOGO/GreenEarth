@@ -17,6 +17,11 @@
 	selectDB sd = selectDB.getInstance();
 	ArrayList<campDataBean> dtos = sd.selRentBD();
 	
+	ArrayList<campDataBean> repair = sd.selVRepair();
+	campDataBean repair_Number = repair.get(0);
+	int repairNumber = repair_Number.getRepairNumber();
+	
+	
 	if(dtos.size()!=0){
   %>
   <main class="page-content">
@@ -72,7 +77,7 @@
       <%} else if(state.equals("반납")){ %>
       <td><%= state %></td>
       <td>
-      	<a href="예약삭제.jsp?rental_num=<%=rentalnumber%>&state=<%=state %>" class="btn btn-danger btn-sm">삭제</a>
+      	<button type="button" class="btn btn-danger btn-sm" onClick="location.href='예약삭제.jsp?rentalNumber=<%=rentalnumber%>&state=<%=state %>&repairNumber=<%=repairNumber%>'">삭제</button>
       </td>
       <%} else if(state.equals("예약")){%>
       <td><font color="blue"><%= state %></font></td>
