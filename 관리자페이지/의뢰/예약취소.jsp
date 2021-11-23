@@ -14,6 +14,7 @@
 	
 	
 	up.requestCancel3(rent_num);
+	up.requestPro2(cp_num);
 
 %>
 <script>

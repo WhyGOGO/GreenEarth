@@ -11,18 +11,7 @@
 <title>캠핑카 정비 의뢰 및 결과정보</title>
 
   <%@ include file="../../관리자페이지메뉴/managerMenu.jsp" %>	<!-- 메뉴 바  -->
-  <%	
-	request.setCharacterEncoding("UTF-8");		
   
-	selectDB sd = selectDB.getInstance();
-	ArrayList<campDataBean> dtos = sd.selVRepairCheck();
-	ArrayList<campDataBean> rennum = sd.selrepairrequest();
-	
-	 campDataBean ren_num = rennum.get(0);
-	 int rentalNumber = ren_num.getRentalNumber();
-	
-
-  %>
   <main class="page-content">
     <div class="container">
       <h2>정비 결과</h2>
@@ -39,7 +28,26 @@
       <td>정비비용</td>
       <td>편집</td>
     </tr>
-<%
+      
+  
+  
+  <%	
+	request.setCharacterEncoding("UTF-8");		
+  
+	selectDB sd = selectDB.getInstance();
+	
+	Boolean result = sd.selVRepairCheck_null();
+	
+	if(result == true){
+		
+	
+		ArrayList<campDataBean> dtos = sd.selVRepairCheck();
+		ArrayList<campDataBean> rennum = sd.selrepairrequest();
+		
+		campDataBean ren_num = rennum.get(0);
+		int rentalNumber = ren_num.getRentalNumber();
+	
+
 		for(int i=0; i < dtos.size(); i++){
 			campDataBean dto = dtos.get(i);
 			
@@ -64,7 +72,10 @@
       <td><button type="button" class="btn btn-outline-danger" onClick="location.href='정비결과삭제.jsp?repairNumber=<%=rp_num%>&rentalNumber=<%=rentalNumber%>'" >삭제</button></td>
     </tr>
   </tbody> 
-  <% } %>
+<% 
+	}
+}
+%>
       
 	</table>
       <footer class="text-center">
