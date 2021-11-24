@@ -264,6 +264,7 @@ public class selectDB {
 				sdb.setCarRentalCost(rs.getInt(7));
 				sdb.setCompId(rs.getInt(8));
 				sdb.setRentalStatus(rs.getInt(9));
+				sdb.setcamp_image(rs.getString(10));
 
 				list.add(sdb);
 			}

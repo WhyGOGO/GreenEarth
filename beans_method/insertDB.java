@@ -93,7 +93,7 @@ public class insertDB {
 		try {
 			conn = getConnection();
 
-			String sql = "insert into campingcar (CAMPCARID,CAMPCARNAME,CAMPCARTYPE,CAMPCARNUMBER,CAMPCARDATE,PEOPLERIDE,CARRENTALCOST,COMPID,rentalstatus) values(CAMPCARID.NEXTVAL,?,?,?,?,?,?,?,0)";
+			String sql = "insert into campingcar (CAMPCARID,CAMPCARNAME,CAMPCARTYPE,CAMPCARNUMBER,CAMPCARDATE,PEOPLERIDE,CARRENTALCOST,COMPID,rentalstatus,camp_image) values(CAMPCARID.NEXTVAL,?,?,?,?,?,?,?,0,?)";
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, member.getCampCarName());
@@ -103,6 +103,7 @@ public class insertDB {
 			pstmt.setString(4, member.getCampCarDate());
 			pstmt.setInt(6, member.getCarRentalCost());
 			pstmt.setInt(5, member.getPeopleRide());
+			pstmt.setString(8, member.getcamp_image());
 			
 			pstmt.executeUpdate();
 		} catch (Exception e) {
