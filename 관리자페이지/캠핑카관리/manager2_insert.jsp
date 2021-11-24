@@ -8,7 +8,7 @@
 <html>
 <head> 
 <meta charset="UTF-8">
-<title>캠핑카 추가</title>
+<title>회사 고르기</title>
 
 <%@ include file="../../관리자페이지메뉴/managerMenu.jsp" %>	<!-- 메뉴 바  -->
 
@@ -59,7 +59,8 @@
 						<div class="mb-3"> <label for="nickname">렌트비용</label> 
 							<input type="text" class="form-control" name="carRentalCost" placeholder="1일 기준 렌트비용을입력해주세요"  maxlength=7 required> 
 						</div>
-					</div> 
+					</div>
+					<label for="nickname">회사</label> 
 					<select name="compId"  class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" style="width:10%;height:4.9%;font-size:10px;font-weight:700; ;  ">
 			  			<option selected>===선택===</option>
 <%
