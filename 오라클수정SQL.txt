@@ -148,13 +148,13 @@ alter table rental modify rentalterm varchar2(3);
 --이미 되어있다면 안해도됨
 
 CREATE SEQUENCE CAMPCARID
-       INCREMENT BY 1
-       START WITH 1
-       MINVALUE 1
-       MAXVALUE 9999
-       NOCYCLE
-       NOCACHE
-       NOORDER;
+       INCREMENT BY 1       
+       START WITH 1         
+       MINVALUE 1           
+       MAXVALUE 9999       
+       NOCYCLE             
+       NOCACHE           
+       NOORDER;            
 CREATE SEQUENCE COMPID
        INCREMENT BY 1
        START WITH 1
