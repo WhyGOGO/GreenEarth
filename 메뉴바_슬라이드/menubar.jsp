@@ -33,7 +33,6 @@
                     <ul>
                         <li><a href="../../이용안내/main/guide.jsp">대여하는법</a></li>
                         <li><a href="../../이용안내/main/guide2.jsp">주의사항</a></li>
-                        <li><a href="../../이용안내/main/guide3.jsp">가격안내</a></li>  
                     </ul>
                 </li>
                 <li>

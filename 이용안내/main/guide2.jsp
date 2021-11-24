@@ -35,7 +35,6 @@
   <div class="header-menu">
    <a class="menu-link " href="guide.jsp">대여방법</a>
    <a class="menu-link is-active" href="">주의사항</a> 			
-   <a class="menu-link" href="guide3.jsp">가격사항</a>
   </div>
 
  </div>
