@@ -10,12 +10,22 @@
 
 <%@ include file="../../관리자페이지메뉴/managerMenu.jsp" %>	<!-- 메뉴 바  -->
 
+  <%
+ 		 request.setCharacterEncoding("UTF-8");
+		 String filename = request.getParameter("filename");
+
+  %>
 <main class="page-content">
     <div class="container">
       <h2>캠핑카 추가</h2>
       <hr>
       	<form method="post" action="manager2_insert_pro.jsp" class="validation-form" novalidate >			<!-- 정보 보내는 부분 -->
-				 
+				 	<div class="row"> 
+						<div class="col-md-6 mb-3"> <label for="nickname">캠핑카 이미지</label> 
+							<input type="text" class="form-control" name="shopImage" value="<%=filename%>"  maxlength=10 readonly> 
+						<div class="invalid-feedback"> 이미지를 추가해주세요. </div> 
+						</div> 
+					</div> 		
 					<div class="row"> 
 						<div class="mb-3"> <label for="nickname">캠핑카이름</label> 
 							<input type="text" class="form-control" name="campCarName" placeholder="GrandMother" maxlength=6 required> 
