@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@page import="beans.campDataBean"%>
 <%@page import="beans_method.insertDB" %>
+<%@page import="java.util.ArrayList" %> 
+<%@page import="beans_method.selectDB" %>
 <!DOCTYPE html>
 <html>
 <head> 
@@ -13,6 +15,8 @@
   <%
  		 request.setCharacterEncoding("UTF-8");
 		 String filename = request.getParameter("filename");
+		 selectDB sd = selectDB.getInstance();
+		 ArrayList<campDataBean> com_id = sd.selCompany();
 
   %>
 <main class="page-content">
@@ -56,11 +60,21 @@
 							<input type="text" class="form-control" name="carRentalCost" placeholder="1일 기준 렌트비용을입력해주세요"  maxlength=7 required> 
 						</div>
 					</div> 
-					<div class="row"> 
-						<div class="mb-3"> <label for="nickname">대여회사ID</label> 
-							<input type="text" class="form-control" name="compId" placeholder="해당회사의 ID를 입력해주세요"  maxlength=10 required> 
-						</div>
-					</div> 				 
+					<select name="compId"  class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" style="width:10%;height:4.9%;font-size:10px;font-weight:700; ;  ">
+			  			<option selected>===선택===</option>
+<%
+
+   for(int i=0;i<com_id.size();i++){ 
+   	campDataBean dt= com_id.get(i);
+   	int compId=dt.getCompId();
+   	String compname=dt.getCompName();	    	
+%>	 
+			  			<option value="<%=compId%>"><%=compname%></option>
+			  	
+<%			 	
+   }				    
+%>
+					</select>		 
 					<button class="btn btn-primary btn-lg btn-block" type="submit">추가 하기</button>							
 		</form>		
     </div>

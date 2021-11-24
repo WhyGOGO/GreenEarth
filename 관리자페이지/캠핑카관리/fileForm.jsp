@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>정비소이미지추가</title>
+<title>캠핑카이미지추가</title>
 </head>
 <body>
 	<form method="post" action="fileupload.jsp" enctype="multipart/form-data">
