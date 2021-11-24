@@ -96,7 +96,9 @@
 			      
 				<form method="get" action="cars_select.jsp">
 			      	<input type="hidden" name="compId" value="<%=compId%>">			    
-			      	<button type="submit" >선택</button>
+			      	<div class="app-card-buttons">
+			      		<button class="content-button status-button" type="submit" >선택</button>
+			      	</div>
 	    		</form> 
 		      </div>
 

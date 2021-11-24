@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="beans_method.selectDB" %>
-<%@page import="java.util.ArrayList" %>   
+<%@page import="java.util.ArrayList" %>  
 <%@page import="beans.campDataBean"%> 
 <!doctype html>
 <html lang="en">
@@ -14,7 +14,7 @@
 
     <style>
 
-      .bd-placeholder-img { 
+      .bd-placeholder-img {
         font-size: 1.125rem;
         text-anchor: middle;
         -webkit-user-select: none;
@@ -68,8 +68,10 @@
      </div>
 
     </div>
- <table class="table table-success table-striped">
+    
 
+ 
+	 <div class="apps-card">
  <%	try{
 
 	selectDB sd = selectDB.getInstance();	
@@ -84,36 +86,35 @@
 		String IMAGE = dto2.getIMAGE();   	
 		String spot = dto2.getSPOT();
 %>
-	 <div class="apps-card">
-     <div class="app-card"> 
-	<div class="content-section">
-     <div class="content-section-title"><%=name%></div>
-	   <img alt="" src="../../이미지/대여사이미지/<%=IMAGE%>">
-       <div class="app-card__subtext">      
-       회사이름: <%=name%><br>
-       회사주소: <%=address%><br> 
-       회사전화번호 <i class="fas fa-phone-square-alt"></i> : <%=CompCall %><br>
-       담당자이름: <%=CompManager %><br>
-       담당자이메일 <i class="far fa-envelope"></i> : <%=CompEmail %>    
-       </div>
-       </div>
-      </div>
-     </div>
+
+
+	     <div class="app-card">
+	      	<div class="content-section">
+     		<div class="content-section-title"><%=name%></div>
+	   		<img alt="" src="../../이미지/대여사이미지/<%=IMAGE%>">
+	        <div class="app-card__subtext">      
+		        회사이름: <%=name%><br>
+		        회사주소: <%=address%><br> 
+		        회사전화번호 <i class="fas fa-phone-square-alt"></i> : <%=CompCall %><br>
+		        담당자이름: <%=CompManager %><br>
+		        담당자이메일 <i class="far fa-envelope"></i> : <%=CompEmail %>    
+	        </div>
+       		</div>
+		</div>
+
+
 <% }
 }
 	catch(Exception e){
 		e.printStackTrace();
 }
 %>  
-</table>      
+	 </div>
     </div>
    </div>
   </div>
  </div>
- <div class="overlay-app"></div>
-</div>
-</div>
-  	
+
 	
   
 </main>

@@ -93,7 +93,7 @@ public class insertDB {
 		try {
 			conn = getConnection();
 
-			String sql = "insert into campingcar (CAMPCARID,CAMPCARNAME,CAMPCARTYPE,CAMPCARNUMBER,CAMPCARDATE,PEOPLERIDE,CARRENTALCOST,COMPID,rentalstatus) values(CAMPCARID.NEXTVAL,?,?,?,?,?,?,?,0)";
+			String sql = "insert into campingcar (CAMPCARID,CAMPCARNAME,CAMPCARTYPE,CAMPCARNUMBER,CAMPCARDATE,PEOPLERIDE,CARRENTALCOST,COMPID,rentalstatus,camp_image) values(CAMPCARID.NEXTVAL,?,?,?,?,?,?,?,0,?)";
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, member.getCampCarName());
@@ -103,6 +103,7 @@ public class insertDB {
 			pstmt.setString(4, member.getCampCarDate());
 			pstmt.setInt(6, member.getCarRentalCost());
 			pstmt.setInt(5, member.getPeopleRide());
+			pstmt.setString(8, member.getcamp_image());
 			
 			pstmt.executeUpdate();
 		} catch (Exception e) {
@@ -183,7 +184,7 @@ public class insertDB {
 
 
 	// 정비의뢰 및 결과 정보를 추가
-	public void addRepairInfo(campDataBean member) throws Exception {
+	public void addRepairInfo(campDataBean member,campDataBean member2) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
@@ -199,7 +200,7 @@ public class insertDB {
 			pstmt.setString(4, member.getRepairPayDate());
 			pstmt.setString(5, member.getRepairEtcHistory());
 			pstmt.setInt(6, member.getRepairShopId());
-			pstmt.setInt(7, member.getCampCarId());
+			pstmt.setInt(7, member2.getCampCarId());
 			pstmt.setString(8, member.getLicenseNumber());
 
 			pstmt.executeUpdate();
@@ -209,7 +210,7 @@ public class insertDB {
 		}
 	}
 	//정비의뢰 테이블값넣기
-	public void addRepairRequest(campDataBean member) throws Exception {
+	public void addRepairRequest(campDataBean member,campDataBean member2) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
@@ -219,9 +220,9 @@ public class insertDB {
 			String sql = "insert into repairrequest(RENTALNUMBER,LICENSENUMBER,CAMPCARID) values(?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 
-			pstmt.setInt(1, member.getRentalNumber());
+			pstmt.setInt(1, member2.getRentalNumber());
 			pstmt.setString(2, member.getLicenseNumber());
-			pstmt.setInt(3, member.getCampCarId());
+			pstmt.setInt(3, member2.getCampCarId());
 
 			pstmt.executeUpdate();
 			

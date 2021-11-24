@@ -433,22 +433,6 @@ body.light-mode .video-bg:before {
   background-color: var(--overlay-bg);
 }
 
-.overlay-app {
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  left: 0;
-  top: 0;
-  pointer-events: all;
-  background-color: rgba(36, 39, 59, 0.8);
-  opacity: 0;
-  visibility: hidden;
-  transition: 0.3s;
-}
-.overlay-app.is-active {
-  visibility: visible;
-  opacity: 1;
-}
 
 .img-content {
   font-weight: 500;

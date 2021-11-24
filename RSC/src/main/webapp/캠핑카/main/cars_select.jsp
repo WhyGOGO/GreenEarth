@@ -98,6 +98,7 @@
 			int peopleride = dto2.getPeopleRide();   
 			carrentalcost = dto2.getCarRentalCost(); 
 			rentalstatus = dto2.getRentalStatus(); 
+			String camp_image =dto2.getcamp_image();
 	
 %>
 
@@ -107,8 +108,9 @@
 	   <div class="Selected_app-card" >
 		<div class="content-section">
 			<form  action="cars_select2.jsp"  name=frmSubmit method="post" onsubmit="go(<%=rentalstatus%>);">
-			     <div class="content-section-title">이름 : <%=campcarname%></div>			<input type="hidden" name="campCarName" value="<%=campcarname%>">	 
-				       캠핑카종류 :	<%=campcartype%><br> 		 							<input type="hidden" name="campCarType" value="<%=campcartype%>">
+			     <div class="content-section-title">이름 : <%=campcarname%></div>			<input type="hidden" name="campCarName" value="<%=campcarname%>">
+			     	<img alt="" src="../../이미지/대여사이미지/<%=camp_image%>"><br>
+				       캠핑카종류 :	<%=campcartype%><br> 		 						<input type="hidden" name="campCarType" value="<%=campcartype%>">
 				       차량번호 : <%=campcarnumber%><br>									<input type="hidden" name="campCarNumber" value=" <%=campcarnumber%>">
 				       캠핑카 등록일자 : <%=campcardate%><br>		       					<input type="hidden" name="campCarDate" value=" <%=campcardate%>">
 				       승차인원수 : <%=peopleride%><br> 									<input type="hidden" name="peopleRide" value="<%=peopleride%>">

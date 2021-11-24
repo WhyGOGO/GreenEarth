@@ -35,13 +35,12 @@
 	<%@ include file="../../메뉴바_슬라이드/slide.jsp" %>	<!-- 슬라이드바  -->
 
 
-<div class="app">
+<div class="app" >
  <div class="header">
   <div class="menu-circle"></div>
   <div class="header-menu">
    <a class="menu-link is-active" href="guide.jsp">대여방법</a>			<!-- 대여방법 -->
    <a class="menu-link" href="guide2.jsp">주의사항</a>
-   <a class="menu-link" href="guide3.jsp">가격사항</a>
   </div>
 
  </div>
@@ -62,7 +61,7 @@
     <div class="content-section">
      <div class="content-section-title">대여 방법</div>
      <div class="apps-card">
-      <div class="app-card">
+      <div class="app-card" style="width:100%">
        <span>
         
        </span>
