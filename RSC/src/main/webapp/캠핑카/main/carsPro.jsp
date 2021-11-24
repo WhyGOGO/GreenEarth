@@ -13,6 +13,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.88.1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>결제</title>
 
 <body>
@@ -31,17 +32,18 @@
 %>
 <div class="alert alert-success d-flex align-items-center" role="alert">
   <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
-  <div>
-    감사합니다! 저희 캠핑카와 좋은 추억이 되길 바랍니다!
-    5초만 기다려주세요 결제중입니다!
+  <div class="alert alert-success" role="alert">
+  	감사합니다! 저희 캠핑카와 좋은 추억이 되길 바랍니다!<br>
+    2초만 기다려주세요 결제중입니다!
   </div>
+  
 </div>
 <script>
 function Gologin(){
-	location.href="../../마이페이지/myForm.jsp";
+	location.href="../../캠핑카/main/company_select.jsp";
 }
 
-	setTimeout('Gologin()',5000);
+	setTimeout('Gologin()',2000);
 	
 </script>
 </body>

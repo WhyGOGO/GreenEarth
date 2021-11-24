@@ -54,7 +54,7 @@ public class campDataBean {
 	
 	private String rentalState; //뷰로 받은 대여가능 여부 및 예약상태를 저장
 	private String repairState;
-	
+	private String camp_image;
 	public int getCampCarId() {
 		return campCarId;
 	}
@@ -324,6 +324,12 @@ public class campDataBean {
 	}
 	public void setRentalState(String rentalstate) {
 		this.rentalState = rentalstate;
+	}
+	public String getcamp_image(){
+		return camp_image;
+	}
+	public void setcamp_image(String camp_image){
+		this.camp_image = camp_image;
 	}
 	
 

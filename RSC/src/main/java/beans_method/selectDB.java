@@ -264,6 +264,7 @@ public class selectDB {
 				sdb.setCarRentalCost(rs.getInt(7));
 				sdb.setCompId(rs.getInt(8));
 				sdb.setRentalStatus(rs.getInt(9));
+				sdb.setcamp_image(rs.getString(10));
 
 				list.add(sdb);
 			}
@@ -865,6 +866,51 @@ public class selectDB {
 		return list;
 	}
 	
+	
+	// 예약상태인 정비내역 null인지 확인하는 메소드
+		public Boolean selVRepairCheck_null() throws SQLException {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			Boolean think = false;
+
+			try {
+				conn = getConnection(); // DB 연결
+
+				String sql = "select * from v_repair where 상태 = '승인'";
+
+				pstmt = conn.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				
+				 think = rs.next();
+		
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				if (rs != null)
+					try {
+						rs.close();
+					} catch (SQLException ex) {
+					}
+				if (pstmt != null)
+					try {
+						pstmt.close();
+					} catch (SQLException ex) {
+					}
+				if (conn != null)
+					try {
+						conn.close();
+					} catch (SQLException ex) {
+					}
+			}
+
+			return think;
+		}
+
+	
+	
+	
+	
 	// 예약상태인 정비내역 조회하는 메소드
 	public ArrayList<campDataBean> selVRepairCheck() throws SQLException {
 		Connection conn = null;
@@ -1043,7 +1089,7 @@ public class selectDB {
 		try {
 			conn = getConnection(); // DB 연결
 
-			String sql = "select * from rental where licensenumber = ?";
+			String sql = "select r.campcarid,r.rentalnumber,c.campcarname from rental r,campingcar c where c.campcarid = r.campcarid and licensenumber = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1,licensenumber);
 			rs = pstmt.executeQuery();
@@ -1051,7 +1097,10 @@ public class selectDB {
 			// 수정이 필요한 메소드
 			while (rs.next()) {
 				campDataBean sdb = new campDataBean();
-				sdb.setCampCarId((rs.getInt(10))); ;
+				
+				sdb.setCampCarId((rs.getInt(1))); // 대여번호
+				sdb.setRentalNumber((rs.getInt(2)));  // 렌탈넘버
+				sdb.setCampCarName((rs.getString(3)));  // 캠핑카이름
 				list.add(sdb);
 
 			}

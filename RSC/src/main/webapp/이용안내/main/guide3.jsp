@@ -56,7 +56,7 @@
     <div class="content-section">
      <div class="content-section-title">가격사항</div>
      <div class="apps-card">
-      <div class="app-card">
+      <div class="app-card" style="width:100%">
        		<table class="table table-bordered" style="color:white;">
 				<th>차종</th>
 				<th>평일</th>
@@ -208,7 +208,6 @@
    </div>
   </div>
  </div>
- <div class="overlay-app"></div>
 </div>
 
   

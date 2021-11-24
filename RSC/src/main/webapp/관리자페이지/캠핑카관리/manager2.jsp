@@ -17,7 +17,7 @@
     <div class="container">
       <h2>캠핑카</h2>
       <hr>
-<a href="manager2_insert.jsp" class="btn btn-primary btn-sm">캠핑카 추가</a>
+<a href="fileForm.jsp" class="btn btn-primary btn-sm">캠핑카 추가</a>
 <table class="table table-dark table-stripeds">
 	
     <tr style="text-align: center;">

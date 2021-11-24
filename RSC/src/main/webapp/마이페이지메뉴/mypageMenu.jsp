@@ -64,33 +64,38 @@
 
       <div class="sidebar-menu">
         <ul>
-          <li class="header-menu">
-            <span>일반</span>
-          </li>
           <li class="sidebar-dropdown1">
             <a href="../이용안내/main/guide.jsp">
               <i class="fa fa-tachometer-alt"></i>
               <span>홈으로</span>
             </a>
 
-          </li><li class="sidebar-dropdown1">
+          </li>        
+          <li class="header-menu">
+ 
+            <span>📋대여</span>
+          </li>
+		  <li class="sidebar-dropdown1">
             <a href="myForm1.jsp">
               <i class="fa fa-tachometer-alt"></i>
-              <span>대여현황</span>
+              <span>&nbsp;&nbsp;&nbsp;&nbsp;L 현황</span>
             </a>
 
           </li>
           <li class="sidebar-dropdown1">
             <a href="myForm.jsp">
               <i class="fa fa-tachometer-alt"></i>
-              <span>대여내역</span>
+              <span>&nbsp;&nbsp;&nbsp;&nbsp;L 내역</span>
             </a>
 
           </li>
+          <li class="header-menu">
+            <span>🔨수리</span>
+          </li>          
           <li class="sidebar-dropdown1">
             <a href="myForm2.jsp">
               <i class="fa fa-tachometer-alt"></i>
-              <span>수리내역</span>
+              <span>&nbsp;&nbsp;&nbsp;&nbsp;L 내역</span>
             </a>
           </li>
 

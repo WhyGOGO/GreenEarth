@@ -35,7 +35,6 @@
   <div class="header-menu">
    <a class="menu-link " href="guide.jsp">대여방법</a>
    <a class="menu-link is-active" href="">주의사항</a> 			
-   <a class="menu-link" href="guide3.jsp">가격사항</a>
   </div>
 
  </div>
@@ -55,8 +54,8 @@
 
     <div class="content-section">
      <div class="content-section-title">주의사항</div>
-     <div class="apps-card">
-      <div class="app-card">
+     <div class="apps-card" >
+      <div class="app-card" style="width:100%">
 
        <div class="app-card__subtext">
 		❌ 행중에는 가급적 화장실을 사용하지 말고, 반드시 차량이 정차한 후 흔들림이 없을때 사용 바랍니다.<br><br>

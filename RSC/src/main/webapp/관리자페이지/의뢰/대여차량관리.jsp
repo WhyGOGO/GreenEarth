@@ -16,11 +16,13 @@
   
 	selectDB sd = selectDB.getInstance();
 	ArrayList<campDataBean> dtos = sd.selRentBD();
+	int repairNumber = 0;
 	
 	ArrayList<campDataBean> repair = sd.selVRepair();
-	campDataBean repair_Number = repair.get(0);
-	int repairNumber = repair_Number.getRepairNumber();
-	
+	if(repair.size()!=0){
+		campDataBean repair_Number = repair.get(0);
+		repairNumber = repair_Number.getRepairNumber();
+	}
 	
 	if(dtos.size()!=0){
   %>

@@ -24,7 +24,7 @@
 <div  id=menu_boxes; style="position: relative; z-index: 2;">
    <nav class="navbar">
         <div id=navbar_logo>
-          <a href="guide.jsp" style="text-decoration: none; color:white;">🛺 RCS</a>  
+          <a href="../../이용안내/main/guide.jsp" style="text-decoration: none; color:white;">🛺 RCS</a>  
        </div>
         <div class="navbar_menu">
             <ul id=menus>
@@ -33,7 +33,6 @@
                     <ul>
                         <li><a href="../../이용안내/main/guide.jsp">대여하는법</a></li>
                         <li><a href="../../이용안내/main/guide2.jsp">주의사항</a></li>
-                        <li><a href="../../이용안내/main/guide3.jsp">가격안내</a></li>  
                     </ul>
                 </li>
                 <li>
