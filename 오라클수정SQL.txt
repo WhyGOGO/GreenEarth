@@ -342,3 +342,15 @@ select (select ct.email
     
 from rental rt
 order by rt.rentalnumber;
+
+
+
+================================================================
+박영민 2021-11-24 16:09            관리자페이지 값넣기 위한 수정
+
+
+alter table campingcar modify campcarname varchar2(39);
+
+
+ALTER TABLE campingcar ADD(camp_image VARCHAR2(15));
+
