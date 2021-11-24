@@ -352,5 +352,6 @@ order by rt.rentalnumber;
 alter table campingcar modify campcarname varchar2(39);
 
 
-ALTER TABLE campingcar ADD(camp_image VARCHAR2(15));
+ALTER TABLE campingcar ADD(camp_image VARCHAR2(50));
+
 
