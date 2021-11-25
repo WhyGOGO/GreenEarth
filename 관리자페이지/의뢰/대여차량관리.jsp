@@ -16,7 +16,8 @@
   
 	selectDB sd = selectDB.getInstance();
 	ArrayList<campDataBean> dtos = sd.selRentBD();
-	int repairNumber = 0;
+	
+	int repairNumber = 0;//정비번호 초기화
 	
 	ArrayList<campDataBean> repair = sd.selVRepair();
 	if(repair.size()!=0){
@@ -86,7 +87,9 @@
       <td></td>
       <%} else{%>
       <td><font color="red"><%= state %></font></td>
-      <td></td>
+      <td>
+      	<button type="button" class="btn btn-danger btn-sm" onClick="location.href='예약삭제.jsp?rentalNumber=<%=rentalnumber%>&state=<%=state %>&repairNumber=<%=repairNumber%>'">삭제</button>
+      </td>
       <%} %>
     </tr>
   </tbody> 

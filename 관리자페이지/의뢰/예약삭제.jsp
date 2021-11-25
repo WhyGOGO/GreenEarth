@@ -13,18 +13,16 @@
 	deleteDB del = deleteDB.getInstance();
 	
 	if (state.equals("반납")){
-		del.delete_repairinfo2(rental.getRepairNumber()); 
 		del.delete_request(rental.getRentalNumber());
 		del.delete_rental(rental.getRentalNumber());
 %> 
 	<script>
 		location.href="대여차량관리.jsp"
 	</script>
-<%} else {%>
-		del.delete_repairinfo2(rental.getRepairNumber());
+<%} else if(state.equals("취소")){%>
 		del.delete_request(rental.getRentalNumber());
 		del.delete_rental(rental.getRentalNumber());
 	<script>
-		location.href="예약관리.jsp"
+		location.href="대여차량관리.jsp"
 	</script>
-<%}%>
+<%} %>
