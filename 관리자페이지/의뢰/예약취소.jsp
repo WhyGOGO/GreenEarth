@@ -12,11 +12,20 @@
 	updateDB up = updateDB.getInstance();
 	//예약0 -> 대여 1
 	
-	
-	up.requestCancel3(rent_num);
-	up.requestPro2(cp_num);
+	if (state.equals("취소요청")){
+		up.requestCancel3(rent_num);
+		up.requestPro2(cp_num);
 
 %>
 <script>
 		location.href="예약관리.jsp"
 	</script>
+<%} else { 
+		up.requestCancel4(rent_num);
+		up.requestPro2(cp_num);
+
+%>
+<script>
+		location.href="예약관리.jsp"
+	</script>
+<%}%>
