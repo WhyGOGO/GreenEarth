@@ -53,6 +53,8 @@ public class insertDB {
 			pstmt.setString(5, member.getCompEmail());
 			pstmt.setString(6, member.getIMAGE());
 			pstmt.executeUpdate();
+			pstmt.close();
+			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -79,6 +81,8 @@ public class insertDB {
 			pstmt.setString(6, member.getPasswd());
 
 			pstmt.executeUpdate();
+			pstmt.close();
+			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -106,6 +110,8 @@ public class insertDB {
 			pstmt.setString(8, member.getcamp_image());
 			
 			pstmt.executeUpdate();
+			pstmt.close();
+			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -130,6 +136,8 @@ public class insertDB {
 			pstmt.setString(6, member.getShopImage());
 			
 			pstmt.executeUpdate();
+			pstmt.close();
+			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -174,7 +182,8 @@ public class insertDB {
 			// 여기까지 upadte 문
 			pstmt.executeUpdate(); 
 			
-			
+			pstmt.close();
+			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -204,6 +213,8 @@ public class insertDB {
 			pstmt.setString(8, member.getLicenseNumber());
 
 			pstmt.executeUpdate();
+			pstmt.close();
+			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -226,6 +237,8 @@ public class insertDB {
 
 			pstmt.executeUpdate();
 			
+			pstmt.close();
+			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 

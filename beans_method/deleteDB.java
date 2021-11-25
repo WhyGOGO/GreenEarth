@@ -73,6 +73,8 @@ public class deleteDB {
 			 * pstmt.executeUpdate();
 			 */
 
+			pstmt.close();
+			conn.close();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -92,6 +94,8 @@ public class deleteDB {
 
 			pstmt.executeUpdate();
 
+			pstmt.close();
+			conn.close();
 		}
 
 		catch (Exception ex) {
@@ -111,6 +115,8 @@ public class deleteDB {
 
 			pstmt.executeUpdate();
 
+			pstmt.close();
+			conn.close();
 		}
 
 		catch (Exception ex) {
@@ -130,6 +136,8 @@ public class deleteDB {
 
 			pstmt.executeUpdate();
 
+			pstmt.close();
+			conn.close();
 		}
 
 		catch (Exception ex) {
@@ -149,6 +157,8 @@ public class deleteDB {
 
 			pstmt.executeUpdate();
 
+			pstmt.close();
+			conn.close();
 		}
 
 		catch (Exception ex) {
@@ -169,6 +179,8 @@ public class deleteDB {
 
 			pstmt.executeUpdate();
 
+			pstmt.close();
+			conn.close();
 		}
 
 		catch (Exception ex) {
@@ -187,6 +199,8 @@ public class deleteDB {
 
 			pstmt.executeUpdate();
  
+			pstmt.close();
+			conn.close();
 		}
 
 		catch (Exception ex) {
@@ -205,6 +219,8 @@ public class deleteDB {
 
 			pstmt.executeUpdate();
 
+			pstmt.close();
+			conn.close();
 		}
 
 		catch (Exception ex) {
@@ -223,7 +239,9 @@ public class deleteDB {
 		
 		
 		pstmt.executeUpdate();
-		
+	
+		pstmt.close();
+		conn.close();
 		}
 	
 	catch (Exception ex) {
@@ -243,6 +261,8 @@ public class deleteDB {
 		
 		pstmt.executeUpdate();
 		
+		pstmt.close();
+		conn.close();
 		}
 	
 	catch (Exception ex) {

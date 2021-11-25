@@ -57,6 +57,8 @@ public class selectDB {
 				list.add(sdb);
 			}
 
+			pstmt.close();
+			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -110,6 +112,8 @@ public class selectDB {
 				list.add(sdb);
 
 			}
+			pstmt.close();
+			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -162,6 +166,8 @@ public class selectDB {
 					list.add(sdb);
 
 				}
+				pstmt.close();
+				conn.close();
 			} catch (Exception e) {
 				e.printStackTrace();
 
@@ -211,7 +217,10 @@ public class selectDB {
 
 				list.add(sdb);
 
+			
 			}
+			pstmt.close();
+			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -268,7 +277,8 @@ public class selectDB {
 
 				list.add(sdb);
 			}
-
+			pstmt.close();
+			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -307,6 +317,7 @@ public class selectDB {
 	
 			rs = pstmt.executeQuery();
 
+			
 			// 수정이 필요한 메소드
 			while (rs.next()) {
 				campDataBean sdb = new campDataBean();
@@ -323,6 +334,8 @@ public class selectDB {
 				list.add(sdb);
 			}
 
+			pstmt.close();
+			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -377,6 +390,8 @@ public class selectDB {
 					list.add(sdb);
 
 				}
+				pstmt.close();
+				conn.close();
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
@@ -435,6 +450,8 @@ public class selectDB {
 				list.add(sdb);
 
 			}
+			pstmt.close();
+			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -495,6 +512,8 @@ public class selectDB {
 				list.add(sdb);
 
 			}
+			pstmt.close();
+			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -553,6 +572,8 @@ public class selectDB {
 				list.add(sdb);
 
 			}
+			pstmt.close();
+			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -613,6 +634,8 @@ public class selectDB {
 				list.add(sdb);
 
 			}
+			pstmt.close();
+			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -672,6 +695,8 @@ public class selectDB {
 				list.add(sdb);
 
 			}
+			pstmt.close();
+			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -726,6 +751,8 @@ public class selectDB {
 				list.add(sdb);
 
 			}
+			pstmt.close();
+			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -786,6 +813,8 @@ public class selectDB {
 				list.add(sdb);
 
 			}
+			pstmt.close();
+			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -843,6 +872,8 @@ public class selectDB {
 				list.add(sdb);
 
 			}
+			pstmt.close();
+			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -883,7 +914,8 @@ public class selectDB {
 				rs = pstmt.executeQuery();
 				
 				 think = rs.next();
-		
+					pstmt.close();
+					conn.close();
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
@@ -945,6 +977,8 @@ public class selectDB {
 				list.add(sdb);
 
 			}
+			pstmt.close();
+			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -998,6 +1032,8 @@ public class selectDB {
 				list.add(sdb);
 
 			}
+			pstmt.close();
+			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -1054,6 +1090,8 @@ public class selectDB {
 				list.add(sdb);
 
 			}
+			pstmt.close();
+			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -1104,6 +1142,8 @@ public class selectDB {
 				list.add(sdb);
 
 			}
+			pstmt.close();
+			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -1159,6 +1199,8 @@ public class selectDB {
 				list.add(sdb);
 
 			}
+			pstmt.close();
+			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -1209,6 +1251,8 @@ public class selectDB {
 				list.add(sdb);
 
 			}
+			pstmt.close();
+			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -1257,6 +1301,8 @@ public class selectDB {
 				list.add(sdb);
 
 			}
+			pstmt.close();
+			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 

@@ -46,6 +46,8 @@ public class LogonDB {
 			pstmt.setString(6, member.getPasswd());
 
 			pstmt.executeUpdate();
+			pstmt.close();
+			conn.close();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -66,6 +68,8 @@ public class LogonDB {
 			pstmt.setString(2, passwd);
 
 			pstmt.executeUpdate();
+			pstmt.close();
+			conn.close();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -96,6 +100,8 @@ public class LogonDB {
 			} else
 				x = -1;// 해당 아이디 없음
 
+			pstmt.close();
+			conn.close();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -120,7 +126,8 @@ public class LogonDB {
 				x = 1; // 아이디 중복
 			} else
 				x = -1;// 중복 아이디 없음
-
+			pstmt.close();
+			conn.close();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}

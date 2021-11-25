@@ -40,6 +40,8 @@ public class updateDB {
 			
 			pstmt.executeUpdate();
 			
+			pstmt.close();
+			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -59,6 +61,8 @@ public class updateDB {
 			
 			pstmt.executeUpdate();
 			
+			pstmt.close();
+			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -78,6 +82,8 @@ public class updateDB {
 			
 			pstmt.executeUpdate();
 			
+			pstmt.close();
+			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -97,6 +103,8 @@ public class updateDB {
 			
 			pstmt.executeUpdate();
 			
+			pstmt.close();
+			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -116,6 +124,8 @@ public class updateDB {
 			
 			pstmt.executeUpdate();
 			
+			pstmt.close();
+			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -135,6 +145,8 @@ public class updateDB {
 			
 			pstmt.executeUpdate();
 			
+			pstmt.close();
+			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -154,6 +166,8 @@ public class updateDB {
 			
 			pstmt.executeUpdate();
 			
+			pstmt.close();
+			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -172,6 +186,8 @@ public class updateDB {
 			
 			pstmt.executeUpdate();
 			
+			pstmt.close();
+			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -195,6 +211,8 @@ public class updateDB {
 			pstmt.setInt(8,member.getCampCarId());
 			pstmt.executeUpdate();
 		
+			pstmt.close();
+			conn.close();
 	} catch (Exception e) {
 		e.printStackTrace();
 
@@ -219,6 +237,8 @@ public class updateDB {
 			pstmt.setInt(8,member.getCompId());
 			pstmt.executeUpdate();
 		
+			pstmt.close();
+			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -243,6 +263,8 @@ public class updateDB {
 			pstmt.setString(7,member.getCustEmail());
 			pstmt.executeUpdate();
 		
+			pstmt.close();
+			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -266,6 +288,8 @@ public class updateDB {
 			pstmt.setInt(7,member.getRepairShopId());
 			pstmt.executeUpdate();
 		
+			pstmt.close();
+			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -285,6 +309,8 @@ public class updateDB {
 			pstmt.setInt(2,member.getRepairNumber());
 			pstmt.executeUpdate();
 		
+			pstmt.close();
+			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -303,6 +329,8 @@ public class updateDB {
 			pstmt.setInt(1,member.getRepairNumber());
 			pstmt.executeUpdate();
 		
+			pstmt.close();
+			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -321,6 +349,8 @@ public class updateDB {
 				pstmt.setInt(1,member.getRepairNumber());
 				pstmt.executeUpdate();
 			
+				pstmt.close();
+				conn.close();
 			} catch (Exception e) {
 				e.printStackTrace();
 
