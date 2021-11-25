@@ -1326,4 +1326,57 @@ public class selectDB {
 
 		return list;
 	}
+	public ArrayList<campDataBean> selNum(String licen) throws SQLException {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        ArrayList<campDataBean> list = new ArrayList<campDataBean>();
+        try {
+            conn = getConnection(); // DB 연결
+
+            String sql = "select repairnumber\r\n"
+                    + "from repairinfo r_if,rental rt\r\n"
+                    + "where rt.licensenumber = ? and rt.licensenumber=r_if.licensenumber\r\n"
+                    + "group by repairnumber";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, licen);
+
+
+
+            rs = pstmt.executeQuery();
+
+
+            while (rs.next()) {
+                campDataBean sdb = new campDataBean();
+                sdb.setRentalNumber(rs.getInt(1));
+                sdb.setLicenseNumber(rs.getString(2));
+                sdb.setCampCarId(rs.getInt(3));
+                list.add(sdb);
+
+            }
+            pstmt.close();
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        } finally {
+            if (rs != null)
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                }
+            if (pstmt != null)
+                try {
+                    pstmt.close();
+                } catch (SQLException ex) {
+                }
+            if (conn != null)
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                }
+        }
+
+        return list;
+    }
 }

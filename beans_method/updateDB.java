@@ -67,6 +67,29 @@ public class updateDB {
 			e.printStackTrace();
 		}
 	}
+	  public void requestCancel4(int num) {
+	        Connection conn = null;
+	        PreparedStatement pstmt = null;
+
+	        try {
+	            conn = getConnection();
+
+	            String sql = "update rental set rental_state=-2 where rental_state=0 and rentalnumber=?";
+	            pstmt=conn.prepareStatement(sql);
+	            pstmt.setInt(1, num);
+
+	            pstmt.executeUpdate();
+
+	            pstmt.close();
+	            conn.close();
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
+	
+	
+	
+	
 	
 	//취소요청-2 -> 취소-2
 	public void requestCancel3(int num) {

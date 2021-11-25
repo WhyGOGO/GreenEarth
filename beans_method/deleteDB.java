@@ -33,6 +33,11 @@ public class deleteDB {
 		return ds.getConnection();
 	}
 
+	
+	
+	
+	
+	
 	// 대여회사 삭제 기능
 	public void deleteComp(campDataBean member) throws Exception {
 		Connection conn = null;
@@ -72,7 +77,6 @@ public class deleteDB {
 			 * 
 			 * pstmt.executeUpdate();
 			 */
-
 			pstmt.close();
 			conn.close();
 		} catch (Exception ex) {
@@ -93,9 +97,9 @@ public class deleteDB {
 			pstmt.setInt(1, CampCarId);
 
 			pstmt.executeUpdate();
-
 			pstmt.close();
 			conn.close();
+
 		}
 
 		catch (Exception ex) {
@@ -114,7 +118,6 @@ public class deleteDB {
 			pstmt.setInt(1, compId);
 
 			pstmt.executeUpdate();
-
 			pstmt.close();
 			conn.close();
 		}
@@ -135,7 +138,6 @@ public class deleteDB {
 			pstmt.setString(1, custEmail);
 
 			pstmt.executeUpdate();
-
 			pstmt.close();
 			conn.close();
 		}
@@ -156,7 +158,6 @@ public class deleteDB {
 			pstmt.setInt(1, repairShopId);
 
 			pstmt.executeUpdate();
-
 			pstmt.close();
 			conn.close();
 		}
@@ -178,7 +179,6 @@ public class deleteDB {
 			pstmt.setInt(1, rentalnumber);
 
 			pstmt.executeUpdate();
-
 			pstmt.close();
 			conn.close();
 		}
@@ -193,12 +193,11 @@ public class deleteDB {
 		try {
 			conn = getConnection(); // DB연결
 
-			String sql = "delete from repairrequest where rentalnumber=? ";
+			String sql = "delete from repairrequest rep where rentalnumber=? ";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, rentalnumber);
 
 			pstmt.executeUpdate();
- 
 			pstmt.close();
 			conn.close();
 		}
@@ -218,7 +217,6 @@ public class deleteDB {
 			pstmt.setInt(1, repairnumber);
 
 			pstmt.executeUpdate();
-
 			pstmt.close();
 			conn.close();
 		}
@@ -239,7 +237,6 @@ public class deleteDB {
 		
 		
 		pstmt.executeUpdate();
-	
 		pstmt.close();
 		conn.close();
 		}
@@ -260,7 +257,6 @@ public class deleteDB {
 		
 		
 		pstmt.executeUpdate();
-		
 		pstmt.close();
 		conn.close();
 		}
@@ -270,4 +266,26 @@ public class deleteDB {
 		}
 	}
 	
+	//정비의뢰 취소버튼 누르는 쪽
+	public void delete_repairupcancle(campDataBean member) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = getConnection(); //DB연결
+			
+			String sql = "delete from repairinfo where repairnumber=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,member.getRepairNumber());
+			pstmt.executeUpdate();
+		
+			pstmt.close();
+			conn.close();
+			pstmt.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+
+	}
 }
