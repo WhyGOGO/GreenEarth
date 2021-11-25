@@ -81,7 +81,7 @@
       <td><%= cost %></td>
       <td><%= rp_paydate %></td>
       <td><button type="button" class="btn btn-outline-warning btn-sm" onClick="location.href='정비의뢰처리.jsp?repairState=<%=repairState%>&repairNumber=<%=repairNumber%>'" >승인</button></td>
-      <td><button type="button" class="btn btn-outline-danger btn-sm" onClick="location.href='정비의뢰취소.jsp?repairState=<%=repairState%>&repairNumber=<%=repairNumber%>'" >취소</button></td>
+      <td></td>
       </tr>
      <% } else if (repairState.equals("승인")){%>
       

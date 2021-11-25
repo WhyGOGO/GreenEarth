@@ -2,7 +2,7 @@
     pageEncoding="EUC-KR"%>
  <%@ page import="beans_method.*" %>
  <%@page import="beans.campDataBean"%>
-<%@page import="beans_method.updateDB" %>
+<%@page import="beans_method.deleteDB" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,8 +16,8 @@ request.setCharacterEncoding("UTF-8");
 </head>
 <body>
 <%
-	updateDB sd = updateDB.getInstance();
-	sd.update_repairupcancle(repairinfo);
+	deleteDB sd = deleteDB.getInstance();
+	sd.delete_repairupcancle(repairinfo);
 	
 %>
 <script>

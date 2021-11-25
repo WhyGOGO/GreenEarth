@@ -80,7 +80,6 @@
       <%} else if(state.equals("반납")){ %>
       <td><%= state %></td>
       <td>
-      	<button type="button" class="btn btn-danger btn-sm" onClick="location.href='예약삭제.jsp?rentalNumber=<%=rentalnumber%>&state=<%=state %>&repairNumber=<%=repairNumber%>'">삭제</button>
       </td>
       <%} else if(state.equals("예약")){%>
       <td><font color="blue"><%= state %></font></td>

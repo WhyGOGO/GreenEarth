@@ -25,7 +25,7 @@ request.setCharacterEncoding("UTF-8");
 </body>
 <script>
 	function Gomanager(){
-		location.href="../../관리자페이지/캠핑카관리/manager2.jsp";
+		location.href="../../관리자페이지/정비/정비결과.jsp";
 	}
 	setTimeout('Gomanager()',100)
 </script>

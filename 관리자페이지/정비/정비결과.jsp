@@ -69,7 +69,7 @@
       <td><%= rs_name %></td>
       <td><%= rp_his %></td>
       <td><%= cost %></td>
-      <td><button type="button" class="btn btn-outline-danger" onClick="location.href='정비결과삭제.jsp?repairNumber=<%=rp_num%>&rentalNumber=<%=rentalNumber%>'" >삭제</button></td>
+      <td></td>
     </tr>
   </tbody> 
 <% 

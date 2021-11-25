@@ -9,12 +9,14 @@
 <jsp:setProperty name="rental" property="*" />
 <%	
 	String state = request.getParameter("state");
-	System.out.println(state);
 	deleteDB del = deleteDB.getInstance();
 	
 	if (state.equals("반납")){
+		
 		del.delete_request(rental.getRentalNumber());
 		del.delete_rental(rental.getRentalNumber());
+
+
 %> 
 	<script>
 		location.href="대여차량관리.jsp"
