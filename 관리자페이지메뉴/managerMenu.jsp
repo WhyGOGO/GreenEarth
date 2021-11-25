@@ -82,13 +82,13 @@
             <span>정비</span>
           </li>          
           <li class="sidebar-dropdown1">
-            <a href="../../관리자페이지/의뢰/정비의뢰.jsp">
+            <a href="../../관리자페이지/정비/정비의뢰.jsp">
               <i class="fa fa-tachometer-alt"></i>
               <span>의뢰</span>
             </a>
           </li>
           <li class="sidebar-dropdown1">
-            <a href="../../관리자페이지/의뢰/정비결과.jsp">
+            <a href="../../관리자페이지/정비/정비결과.jsp">
               <i class="fa fa-tachometer-alt"></i>
               <span>결과</span>
             </a>
@@ -97,13 +97,13 @@
             <span>대여</span>
           </li>           
           <li class="sidebar-dropdown1">
-            <a href="../../관리자페이지/의뢰/예약관리.jsp">
+            <a href="../../관리자페이지/대여/예약관리.jsp">
               <i class="fa fa-tachometer-alt"></i>
               <span>예약</span>
             </a>
           </li>         
           <li class="sidebar-dropdown1">
-            <a href="../../관리자페이지/의뢰/대여차량관리.jsp">
+            <a href="../../관리자페이지/대여/대여차량관리.jsp">
               <i class="fa fa-tachometer-alt"></i>
               <span>정보</span>
             </a>
