@@ -1,0 +1,93 @@
+
+CREATE TABLE campcompany
+(
+	compId               INT NOT NULL ,
+	compName             VARCHAR2(24) NULL ,
+	compAddress          VARCHAR2(60) NULL ,
+	compCall             VARCHAR2(13) NULL ,
+	compManager          VARCHAR2(12) NULL ,
+	compEmail            VARCHAR2(25) NULL 
+);
+
+CREATE TABLE campingcar
+(
+	campCarId            INT NOT NULL ,
+    camp_image VARCHAR2(50),
+	campCarName          VARCHAR2(12) NULL ,
+	campCarType          VARCHAR2(24) NULL ,
+	campCarNumber        VARCHAR2(10) NULL ,
+	campCarDate          DATE NULL ,
+	peopleRide           NUMBER NULL ,
+	carRentalCost        NUMBER NULL ,
+	compId               INT NOT NULL ,
+	campcarInfo          varchar2(200) null,
+    rentalStatus         VARCHAR2(2) NOT NULL 
+);
+
+CREATE TABLE customer
+(
+	licenseNumber        VARCHAR2(15) NOT NULL ,
+    name                 VARCHAR2(15) NOT NULL,
+	address              VARCHAR2(60) NULL ,
+	phoneNumber          VARCHAR2(13) NULL ,
+	Email                VARCHAR2(25) NULL ,
+	passwd               VARCHAR2(10) NULL 
+);
+
+
+CREATE TABLE customer_info
+(
+    customer_info       int not null,
+	licenseNumber        VARCHAR2(15) NOT NULL ,
+    rentalNumber         INT NOT NULL 
+);
+
+
+
+CREATE TABLE rental
+(
+    rental_image        VARCHAR2(50),
+	rentalNumber         INT NOT NULL ,
+	licenseNumber        VARCHAR2(15) NOT NULL ,
+	campCarId            INT NOT NULL ,
+	rentalStart          DATE NULL ,
+	rentalEnd            DATE NULL ,
+	rentalTerm           DATE NULL ,
+	rentalCost           NUMBER NULL ,
+	rentalPayDate        DATE NULL ,
+	rentalEtcHistory     VARCHAR2(60) NULL ,
+	rentalEtcCost        NUMBER NULL 
+);
+
+
+
+CREATE TABLE repairshop
+(
+	repairShopId         INT NOT NULL ,
+	repairShopName       VARCHAR2(24) NULL ,
+	repairShopAddress    VARCHAR2(60) NULL ,
+	repairShopCall       VARCHAR2(13) NULL ,
+	repairManager        VARCHAR2(12) NULL ,
+	repairManagerEmail   VARCHAR2(25) NULL 
+);
+
+
+CREATE TABLE repairinfo
+(
+    repairInfo_num           INT NOT NULL,
+    repairRequest_num        INT NOT NULL
+
+);
+
+CREATE TABLE repairrequest
+(
+    repairRequest_num        INT NOT NULL,
+	rentalNumber         INT NOT NULL,
+	repairHistory        VARCHAR2(60) NULL ,
+	repairDate           DATE NULL ,
+	repairCost           NUMBER NULL ,
+	repairPayDate        DATE NULL ,
+	repairEtcHistory     VARCHAR2(60) NULL ,
+	repairShopId         INT NOT NULL 
+);
+
