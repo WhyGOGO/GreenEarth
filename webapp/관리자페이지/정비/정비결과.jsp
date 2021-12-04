@@ -14,7 +14,7 @@
   
   <main class="page-content">
     <div class="container">
-      <h2>정비 의뢰</h2>
+      <h2>정비 결과</h2>
       <hr>
       
 <table class="table table-dark table-stripeds">
@@ -26,7 +26,6 @@
       <td>정비소</td>
       <td>정비내역|기타</td>
       <td>정비비용</td>
-      <td>편집</td>
     </tr>
       
   
@@ -69,7 +68,6 @@
       <td><%= rs_name %></td>
       <td><%= rp_his %></td>
       <td><%= cost %></td>
-      <td></td>
     </tr>
   </tbody> 
 <% 

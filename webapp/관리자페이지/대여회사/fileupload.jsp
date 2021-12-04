@@ -16,7 +16,7 @@ com.oreilly.servlet.multipart.DefaultFileRenamePolicy" %>
 			int sizeLimit = 15*200*200;
 			
 			String realPath =
-"C:/_server/eclipse_workspace/rcs/src/main/webapp/이미지/대여사이미지/";
+"C:/Users/hanjy/eclipse-workspace/RSC/src/main/webapp/이미지/대여사이미지";
 			
 			MultipartRequest multipartRequest = null;
 			multipartRequest = new MultipartRequest(request,realPath,sizeLimit,"utf-8",new DefaultFileRenamePolicy());

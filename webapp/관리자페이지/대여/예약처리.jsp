@@ -13,7 +13,7 @@
 	//예약0 -> 대여 1
 	if (state.equals("예약")){
 	
-	up.requestPro0(rent_num);
+		up.requestPro0(rent_num);
 
 %>
 	<script>

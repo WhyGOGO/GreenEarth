@@ -84,7 +84,13 @@
           <li class="sidebar-dropdown1">
             <a href="../../관리자페이지/정비/정비의뢰.jsp">
               <i class="fa fa-tachometer-alt"></i>
-              <span>의뢰 및 결과</span>
+              <span>요청</span>
+            </a>
+          </li>
+          <li class="sidebar-dropdown1">
+            <a href="../../관리자페이지/정비/정비결과.jsp">
+              <i class="fa fa-tachometer-alt"></i>
+              <span>결과</span>
             </a>
           </li>
           <li class="sidebar-dropdown1">

@@ -99,7 +99,6 @@
 			<select name="rentalNumber_campCarId"  class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" style="width:10%;height:4.9%;font-size:10px;font-weight:700; ;  ">
 			  <option selected>===선택===</option>
 <%
-
    for(int i=0;i<car_id.size();i++){
    	campDataBean dt= car_id.get(i);
    	int campCarId=dt.getCampCarId();
@@ -108,7 +107,7 @@
 %>	 
 			  	<option value="<%=rentalnumber%>,<%=campCarId%>"><%=campcarname%></option>
 			  	
-<%			 	
+<%		
    }				    
 %>
 			</select>

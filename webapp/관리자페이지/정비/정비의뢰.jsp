@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>캠핑카 정비 의뢰 및 결과정보</title>
+<title>정비 요청</title>
 <jsp:useBean id="repairinfo" class="beans.campDataBean" scope="page"/>
 <jsp:setProperty name="repairinfo" property="*" />
   <%@ include file="../../../관리자페이지메뉴/managerMenu.jsp" %>	<!-- 메뉴 바  -->
@@ -23,7 +23,7 @@
   %>
     <main class="page-content">
     <div class="container">
-      <h2>정비 의뢰 및 결과</h2>
+      <h2>정비 요청</h2>
       <hr>
       <table class="table table-dark table-stripeds">
     <tr  style="text-align: center;">
@@ -83,36 +83,7 @@
       <td><button type="button" class="btn btn-outline-warning btn-sm" onClick="location.href='정비의뢰처리.jsp?repairState=<%=repairState%>&repairNumber=<%=repairNumber%>'" >승인</button></td>
       <td></td>
       </tr>
-     <% } else if (repairState.equals("승인")){%>
-      
-
-     <tr style="text-align: center;">
-      <th><%= repairNumber %></th>
-      <td><%= rp_date %></td>
-      <td><%= cp_num %></td>
-      <td><%= cp_name %></td>
-      <td><%= ct_name %></td>
-      <td><%= rs_name %></td>
-      <td><%= rp_his %></td>
-      <td><%= cost %></td>
-      <td><%= rp_paydate %></td>
-      <td>승락됨</td>
-      <td></td>
-      <%} else {%>
-      	     <tr style="text-align: center;">
-      <th><%= repairNumber %></th>
-      <td><%= rp_date %></td>
-      <td><%= cp_num %></td>
-      <td><%= cp_name %></td>
-      <td><%= ct_name %></td>
-      <td><%= rs_name %></td>
-      <td><%= rp_his %></td>
-      <td><%= cost %></td>
-      <td><%= rp_paydate %></td>
-      <td>취소됨</td>
-      <td></td>
-      <%} %>
-    </tr>
+     <% }%>
   </tbody> 
   <% }%>
 

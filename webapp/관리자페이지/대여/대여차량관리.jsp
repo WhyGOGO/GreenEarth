@@ -38,8 +38,8 @@
       <td>차량대여기한</td>
       <td>차량번호</td>
       <td>대여차량</td>
-      <td>고객이름</td>
       <td>대여사</td>
+      <td>고객이름</td>
       <td>대여비용</td>
       <td>상태</td>
       <td></td>
@@ -69,8 +69,8 @@
       <td><%= RentalStart%> ~ <%=RentalEnd %></td>
       <td><%= Cp_num %></td>
       <td><%= CampCarN %></td>
-      <td><%= ct_name %></td>
       <td><%= CompNAME %></td>
+      <td><%= ct_name %></td>
       <td><%= cost %></td>
       <%if(state.equals("대여")){ %>
       <td><%= state %></td>
@@ -87,7 +87,6 @@
       <%} else{%>
       <td><font color="red"><%= state %></font></td>
       <td>
-      	<button type="button" class="btn btn-danger btn-sm" onClick="location.href='예약삭제.jsp?rentalNumber=<%=rentalnumber%>&state=<%=state %>&repairNumber=<%=repairNumber%>'">삭제</button>
       </td>
       <%} %>
     </tr>
@@ -106,8 +105,8 @@
       <td>차량대여기한</td>
       <td>차량번호</td>
       <td>대여차량</td>
-      <td>고객이름</td>
       <td>대여사</td>
+      <td>고객이름</td>
       <td>대여비용</td>
       <td>상태</td>
       <td></td>

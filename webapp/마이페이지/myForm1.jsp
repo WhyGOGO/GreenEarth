@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>대여내역</title>
+<title>대여현황</title>
 
 
 
@@ -16,11 +16,9 @@
 <%
 	ArrayList<campDataBean> dtos = new ArrayList<campDataBean>();//대여내역
 	ArrayList<campDataBean> dtos1 = new ArrayList<campDataBean>();//대여사정보
-	ArrayList<campDataBean> dtos2 = new ArrayList<campDataBean>();//캠핑카정보
 	selectDB sdb = selectDB.getInstance();
 	
 	dtos = sdb.selRentNow(email);
-	
 	if (dtos.size()!=0){ // 총 지불금액
 		
 %>

@@ -132,7 +132,6 @@
 			       <input type="hidden" name="custEmail" value="<%=email%>">	
 			       <input type="hidden" name="compId" value="<%=select_carInfo.getCompId()%>">
 			       <input type="hidden" name="licenseNumber" value="<%=select_carInfo.getLicenseNumber()%>">
-			      
 			       	       	       			  
 	       </form>
 
