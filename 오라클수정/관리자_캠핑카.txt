@@ -1,0 +1,56 @@
+select * from campcompany
+
+alter table campcompany add image varchar(25) not null;
+
+
+alter table campcompany modify compaddress varchar(80);
+
+관리자 회사 ------------------------------------------------------------------------------------------------------------
+
+
+
+alter table campingcar modify campcarname varchar(30);
+
+
+alter table campcompany modify address varchar(80);
+
+alter table repairshop modify repairShopAddress varchar(80);
+
+alter table repairshop modify REPAIRSHOPCALL varchar(15);
+
+
+alter table repairshop add shopImage varchar(25) not null;
+
+
+COMMIT;
+
+select * from repairshop
+
+여기까지 관리자 캠핑카
+
+
+
+여기는 캠핑카
+
+
+ALTER TABLE rental DROP COLUMN rentalImage;
+
+alter table rental modify rentalterm number(2);
+
+여기는 정비소
+
+CREATE SEQUENCE repairrequest_num
+       INCREMENT BY 1
+       START WITH 1
+       MINVALUE 1
+       MAXVALUE 9999
+       NOCYCLE
+       NOCACHE
+       NOORDER;
+
+
+
+
+
+alter table repairrequest modify repairhistory varchar(400);
+alter table repairrequest modify repairetchistory varchar(400);
