@@ -1,0 +1,90 @@
+create or REPLACE view v_his
+as
+select (select ct.email
+        from customer ct
+        where ct.licensenumber=rt.licensenumber) 이메일
+        ,(select ct.name
+        from customer ct
+        where ct.licensenumber=rt.licensenumber) 이름
+        ,rt.rentalnumber 대여번호
+        ,rt.rentalstart 대여일
+        ,rt.rentalend 반납일
+        ,cr.campcarname 대여차량
+        ,cr.campcarnumber 차량번호
+        ,(select ccp.compname
+        from campcompany ccp
+        where ccp.compid=cr.compid) 대여사
+        ,(select ccp.compcall
+        from campcompany ccp
+        where ccp.compid=cr.compid) 대여사연락처
+        ,(select ccp.compmanager
+        from campcompany ccp
+        where ccp.compid=cr.compid) 매니저
+        ,rt.rentalcost 대여비용
+        ,rt.RENTALETCCOST 기타비용
+        ,rt.rentalpaydate 납입기한
+         ,case when rt.rental_state = 0 then '예약'
+            when rt.rental_state = 1 then '대여'
+            when rt.rental_state = -1 then '반납'
+             when rt.rental_state = 2 then '취소요청'
+              when rt.rental_state = -2 then '취소'
+            end 예약상태
+    
+from rental rt, campingcar cr
+where rt.campcarid=cr.campcarid
+order by rt.rentalnumber;
+
+
+select * from v_his;
+
+
+select * from rental;
+
+select r.campcarid,r.rentalnumber,c.campcarname 
+from rental r,campingcar c 
+where c.campcarid = r.campcarid and licensenumber = '15-123552-12' and r.rental_state = 1;
+
+
+select * from repairrequest;
+alter table repairrequest add repair_state number default 0 not null;
+
+===================================================
+
+
+create or replace view v_repair
+as
+select r_if.repairrequest_num 정비번호
+    ,r_if.repairdate 예약날짜
+    ,(select cp.campcarnumber
+    from campingcar cp
+    where cp.campcarid=rt.campcarid) 차량번호
+    ,(select cp.campcarname
+    from campingcar cp
+    where cp.campcarid = rt.campcarid) 정비차량
+    ,(select ct.name
+    from customer ct
+    where ct.licensenumber=rt.licensenumber) 의뢰고객
+    ,(select rs.repairshopname
+    from repairshop rs
+    where rs.repairshopid=r_if.repairshopid) 정비소
+    ,concat(concat(r_if.repairhistory,'|'),r_if.repairetchistory) 정비내용
+    ,(select rs.repairshopcall
+    from repairshop rs
+    where rs.repairshopid=r_if.repairshopid) 전화번호
+    , r_if.repaircost 정비비용
+    ,r_if.repairpaydate 납입기한
+    ,(select email
+    from customer ct
+    where ct.licensenumber = rt.licensenumber)이메일
+    ,case when r_if.repair_state = 0 then '예약'
+        when r_if.repair_state = 1 then '요청대기'
+        when r_if.repair_state = 2 then '승인'
+        when r_if.repair_state = -1 then '취소'
+    end 상태
+    
+from repairrequest r_if,rental rt
+where r_if.rentalnumber=rt.rentalnumber;
+
+select * from v_repair;
+
+select * from repairrequest;
