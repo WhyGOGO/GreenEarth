@@ -47,8 +47,8 @@ public class selectDB {
 			// 수정이 필요한 메소드
 			while (rs.next()) {
 				campDataBean sdb = new campDataBean();
-				sdb.setCustName(rs.getString(1));
-				sdb.setLicenseNumber(rs.getString(2));
+				sdb.setCustName(rs.getString(2));
+				sdb.setLicenseNumber(rs.getString(1));
 				sdb.setCustAddress(rs.getString(3));
 				sdb.setCustCall(rs.getString(4));
 				sdb.setCustEmail(rs.getString(5));
@@ -208,8 +208,8 @@ public class selectDB {
 
 			while (rs.next()) {
 				campDataBean sdb = new campDataBean();
-				sdb.setLicenseNumber(rs.getString(2));
-				sdb.setCustName(rs.getString(1));
+				sdb.setLicenseNumber(rs.getString(1));
+				sdb.setCustName(rs.getString(2));
 				sdb.setCustAddress(rs.getString(3));
 				sdb.setCustCall(rs.getString(4));
 				sdb.setCustEmail(rs.getString(5));
