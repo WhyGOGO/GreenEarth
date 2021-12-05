@@ -183,9 +183,10 @@ public class updateDB {
 		try {
 			conn = getConnection();
 			
-			String sql = "update repairinfo set repair_state=0 where repair_state=1 and repairnumber=?";
+			String sql = "update repairrequest set repair_state=? where repairrequest_num=?";
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1, num);
+			pstmt.setInt(1, 0);
+			pstmt.setInt(2, num);
 			
 			pstmt.executeUpdate();
 			
@@ -203,9 +204,10 @@ public class updateDB {
 		try {
 			conn = getConnection();
 			
-			String sql = "update repairinfo set repair_state=1 where repair_state=0 and repairnumber=?";
+			String sql = "update repairrequest set repair_state=? where repairrequest_num=?";
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1, num);
+			pstmt.setInt(1, 1);
+			pstmt.setInt(2, num);
 			
 			pstmt.executeUpdate();
 			
@@ -326,7 +328,7 @@ public class updateDB {
 		try {
 			conn = getConnection(); //DB연결
 			
-			String sql = "update repairinfo set REPAIR_STATE=1,REPAIRCOST=? where REPAIR_STATE=0 and repairnumber=?";
+			String sql = "update repairrequest set REPAIR_STATE=1,REPAIRCOST=? where REPAIR_STATE=0 and repairrequest_num=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, member.getRepairCost());
 			pstmt.setInt(2,member.getRepairNumber());
@@ -347,7 +349,7 @@ public class updateDB {
 		try {
 			conn = getConnection(); //DB연결
 			
-			String sql = "update repairinfo set REPAIR_STATE=2 where REPAIR_STATE=1 and repairnumber=?";
+			String sql = "update repairrequest set REPAIR_STATE=2 where REPAIR_STATE=1 and repairrequest_num=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1,member.getRepairNumber());
 			pstmt.executeUpdate();

@@ -47,8 +47,8 @@ public class selectDB {
 			// 수정이 필요한 메소드
 			while (rs.next()) {
 				campDataBean sdb = new campDataBean();
-				sdb.setCustName(rs.getString(2));
 				sdb.setLicenseNumber(rs.getString(1));
+				sdb.setCustName(rs.getString(2));
 				sdb.setCustAddress(rs.getString(3));
 				sdb.setCustCall(rs.getString(4));
 				sdb.setCustEmail(rs.getString(5));
@@ -208,8 +208,8 @@ public class selectDB {
 
 			while (rs.next()) {
 				campDataBean sdb = new campDataBean();
-				sdb.setLicenseNumber(rs.getString(1));
-				sdb.setCustName(rs.getString(2));
+				sdb.setLicenseNumber(rs.getString(2));
+				sdb.setCustName(rs.getString(1));
 				sdb.setCustAddress(rs.getString(3));
 				sdb.setCustCall(rs.getString(4));
 				sdb.setCustEmail(rs.getString(5));
@@ -488,7 +488,7 @@ public class selectDB {
 		try {
 			conn = getConnection(); // DB 연결
 
-			String sql = "select * from v_his3 where 예약상태 = '대여' and 이메일 = ?";
+			String sql = "select * from v_his where 예약상태 = '대여' and 이메일 = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1,email);
 
@@ -505,8 +505,8 @@ public class selectDB {
 				sdb.setCampCarName(rs.getString(6));
 				sdb.setCampCarNumber(rs.getString(7));
 				sdb.setCompName(rs.getString(8));
-				sdb.setCompManager(rs.getString(9));
-				sdb.setCompCall(rs.getString(10));
+				sdb.setCompCall(rs.getString(9));
+				sdb.setCompManager(rs.getString(10));
 				sdb.setRentalCost(rs.getInt(11));
 				sdb.setRentalEtcCost(rs.getInt(12));
 				sdb.setRentalPayDate(rs.getString(13));
@@ -549,7 +549,7 @@ public class selectDB {
 		try {
 			conn = getConnection(); // DB 연결
 
-			String sql = "select * from v_his3 where 예약상태 = '대여'";
+			String sql = "select * from v_his where 예약상태 = '대여'";
 			pstmt = conn.prepareStatement(sql);
 
 			rs = pstmt.executeQuery();
@@ -565,8 +565,8 @@ public class selectDB {
 				sdb.setCampCarName(rs.getString(6));
 				sdb.setCampCarNumber(rs.getString(7));
 				sdb.setCompName(rs.getString(8));
-				sdb.setCompManager(rs.getString(9));
-				sdb.setCompCall(rs.getString(10));
+				sdb.setCompCall(rs.getString(9));
+				sdb.setCompManager(rs.getString(10));
 				sdb.setRentalCost(rs.getInt(11));
 				sdb.setRentalEtcCost(rs.getInt(12));
 				sdb.setRentalPayDate(rs.getString(13));
@@ -610,7 +610,7 @@ public class selectDB {
 		try {
 			conn = getConnection(); // DB 연결
 
-			String sql = "select * from v_his3 where 이메일 = ?";
+			String sql = "select * from v_his where 이메일 = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1,email);
 
@@ -627,8 +627,8 @@ public class selectDB {
 				sdb.setCampCarName(rs.getString(6));
 				sdb.setCampCarNumber(rs.getString(7));
 				sdb.setCompName(rs.getString(8));
-				sdb.setCompManager(rs.getString(9));
-				sdb.setCompCall(rs.getString(10));
+				sdb.setCompCall(rs.getString(9));
+				sdb.setCompManager(rs.getString(10));
 				sdb.setRentalCost(rs.getInt(11));
 				sdb.setRentalEtcCost(rs.getInt(12));
 				sdb.setRentalPayDate(rs.getString(13));
@@ -672,7 +672,7 @@ public class selectDB {
 		try {
 			conn = getConnection(); // DB 연결
 
-			String sql = "select * from v_his3";
+			String sql = "select * from v_his";
 			pstmt = conn.prepareStatement(sql);
 
 			rs = pstmt.executeQuery();
@@ -688,8 +688,8 @@ public class selectDB {
 				sdb.setCampCarName(rs.getString(6));
 				sdb.setCampCarNumber(rs.getString(7));
 				sdb.setCompName(rs.getString(8));
-				sdb.setCompManager(rs.getString(9));
-				sdb.setCompCall(rs.getString(10));
+				sdb.setCompCall(rs.getString(9));
+				sdb.setCompManager(rs.getString(10));
 				sdb.setRentalCost(rs.getInt(11));
 				sdb.setRentalEtcCost(rs.getInt(12));
 				sdb.setRentalPayDate(rs.getString(13));
@@ -1129,10 +1129,9 @@ public class selectDB {
 		try {
 			conn = getConnection(); // DB 연결
 
-			String sql = "select r.campcarid,r.rentalnumber,c.campcarname from rental r,campingcar c where c.campcarid = r.campcarid and licensenumber = ? and c.rentalstatus = ?";
+			String sql = "select r.campcarid,r.rentalnumber,c.campcarname from rental r,campingcar c where c.campcarid = r.campcarid and r.licensenumber = ? and r.rental_state = 1";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1,licensenumber);
-			pstmt.setInt(2,1);
 			rs = pstmt.executeQuery();
 
 			// 수정이 필요한 메소드
@@ -1237,7 +1236,7 @@ public class selectDB {
 		try {
 			conn = getConnection(); // DB 연결
 
-			String sql = "select * from customer where email=?";
+			String sql = "select licensenumber from customer where email=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, email);
 			
@@ -1249,7 +1248,7 @@ public class selectDB {
 			while (rs.next()) {
 				campDataBean sdb = new campDataBean();
 
-				sdb.setLicenseNumber(rs.getString(2));
+				sdb.setLicenseNumber(rs.getString("licensenumber"));
 
 				list.add(sdb);
 
