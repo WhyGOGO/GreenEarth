@@ -94,6 +94,7 @@ select * from v_repair;
 select * from repairrequest;
 
 
+<<<<<<< HEAD
 
 
 
@@ -130,3 +131,40 @@ add primary key (repairrequest_num);
 
 alter table repairshop
 add primary key (repairshopid);
+=======
+=========================================================================
+
+create or replace view v_repairinfo
+as
+select r_if.repairrequest_num 정비번호
+    ,r_if.repairdate 예약날짜
+    ,(select cp.campcarnumber
+    from campingcar cp
+    where cp.campcarid=rt.campcarid) 차량번호
+    ,(select cp.campcarname
+    from campingcar cp
+    where cp.campcarid = rt.campcarid) 정비차량
+    ,(select ct.name
+    from customer ct
+    where ct.licensenumber=rt.licensenumber) 의뢰고객
+    ,(select rs.repairshopname
+    from repairshop rs
+    where rs.repairshopid=r_if.repairshopid) 정비소
+    ,concat(concat(r_if.repairhistory,'|'),r_if.repairetchistory) 정비내용
+    ,(select rs.repairshopcall
+    from repairshop rs
+    where rs.repairshopid=r_if.repairshopid) 전화번호
+    , r_if.repaircost 정비비용
+    ,r_if.repairpaydate 납입기한
+    ,(select email
+    from customer ct
+    where ct.licensenumber = rt.licensenumber)이메일
+    ,case when r_if.repair_state = 0 then '예약'
+        when r_if.repair_state = 1 then '요청대기'
+        when r_if.repair_state = 2 then '승인'
+        when r_if.repair_state = -1 then '취소'
+    end 상태
+    
+from repairrequest r_if,rental rt, repairinfo rif
+where r_if.rentalnumber=rt.rentalnumber and rif.repairrequest_num=r_if.repairrequest_num;
+>>>>>>> 62aa4eec3141fa750807115795a90bacd6e9a433

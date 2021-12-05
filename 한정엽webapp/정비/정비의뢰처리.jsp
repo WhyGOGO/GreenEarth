@@ -16,7 +16,9 @@ request.setCharacterEncoding("UTF-8");
 </head>
 <%
 	updateDB sd = updateDB.getInstance();
+	insertDB idb = insertDB.getInstance(); 
 	sd.update_repairupdate(repairinfo);
+	idb.add_RepairInfo(repairinfo);
 	
 %>
 
