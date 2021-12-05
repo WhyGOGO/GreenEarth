@@ -1,3 +1,7 @@
+alter table rental add rental_state number;
+
+
+
 create or REPLACE view v_his
 as
 select (select ct.email
@@ -88,3 +92,41 @@ where r_if.rentalnumber=rt.rentalnumber;
 select * from v_repair;
 
 select * from repairrequest;
+
+
+
+
+
+alter table campcompany
+add primary key (compid);
+
+
+alter table campingcar
+add primary key (campcarid);
+
+
+
+alter table customer
+add primary key (licensenumber);
+
+
+alter table customer_info
+add primary key (customer_info);
+
+
+alter table rental
+add primary key (rentalnumber);
+
+
+alter table repairinfo
+add primary key (repairinfo_num);
+
+
+
+alter table repairrequest
+add primary key (repairrequest_num);
+
+
+
+alter table repairshop
+add primary key (repairshopid);
