@@ -168,3 +168,14 @@ select r_if.repairrequest_num 정비번호
 from repairrequest r_if,rental rt, repairinfo rif
 where r_if.rentalnumber=rt.rentalnumber and rif.repairrequest_num=r_if.repairrequest_num;
 >>>>>>> 62aa4eec3141fa750807115795a90bacd6e9a433
+
+
+
+CREATE SEQUENCE CUSTOMER_INFO_NUM
+       INCREMENT BY 1
+       START WITH 1
+       MINVALUE 1
+       MAXVALUE 9999
+       NOCYCLE
+       NOCACHE
+       NOORDER;
