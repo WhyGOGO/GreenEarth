@@ -54,3 +54,14 @@ CREATE SEQUENCE repairrequest_num
 
 alter table repairrequest modify repairhistory varchar(400);
 alter table repairrequest modify repairetchistory varchar(400);
+
+=====================================================
+
+CREATE SEQUENCE REPAIRINFO_NUM
+       INCREMENT BY 1
+       START WITH 1
+       MINVALUE 1
+       MAXVALUE 9999
+       NOCYCLE
+       NOCACHE
+       NOORDER;
