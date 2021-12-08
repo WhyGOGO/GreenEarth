@@ -169,6 +169,7 @@ from repairrequest r_if,rental rt, repairinfo rif
 where r_if.rentalnumber=rt.rentalnumber and rif.repairrequest_num=r_if.repairrequest_num;
 >>>>>>> 62aa4eec3141fa750807115795a90bacd6e9a433
 
+<<<<<<< HEAD
 
 
 CREATE SEQUENCE CUSTOMER_INFO_NUM
@@ -179,3 +180,43 @@ CREATE SEQUENCE CUSTOMER_INFO_NUM
        NOCYCLE
        NOCACHE
        NOORDER;
+=======
+=======================================================================
+--캠핑카 제약조건
+ALTER TABLE campingcar
+ADD CONSTRAINTS company_id FOREIGN KEY (compid) 
+REFERENCES campcompany(compid);
+
+--대여 제약조건
+ALTER TABLE rental
+ADD CONSTRAINTS customer FOREIGN KEY (LICENSENUMBER) 
+REFERENCES customer(LICENSENUMBER);
+
+ALTER TABLE rental
+ADD CONSTRAINTS campingcar_id FOREIGN KEY (campcarid) 
+REFERENCES campingcar(campcarid);
+
+--정비의뢰 제약조건
+ALTER TABLE repairrequest
+ADD CONSTRAINTS rental_num FOREIGN KEY (rentalnumber) 
+REFERENCES rental(rentalnumber);
+
+ALTER TABLE repairrequest
+ADD CONSTRAINTS repairshot_id FOREIGN KEY (REPAIRSHOPID) 
+REFERENCES repairshop(REPAIRSHOPID);
+
+--정비정보 제약조건
+ALTER TABLE repairinfo
+ADD CONSTRAINTS request_num FOREIGN KEY (REPAIRREQUEST_NUM) 
+REFERENCES repairrequest(REPAIRREQUEST_NUM);
+
+--고객이용이력 제약조건
+
+ALTER TABLE customer_info
+ADD CONSTRAINTS custRental_num FOREIGN KEY (rentalnumber) 
+REFERENCES rental(rentalnumber);
+
+ALTER TABLE customer_info
+ADD CONSTRAINTS custLicense_num FOREIGN KEY (licensenumber) 
+REFERENCES customer(licensenumber);
+>>>>>>> a51ac65bfbe1318a0bc117f2c705bbed4ed1a942
